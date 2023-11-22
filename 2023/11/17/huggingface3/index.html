@@ -1,0 +1,644 @@
+
+    <!DOCTYPE html>
+    <html lang="zh-CN"
+            
+          
+    >
+    <head>
+    <meta charset="utf-8">
+    
+
+    
+
+    
+    <title>
+        HuggingFace管道工具 |
+        
+        Lcblogcraft</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CUbuntu%20Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+    
+<link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free/css/v4-font-face.min.css">
+
+    
+<link rel="stylesheet" href="/css/loader.css">
+
+    <meta name="description" content="友情提示：由于HuggingFace社区触犯了天朝的某些法律，有关HuggingFace系列的内容中，提到“冲浪板”就指科学上网，需要借助国外旅游工具。 管道工具管道工具是指已经训练成熟的模型，即使照搬过来不做任何处理也能发挥很好的效果。不过要注意，第一次使用管道工具需要加载，后续使用时，即便本地已经保存，依然需要冲浪板。 使用管道工具文本分类123456from transformers imp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HuggingFace管道工具">
+<meta property="og:url" content="http://example.com/2023/11/17/huggingface3/index.html">
+<meta property="og:site_name" content="Lcblogcraft">
+<meta property="og:description" content="友情提示：由于HuggingFace社区触犯了天朝的某些法律，有关HuggingFace系列的内容中，提到“冲浪板”就指科学上网，需要借助国外旅游工具。 管道工具管道工具是指已经训练成熟的模型，即使照搬过来不做任何处理也能发挥很好的效果。不过要注意，第一次使用管道工具需要加载，后续使用时，即便本地已经保存，依然需要冲浪板。 使用管道工具文本分类123456from transformers imp">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-11-16T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-11-17T08:27:29.468Z">
+<meta property="article:author" content="Luviichann">
+<meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="HuggingFace">
+<meta property="article:tag" content="NLP">
+<meta name="twitter:card" content="summary">
+    
+        <link rel="alternate" href="/atom.xml" title="Lcblogcraft" type="application/atom+xml">
+    
+    
+        <link rel="shortcut icon" href="/images/favicon_instead.ico">
+    
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/typeface-source-code-pro@1.1.13/index.css">
+
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+    
+    
+    
+    
+    
+<script src="https://unpkg.com/pace-js@1.2.4/pace.min.js"></script>
+
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/wowjs@1.1.3/css/libs/animate.css">
+
+        
+<script src="https://unpkg.com/wowjs@1.1.3/dist/wow.min.js"></script>
+
+        <script>
+          new WOW({
+            offset: 0,
+            mobile: true,
+            live: false
+          }).init();
+        </script>
+    
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+    <body>
+    
+<div id='loader'>
+  <div class="loading-left-bg"></div>
+  <div class="loading-right-bg"></div>
+  <div class="spinner-box">
+    <div class="loading-taichi">
+      <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+      <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="#ff6e6b" />
+      <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z" fill="#fd0d00" />
+      <path d="M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95" fill="#fd0d00" />
+    </svg>
+    </div>
+    <div class="loading-word">少女祈祷中...</div>
+  </div>
+</div>
+</div>
+
+<script>
+  const endLoading = function() {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loader').classList.add("loading");
+  }
+  window.addEventListener('load', endLoading);
+  document.getElementById('loader').addEventListener('click', endLoading);
+</script>
+
+
+    <div id="container">
+        <div id="wrap">
+            <header id="header">
+    
+        <img data-src="https://s1.imagehub.cc/images/2023/11/16/600f8945687c27cfe2f04221cf3bbd52.jpeg" data-sizes="auto" alt="HuggingFace管道工具" class="lazyload">
+    
+    <div id="header-outer" class="outer">
+        <div id="header-title" class="inner">
+            <div id="logo-wrap">
+                
+                    
+                    
+                        <a href="/" id="logo"><h1>HuggingFace管道工具</h1></a>
+                    
+                
+            </div>
+            
+                
+                
+            
+        </div>
+        <div id="header-inner">
+            <nav id="main-nav">
+                <a id="main-nav-toggle" class="nav-icon"></a>
+                
+                    <span class="main-nav-link-wrap">
+                        <span class="main-nav-icon"></span>
+                        <a class="main-nav-link" href="/">首页</a>
+                    </span>
+                
+                    <span class="main-nav-link-wrap">
+                        <span class="main-nav-icon"></span>
+                        <a class="main-nav-link" href="/archives">归档</a>
+                    </span>
+                
+                    <span class="main-nav-link-wrap">
+                        <span class="main-nav-icon"></span>
+                        <a class="main-nav-link" href="/about">关于</a>
+                    </span>
+                
+                    <span class="main-nav-link-wrap">
+                        <span class="main-nav-icon"></span>
+                        <a class="main-nav-link" href="/friend">友链</a>
+                    </span>
+                
+                    <span class="main-nav-link-wrap">
+                        <span class="main-nav-icon"></span>
+                        <a class="main-nav-link" href="/categories">分类</a>
+                    </span>
+                
+                    <span class="main-nav-link-wrap">
+                        <span class="main-nav-icon"></span>
+                        <a class="main-nav-link" href="/tags">标签</a>
+                    </span>
+                
+            </nav>
+            <nav id="sub-nav">
+                
+                    <a id="nav-rss-link" class="nav-icon" href="/atom.xml"
+                       title="RSS 订阅"></a>
+                
+                
+            </nav>
+            <div id="search-form-wrap">
+                <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+            </div>
+        </div>
+    </div>
+</header>
+
+            <div id="content" class="outer">
+                <section id="main"><article id="post-huggingface3" class="h-entry article article-type-post"
+         itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <div class="article-inner">
+        <div class="article-meta">
+            <div class="article-date wow slideInLeft">
+    <a href="/2023/11/17/huggingface3/" class="article-date-link">
+        <time datetime="2023-11-16T16:00:00.000Z"
+              itemprop="datePublished">2023-11-17</time>
+    </a>
+</div>
+
+            
+    <div class="article-category wow slideInLeft">
+        <a class="article-category-link" href="/categories/HuggingFace-NLP/">HuggingFace NLP</a>
+    </div>
+
+
+        </div>
+        <div class="hr-line"></div>
+        
+
+        <div class="e-content article-entry" itemprop="articleBody">
+            
+                <p>友情提示：由于HuggingFace社区触犯了天朝的某些法律，有关HuggingFace系列的内容中，提到“冲浪板”就指科学上网，需要借助国外旅游工具。</p>
+<h1 id="管道工具"><a href="#管道工具" class="headerlink" title="管道工具"></a>管道工具</h1><p>管道工具是指已经训练成熟的模型，即使照搬过来不做任何处理也能发挥很好的效果。不过要注意，第一次使用管道工具需要加载，后续使用时，即便本地已经保存，依然需要冲浪板。</p>
+<h1 id="使用管道工具"><a href="#使用管道工具" class="headerlink" title="使用管道工具"></a>使用管道工具</h1><h2 id="文本分类"><a href="#文本分类" class="headerlink" title="文本分类"></a>文本分类</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> pipeline</span><br><span class="line">classifier = pipeline(<span class="string">&#x27;sentiment-analysis&#x27;</span>)</span><br><span class="line">result = classifier(<span class="string">&#x27;I hate you&#x27;</span>)[<span class="number">0</span>]</span><br><span class="line"><span class="built_in">print</span>(result)</span><br><span class="line">result = classifier(<span class="string">&#x27;I love you&#x27;</span>)[<span class="number">0</span>]</span><br><span class="line"><span class="built_in">print</span>(result)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#x27;label&#x27;: &#x27;NEGATIVE&#x27;, &#x27;score&#x27;: 0.9991129040718079&#125;</span><br><span class="line">&#123;&#x27;label&#x27;: &#x27;POSITIVE&#x27;, &#x27;score&#x27;: 0.9998656511306763&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，使用管道工具的代码非常简洁，把任务类型输入pipeline()函数中，返回值即为能执行具体预测任务的classifier对象，如果向具体的句子输入该对象，则会返回具体的预测结果。本例代码中预测了I hate you和I love you 两句话的情感分类。从运行结果可以看到，I hate you和I love you 两句话的情感分类结果分别为NEGATIVE和POSITIVE，并且分数都高于0.99，可见模型对预测结果的信心很强。</p>
+<h2 id="阅读理解"><a href="#阅读理解" class="headerlink" title="阅读理解"></a>阅读理解</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">question_answerer = pipeline(<span class="string">&#x27;question-answering&#x27;</span>)</span><br><span class="line">context=<span class="string">r&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">Extractive Question Answering is the task of extracting an</span></span><br><span class="line"><span class="string">answer from a text</span></span><br><span class="line"><span class="string">given a question. An example of a</span></span><br><span class="line"><span class="string">question answering dataset is the SQuAD dataset, which is</span></span><br><span class="line"><span class="string">entirely based on</span></span><br><span class="line"><span class="string">that task. If you would like to fine-tune</span></span><br><span class="line"><span class="string">a model on a SQuAD task, you may leverage the</span></span><br><span class="line"><span class="string">examples/PyTorch/questionanswering/run_squad.py script.</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">result=question_answerer(</span><br><span class="line">question=<span class="string">&quot;What is extractive question answering?&quot;</span>,</span><br><span class="line">context=context,</span><br><span class="line">)</span><br><span class="line"><span class="built_in">print</span>(result)</span><br><span class="line">result=question_answerer(</span><br><span class="line">question=<span class="string">&quot;What is a good example of a question answering dataset?&quot;</span>,</span><br><span class="line">context=context,</span><br><span class="line">)</span><br><span class="line"><span class="built_in">print</span>(result)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#x27;score&#x27;: 0.5949987173080444, &#x27;start&#x27;: 34, &#x27;end&#x27;: 95, &#x27;answer&#x27;: &#x27;the task of extracting an answer from a text given a question&#x27;&#125;  </span><br><span class="line">&#123;&#x27;score&#x27;: 0.5136864185333252, &#x27;start&#x27;: 147, &#x27;end&#x27;: 160, &#x27;answer&#x27;: &#x27;SQuAD dataset&#x27;&#125;  </span><br></pre></td></tr></table></figure>
+<p>在本例中，首先以’question-answering’为参数调用了pipeline()函数，得到到了question_answerer对象。context是一段文本，也是模型需要阅读理解的目标，把context和关于context的一个问题同时输入question_answerer对象中，即可得到相应的答案。<br>注意：问题的答案必须在context中出现过，因为模型的计算过程是从context中找出问题的答案，所以如果问题的答案不在context中，则模型不可能找到答案。<br>在示例代码中问了关于context的两个问题，所以此处得到了两个答案。<br>第1个问题翻译成中文是“什么是抽取式问答？”，模型给出的答案翻译成中文是“从给定文本中提取答案的任务”。<br>第2个问题翻译成中文是“问答数据集的一个好例子是什么？”，模型给出的答案翻译成中文是“SQuAD数据集”。</p>
+<h2 id="完形填空"><a href="#完形填空" class="headerlink" title="完形填空"></a>完形填空</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">unmasker=pipeline(<span class="string">&quot;fill-mask&quot;</span>)</span><br><span class="line"></span><br><span class="line">sentence=<span class="string">&#x27;HuggingFace is creating a &lt;mask&gt; that the community uses to solve NLP tasks.&#x27;</span></span><br><span class="line">unmasker(sentence)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#123;&#x27;score&#x27;: 0.1792752891778946, &#x27;token&#x27;: 3944, &#x27;token_str&#x27;: &#x27; tool&#x27;, &#x27;sequence&#x27;: &#x27;HuggingFace is creating a tool that the community uses to solve NLP tasks.&#x27;&#125;, &#123;&#x27;score&#x27;: 0.113493911921978, &#x27;token&#x27;: 7208, &#x27;token_str&#x27;: &#x27; framework&#x27;, &#x27;sequence&#x27;: &#x27;HuggingFace is creating a framework that the community uses to solve NLP tasks.&#x27;&#125;, &#123;&#x27;score&#x27;: 0.05243545398116112, &#x27;token&#x27;: 5560, &#x27;token_str&#x27;: &#x27; library&#x27;, &#x27;sequence&#x27;: &#x27;HuggingFace is creating a library that the community uses to solve NLP tasks.&#x27;&#125;, &#123;&#x27;score&#x27;: 0.034935273230075836, &#x27;token&#x27;: 8503, &#x27;token_str&#x27;: &#x27; database&#x27;, &#x27;sequence&#x27;: &#x27;HuggingFace is creating a database that the community uses to solve NLP tasks.&#x27;&#125;, &#123;&#x27;score&#x27;: 0.02860250696539879, &#x27;token&#x27;: 17715, &#x27;token_str&#x27;: &#x27; prototype&#x27;, &#x27;sequence&#x27;: &#x27;HuggingFace is creating a prototype that the community uses to solve NLP tasks.&#x27;&#125;]</span><br></pre></td></tr></table></figure>
+
+<p>原问题翻译成中文是“HuggingFace正在创建一个社区用户，用于解决NLP任务的____。”，模型按照信心从高到低给出了5个答案，翻译成中文分别是“工具”“框架”“资料库”“数据库”“原型”。  </p>
+<h2 id="文本生成"><a href="#文本生成" class="headerlink" title="文本生成"></a>文本生成</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">text_generator=pipeline(<span class="string">&quot;text-generation&quot;</span>)</span><br><span class="line"></span><br><span class="line">text_generator(<span class="string">&quot;As far as I am concerned, I will&quot;</span>,max_length=<span class="number">50</span>,do_sample=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#123;&#x27;generated_text&#x27;: &#x27;As far as I am concerned, I will be the first to admit that I am not a fan of the idea of a &quot;free market.&quot; I think that the idea of a free market is a bit of a stretch. I think that the idea&#x27;&#125;]  </span><br></pre></td></tr></table></figure>
+<p>在这段代码中，得到了text_generator对象后，直接调用text_generator对象，入参为一个句子的开头，让text_generator接着往下续写，参数max_length&#x3D;50表明要续写的长度。<br>这段文本翻译成中文后为就我而言，我将是第1个承认我不支持“自由市场”理念的人，我认为自由市场的想法有点牵强。我认为这个想法……</p>
+<h2 id="命名实体识别"><a href="#命名实体识别" class="headerlink" title="命名实体识别"></a>命名实体识别</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">ner_pipe=pipeline(<span class="string">&quot;ner&quot;</span>)</span><br><span class="line"></span><br><span class="line">sequence = <span class="string">&quot;&quot;&quot;Hugging Face Inc. is a company based in New York</span></span><br><span class="line"><span class="string">City. Its</span></span><br><span class="line"><span class="string">headquarters are in DUMBO,</span></span><br><span class="line"><span class="string">therefore very close to the Manhattan Bridge which is visible</span></span><br><span class="line"><span class="string">from the</span></span><br><span class="line"><span class="string">window.&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> entity <span class="keyword">in</span> ner_pipe(sequence):</span><br><span class="line">  <span class="built_in">print</span>(entity)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#x27;entity&#x27;: &#x27;I-ORG&#x27;, &#x27;score&#x27;: 0.99957865, &#x27;index&#x27;: 1, &#x27;word&#x27;: &#x27;Hu&#x27;, &#x27;start&#x27;: 0, &#x27;end&#x27;: 2&#125;</span><br><span class="line">&#123;&#x27;entity&#x27;: &#x27;I-ORG&#x27;, &#x27;score&#x27;: 0.9909764, &#x27;index&#x27;: 2, &#x27;word&#x27;: &#x27;##gging&#x27;, &#x27;start&#x27;: 2, &#x27;end&#x27;: 7&#125;</span><br><span class="line">&#123;&#x27;entity&#x27;: &#x27;I-ORG&#x27;, &#x27;score&#x27;: 0.9982224, &#x27;index&#x27;: 3, &#x27;word&#x27;: &#x27;Face&#x27;, &#x27;start&#x27;: 8, &#x27;end&#x27;: 12&#125;</span><br><span class="line">&#123;&#x27;entity&#x27;: &#x27;I-ORG&#x27;, &#x27;score&#x27;: 0.9994879, &#x27;index&#x27;: 4, &#x27;word&#x27;: &#x27;Inc&#x27;, &#x27;start&#x27;: 13, &#x27;end&#x27;: 16&#125;</span><br><span class="line">&#123;&#x27;entity&#x27;: &#x27;I-LOC&#x27;, &#x27;score&#x27;: 0.9994344, &#x27;index&#x27;: 11, &#x27;word&#x27;: &#x27;New&#x27;, &#x27;start&#x27;: 40, &#x27;end&#x27;: 43&#125;</span><br><span class="line">&#123;&#x27;entity&#x27;: &#x27;I-LOC&#x27;, &#x27;score&#x27;: 0.9993197, &#x27;index&#x27;: 12, &#x27;word&#x27;: &#x27;York&#x27;, &#x27;start&#x27;: 44, &#x27;end&#x27;: 48&#125;</span><br><span class="line">&#123;&#x27;entity&#x27;: &#x27;I-LOC&#x27;, &#x27;score&#x27;: 0.9993794, &#x27;index&#x27;: 13, &#x27;word&#x27;: &#x27;City&#x27;, &#x27;start&#x27;: 49, &#x27;end&#x27;: 53&#125;</span><br><span class="line">&#123;&#x27;entity&#x27;: &#x27;I-LOC&#x27;, &#x27;score&#x27;: 0.98625815, &#x27;index&#x27;: 19, &#x27;word&#x27;: &#x27;D&#x27;, &#x27;start&#x27;: 79, &#x27;end&#x27;: 80&#125;</span><br><span class="line">&#123;&#x27;entity&#x27;: &#x27;I-LOC&#x27;, &#x27;score&#x27;: 0.951427, &#x27;index&#x27;: 20, &#x27;word&#x27;: &#x27;##UM&#x27;, &#x27;start&#x27;: 80, &#x27;end&#x27;: 82&#125;</span><br><span class="line">&#123;&#x27;entity&#x27;: &#x27;I-LOC&#x27;, &#x27;score&#x27;: 0.9336589, &#x27;index&#x27;: 21, &#x27;word&#x27;: &#x27;##BO&#x27;, &#x27;start&#x27;: 82, &#x27;end&#x27;: 84&#125;</span><br><span class="line">&#123;&#x27;entity&#x27;: &#x27;I-LOC&#x27;, &#x27;score&#x27;: 0.9761654, &#x27;index&#x27;: 28, &#x27;word&#x27;: &#x27;Manhattan&#x27;, &#x27;start&#x27;: 114, &#x27;end&#x27;: 123&#125;</span><br><span class="line">&#123;&#x27;entity&#x27;: &#x27;I-LOC&#x27;, &#x27;score&#x27;: 0.9914629, &#x27;index&#x27;: 29, &#x27;word&#x27;: &#x27;Bridge&#x27;, &#x27;start&#x27;: 124, &#x27;end&#x27;: 130&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到，模型识别中的原文中的组织机构名为Hugging Face Inc，地名为New York City、DUMBO、Manhattan Bridge。</p>
+<h2 id="文本摘要"><a href="#文本摘要" class="headerlink" title="文本摘要"></a>文本摘要</h2><p>使用管道工具处理文本摘要任务。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> pipeline</span><br><span class="line">summarizer = pipeline(<span class="string">&quot;summarization&quot;</span>, model=<span class="string">&quot;Falconsai/text_summarization&quot;</span>)</span><br><span class="line"></span><br><span class="line">article = <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">Hugging Face: Revolutionizing Natural Language Processing</span></span><br><span class="line"><span class="string">Introduction</span></span><br><span class="line"><span class="string">In the rapidly evolving field of Natural Language Processing (NLP), Hugging Face has emerged as a prominent and innovative force. This article will explore the story and significance of Hugging Face, a company that has made remarkable contributions to NLP and AI as a whole. From its inception to its role in democratizing AI, Hugging Face has left an indelible mark on the industry.</span></span><br><span class="line"><span class="string">The Birth of Hugging Face</span></span><br><span class="line"><span class="string">Hugging Face was founded in 2016 by Clément Delangue, Julien Chaumond, and Thomas Wolf. The name &quot;Hugging Face&quot; was chosen to reflect the company&#x27;s mission of making AI models more accessible and friendly to humans, much like a comforting hug. Initially, they began as a chatbot company but later shifted their focus to NLP, driven by their belief in the transformative potential of this technology.</span></span><br><span class="line"><span class="string">Transformative Innovations</span></span><br><span class="line"><span class="string">Hugging Face is best known for its open-source contributions, particularly the &quot;Transformers&quot; library. This library has become the de facto standard for NLP and enables researchers, developers, and organizations to easily access and utilize state-of-the-art pre-trained language models, such as BERT, GPT-3, and more. These models have countless applications, from chatbots and virtual assistants to language translation and sentiment analysis.</span></span><br><span class="line"><span class="string">Key Contributions:</span></span><br><span class="line"><span class="string">1. **Transformers Library:** The Transformers library provides a unified interface for more than 50 pre-trained models, simplifying the development of NLP applications. It allows users to fine-tune these models for specific tasks, making it accessible to a wider audience.</span></span><br><span class="line"><span class="string">2. **Model Hub:** Hugging Face&#x27;s Model Hub is a treasure trove of pre-trained models, making it simple for anyone to access, experiment with, and fine-tune models. Researchers and developers around the world can collaborate and share their models through this platform.</span></span><br><span class="line"><span class="string">3. **Hugging Face Transformers Community:** Hugging Face has fostered a vibrant online community where developers, researchers, and AI enthusiasts can share their knowledge, code, and insights. This collaborative spirit has accelerated the growth of NLP.</span></span><br><span class="line"><span class="string">Democratizing AI</span></span><br><span class="line"><span class="string">Hugging Face&#x27;s most significant impact has been the democratization of AI and NLP. Their commitment to open-source development has made powerful AI models accessible to individuals, startups, and established organizations. This approach contrasts with the traditional proprietary AI model market, which often limits access to those with substantial resources.</span></span><br><span class="line"><span class="string">By providing open-source models and tools, Hugging Face has empowered a diverse array of users to innovate and create their own NLP applications. This shift has fostered inclusivity, allowing a broader range of voices to contribute to AI research and development.</span></span><br><span class="line"><span class="string">Industry Adoption</span></span><br><span class="line"><span class="string">The success and impact of Hugging Face are evident in its widespread adoption. Numerous companies and institutions, from startups to tech giants, leverage Hugging Face&#x27;s technology for their AI applications. This includes industries as varied as healthcare, finance, and entertainment, showcasing the versatility of NLP and Hugging Face&#x27;s contributions.</span></span><br><span class="line"><span class="string">Future Directions</span></span><br><span class="line"><span class="string">Hugging Face&#x27;s journey is far from over. As of my last knowledge update in September 2021, the company was actively pursuing research into ethical AI, bias reduction in models, and more. Given their track record of innovation and commitment to the AI community, it is likely that they will continue to lead in ethical AI development and promote responsible use of NLP technologies.</span></span><br><span class="line"><span class="string">Conclusion</span></span><br><span class="line"><span class="string">Hugging Face&#x27;s story is one of transformation, collaboration, and empowerment. Their open-source contributions have reshaped the NLP landscape and democratized access to AI. As they continue to push the boundaries of AI research, we can expect Hugging Face to remain at the forefront of innovation, contributing to a more inclusive and ethical AI future. Their journey reminds us that the power of open-source collaboration can lead to groundbreaking advancements in technology and bring AI within the reach of many.</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">summarizer(article,max_length=<span class="number">100</span>,min_length=<span class="number">50</span>,do_sample=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#123;&#x27;summary_text&#x27;: &#x27;Hugging Face has emerged as a prominent and innovative force in NLP . From its inception to its role in democratizing AI, the company has left an indelible mark on the industry . The name &quot;Hugging Face&quot; was chosen to reflect the company\&#x27;s mission of making AI models more accessible and friendly to humans .&#x27;&#125;]</span><br></pre></td></tr></table></figure>
+<p>至于原文及摘要各是什么意思可以自行找机器翻译一下。</p>
+<h2 id="文本翻译"><a href="#文本翻译" class="headerlink" title="文本翻译"></a>文本翻译</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">translator=pipeline(&quot;translation_en_to_de&quot;)</span><br><span class="line"></span><br><span class="line">sentence=&quot;Hugging Face is a technology company based in New York and Paris&quot;</span><br><span class="line">translator(sentence, max_length=40)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#123;&#x27;translation_text&#x27;: &#x27;Hugging Face ist ein Technologieunternehmen mit Sitz in New York und Paris.&#x27;&#125;]</span><br></pre></td></tr></table></figure>
+<p>在这段代码中，首先以参数translation_en_to_de调用了pipeline()函数，得到了translator。从该参数可以看出，这是一个从英文翻译到德文的管道工具。<br>模型给出的德文翻译成中文是“Hugging Face是一家总部位于纽约和巴黎的科技公司。”这和英文原文的意思基本一致。</p>
+<h2 id="替换模型执行翻译任务"><a href="#替换模型执行翻译任务" class="headerlink" title="替换模型执行翻译任务"></a>替换模型执行翻译任务</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> AutoTokenizer,AutoModelForSeq2SeqLM</span><br><span class="line"></span><br><span class="line">tokenizer = AutoTokenizer.from_pretrained(<span class="string">&#x27;Helsinki-NLP/opus-mt-zh-en&#x27;</span>)</span><br><span class="line">model = AutoModelForSeq2SeqLM.from_pretrained(<span class="string">&#x27;Helsinki-NLP/opus-mt-zh-en&#x27;</span>)</span><br><span class="line">translator = pipeline(</span><br><span class="line">  task=<span class="string">&#x27;translation_zh_to_en&#x27;</span>,</span><br><span class="line">  model=model,</span><br><span class="line">  tokenizer=tokenizer,</span><br><span class="line">)</span><br><span class="line">sentence=<span class="string">&#x27;我叫萨拉，住在伦敦。&#x27;</span></span><br><span class="line">translator(sentence,max_length=<span class="number">20</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#123;&#x27;translation_text&#x27;: &#x27;My name is Sarah, and I live in London.&#x27;&#125;]</span><br></pre></td></tr></table></figure>
+
+<p>在这段代码中，同样执行翻译任务，不过执行了默认的翻译任务工具不支持的中译英任务，为了支持中译英这个任务，需要替换默认的模型，代码中加载了一个模型和其对应的编码工具，再把模型和编码工具作为参数输入pipeline()函数中，得到替换了模型的翻译管道工具。  </p>
+
+            
+        </div>
+        <footer class="article-footer">
+            <a data-url="http://example.com/2023/11/17/huggingface3/" data-id="clp9u7o6p000q10vv0ktxf5f1" data-title="HuggingFace管道工具"
+               class="article-share-link">分享</a>
+            
+            
+            
+            
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HuggingFace/" rel="tag">HuggingFace</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li></ul>
+
+
+        </footer>
+    </div>
+    
+        
+    <nav id="article-nav" class="wow fadeInUp">
+        
+            <div class="article-nav-link-wrap article-nav-link-left">
+                
+                    <img data-src="https://s1.imagehub.cc/images/2023/11/16/153d55d1011ee144c40f0888df5056bb.jpeg" data-sizes="auto" alt="HuggingFace数据集工具"
+                         class="lazyload">
+                
+                <a href="/2023/11/17/huggingface2/"></a>
+                <div class="article-nav-caption">前一篇</div>
+                <h3 class="article-nav-title">
+                    
+                        HuggingFace数据集工具
+                    
+                </h3>
+            </div>
+        
+        
+            <div class="article-nav-link-wrap article-nav-link-right">
+                
+                    <img data-src="https://s1.imagehub.cc/images/2023/11/16/e5031c8bed22364b6e7b6bcf49f11b61.jpeg" data-sizes="auto" alt="HuggingFace编码工具"
+                         class="lazyload">
+                
+                <a href="/2023/11/16/huggingface1/"></a>
+                <div class="article-nav-caption">后一篇</div>
+                <h3 class="article-nav-title">
+                    
+                        HuggingFace编码工具
+                    
+                </h3>
+            </div>
+        
+    </nav>
+
+
+    
+    
+        <! -- 添加捐赠图标 -->
+<div class ="post-donate">
+    <div id="donate_board" class="donate_bar center">
+        <a id="btn_donate" class="btn_donate" href="javascript:;" title="打赏"></a>
+        <span class="donate_txt">
+           &uarr;<br>
+           如果对你有帮助，可以给孩子补充点营养～
+        </span>
+        <br>
+      </div>  
+    <div id="donate_guide" class="donate_bar center hidden" >
+        <!-- 支付宝打赏图案 -->
+        <img src="https://s1.imagehub.cc/images/2023/11/07/145e231e987c98b9c334e515d745bda0.th.jpeg" alt="支付宝打赏"> 
+        <!-- 微信打赏图案 -->
+        <img src="https://s1.imagehub.cc/images/2023/11/07/037cb5190ad5875f03275730e26b5d27.th.jpeg" alt="微信打赏">  
+    </div>
+    <script type="text/javascript">
+        document.getElementById('btn_donate').onclick = function(){
+            $('#donate_board').addClass('hidden');
+            $('#donate_guide').removeClass('hidden');
+        }
+    </script>
+</div>
+<! -- 添加捐赠图标 -->
+    
+</article>
+
+
+
+
+
+
+
+
+
+
+
+</section>
+                
+                    <aside id="sidebar">
+    <div class="sidebar-wrap wow fadeInRight">
+        <div class="sidebar-author">
+            <img data-src="/avatar/avatar.jpg" data-sizes="auto" alt="Luviichann" class="lazyload">
+            <div class="sidebar-author-name">Luviichann</div>
+            <div class="sidebar-description">任何一种伟大的思想都源于一个微不足道的开始。</div>
+        </div>
+        <div class="sidebar-state">
+            <div class="sidebar-state-article">
+                <div>文章</div>
+                <div class="sidebar-state-number">14</div>
+            </div>
+            <div class="sidebar-state-category">
+                <div>分类</div>
+                <div class="sidebar-state-number">5</div>
+            </div>
+            <div class="sidebar-state-tag">
+                <div>标签</div>
+                <div class="sidebar-state-number">12</div>
+            </div>
+        </div>
+        <div class="sidebar-social">
+            
+                <div class=icon-github>
+                    <a href=https://github.com/Luviichann itemprop="url" target="_blank"></a>
+                </div>
+            
+        </div>
+        <div class="sidebar-menu">
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">首页</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/archives"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">归档</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/about"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">关于</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/friend"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">友链</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/categories"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">分类</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/tags"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">标签</div>
+                </div>
+            
+        </div>
+    </div>
+    
+        
+    <div class="widget-wrap wow fadeInRight">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/HuggingFace-NLP/">HuggingFace NLP</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%99%E7%A8%8B/">教程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B5%8B%E8%AF%95%E6%96%87%E6%A1%A3/">测试文档</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a></li></ul>
+        </div>
+    </div>
+
+
+    
+        
+    <div class="widget-wrap wow fadeInRight">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/HuggingFace/" rel="tag">HuggingFace</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/" rel="tag">MNIST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pytorch/" rel="tag">Pytorch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/" rel="tag">html</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%A0%E9%87%8F/" rel="tag">张量</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" rel="tag">数据处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8B%E8%AF%95%E6%96%87%E6%9C%AC/" rel="tag">测试文本</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" rel="tag">神经网络</a></li></ul>
+        </div>
+    </div>
+
+
+    
+        
+    <div class="widget-wrap wow fadeInRight">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/HuggingFace/" style="font-size: 16.67px;">HuggingFace</a> <a href="/tags/MNIST/" style="font-size: 10px;">MNIST</a> <a href="/tags/NLP/" style="font-size: 16.67px;">NLP</a> <a href="/tags/Pytorch/" style="font-size: 16.67px;">Pytorch</a> <a href="/tags/css/" style="font-size: 13.33px;">css</a> <a href="/tags/html/" style="font-size: 13.33px;">html</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 13.33px;">前端</a> <a href="/tags/%E5%BC%A0%E9%87%8F/" style="font-size: 10px;">张量</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" style="font-size: 10px;">数据处理</a> <a href="/tags/%E6%B5%8B%E8%AF%95%E6%96%87%E6%9C%AC/" style="font-size: 10px;">测试文本</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 20px;">深度学习</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">神经网络</a>
+        </div>
+    </div>
+
+
+    
+        
+    <div class="widget-wrap wow fadeInRight">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">十一月 2023</a></li></ul>
+        </div>
+    </div>
+
+
+    
+</aside>
+
+                
+            </div>
+            <footer id="footer" class="wow fadeInUp">
+    <div style="width: 100%; overflow: hidden"><div class="footer-line"></div></div>
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            
+            <div>
+                <span class="icon-copyright"></span>
+                Sun Nov 05 2023 08:00:00 GMT+0800 (中国标准时间)-2023
+                <span class="footer-info-sep"></span>
+                Luviichann
+            </div>
+            
+                <div>
+                    基于&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>&nbsp;
+                    Theme.<a href="https://github.com/D-Sketon/hexo-theme-reimu" target="_blank">Reimu</a>
+                </div>
+            
+            
+                <div>
+                    <span class="icon-brush"></span>
+                    16.2k
+                    &nbsp;|&nbsp;
+                    <span class="icon-coffee"></span>
+                    01:09
+                </div>
+            
+            
+                <div>
+                    <span class="icon-eye"></span>
+                    <span id="busuanzi_container_site_pv">总访问量&nbsp;<span id="busuanzi_value_site_pv"></span></span>
+                    &nbsp;|&nbsp;
+                    <span class="icon-user"></span>
+                    <span id="busuanzi_container_site_uv">总访客量&nbsp;<span id="busuanzi_value_site_uv"></span></span>
+                </div>
+            
+        </div>
+    </div>
+</footer>
+
+        </div>
+        <nav id="mobile-nav">
+    <div class="sidebar-wrap">
+        <div class="sidebar-author">
+            <img data-src="/avatar/avatar.jpg" data-sizes="auto" alt="Luviichann" class="lazyload">
+            <div class="sidebar-author-name">Luviichann</div>
+            <div class="sidebar-description">任何一种伟大的思想都源于一个微不足道的开始。</div>
+        </div>
+        <div class="sidebar-state">
+            <div class="sidebar-state-article">
+                <div>文章</div>
+                <div class="sidebar-state-number">14</div>
+            </div>
+            <div class="sidebar-state-category">
+                <div>分类</div>
+                <div class="sidebar-state-number">5</div>
+            </div>
+            <div class="sidebar-state-tag">
+                <div>标签</div>
+                <div class="sidebar-state-number">12</div>
+            </div>
+        </div>
+        <div class="sidebar-social">
+            
+                <div class=icon-github>
+                    <a href=https://github.com/Luviichann itemprop="url" target="_blank"></a>
+                </div>
+            
+        </div>
+        <div class="sidebar-menu">
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">首页</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/archives"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">归档</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/about"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">关于</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/friend"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">友链</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/categories"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">分类</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/tags"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">标签</div>
+                </div>
+            
+        </div>
+    </div>
+</nav>
+
+        
+<script src="https://unpkg.com/jquery@3.7.0/dist/jquery.min.js"></script>
+
+
+<script src="https://unpkg.com/lazysizes@5.3.2/lazysizes.min.js"></script>
+
+
+<script src="https://unpkg.com/clipboard@2.0.11/dist/clipboard.min.js"></script>
+
+
+
+    
+<script src="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+
+    
+<script src="https://unpkg.com/busuanzi@2.3.0/bsz.pure.mini.js"></script>
+
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+    <div class="site-search">
+        <div class="algolia-popup popup">
+            <div class="algolia-search">
+                <span class="algolia-search-input-icon"></span>
+                <div class="algolia-search-input" id="algolia-search-input"></div>
+            </div>
+
+            <div class="algolia-results">
+                <div id="algolia-stats"></div>
+                <div id="algolia-hits"></div>
+                <div id="algolia-pagination" class="algolia-pagination"></div>
+            </div>
+
+            <span class="popup-btn-close"></span>
+        </div>
+    </div>
+    <!-- hexo injector body_end start -->
+<script src="/js/insertHighlight.js"></script>
+<!-- hexo injector body_end end --></body>
+    </html>
+
+<!--单击显示文字-->
+<script type="text/javascript" src="/js/click_show_text.js"></script>
+
+
+<!--浏览器搞笑标题-->
+<script type="text/javascript" src="\js\FunnyTitle.js"></script>
+
+
+<script type="text/javascript" src="http://libs.baidu.com/jquery/1.8.3/jquery.js"></script>
+<script type="text/javascript" src="http://libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+<!-- 雪花特效 -->
+<script type="text/javascript" src="\js\snow.js"></script>
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/love.js"></script>
+
+
+<canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+<script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+<script type="text/javascript" src="/js/fireworks.js"></script>
+
+
+
+
+

@@ -1,0 +1,655 @@
+
+    <!DOCTYPE html>
+    <html lang="zh-CN"
+            
+          
+    >
+    <head>
+    <meta charset="utf-8">
+    
+
+    
+
+    
+    <title>
+        HuggingFace实战——处理中文情感分类 |
+        
+        Lcblogcraft</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CUbuntu%20Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+    
+<link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free/css/v4-font-face.min.css">
+
+    
+<link rel="stylesheet" href="/css/loader.css">
+
+    <meta name="description" content="友情提示：由于HuggingFace社区触犯了天朝的某些法律，有关HuggingFace系列的内容中，提到“冲浪板”就指科学上网，需要借助国外旅游工具。 任务简介情感分类问题属于是自然语言处理中的”Hello World”，目的就是对一段话的情感进行分类。最简单的就是二分类，包含了积极和消极两种情感。 数据集在本次任务中使用的数据集为ChnSentiCorp数据集。数据集包含了9600条训练集、1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HuggingFace实战——处理中文情感分类">
+<meta property="og:url" content="http://example.com/2023/11/19/huggingface4/index.html">
+<meta property="og:site_name" content="Lcblogcraft">
+<meta property="og:description" content="友情提示：由于HuggingFace社区触犯了天朝的某些法律，有关HuggingFace系列的内容中，提到“冲浪板”就指科学上网，需要借助国外旅游工具。 任务简介情感分类问题属于是自然语言处理中的”Hello World”，目的就是对一段话的情感进行分类。最简单的就是二分类，包含了积极和消极两种情感。 数据集在本次任务中使用的数据集为ChnSentiCorp数据集。数据集包含了9600条训练集、1">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-11-18T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-11-19T14:42:04.400Z">
+<meta property="article:author" content="Luviichann">
+<meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="HuggingFace">
+<meta property="article:tag" content="NLP">
+<meta name="twitter:card" content="summary">
+    
+        <link rel="alternate" href="/atom.xml" title="Lcblogcraft" type="application/atom+xml">
+    
+    
+        <link rel="shortcut icon" href="/images/favicon_instead.ico">
+    
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/typeface-source-code-pro@1.1.13/index.css">
+
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+    
+    
+    
+    
+    
+<script src="https://unpkg.com/pace-js@1.2.4/pace.min.js"></script>
+
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/wowjs@1.1.3/css/libs/animate.css">
+
+        
+<script src="https://unpkg.com/wowjs@1.1.3/dist/wow.min.js"></script>
+
+        <script>
+          new WOW({
+            offset: 0,
+            mobile: true,
+            live: false
+          }).init();
+        </script>
+    
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+    <body>
+    
+<div id='loader'>
+  <div class="loading-left-bg"></div>
+  <div class="loading-right-bg"></div>
+  <div class="spinner-box">
+    <div class="loading-taichi">
+      <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+      <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="#ff6e6b" />
+      <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z" fill="#fd0d00" />
+      <path d="M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95" fill="#fd0d00" />
+    </svg>
+    </div>
+    <div class="loading-word">少女祈祷中...</div>
+  </div>
+</div>
+</div>
+
+<script>
+  const endLoading = function() {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loader').classList.add("loading");
+  }
+  window.addEventListener('load', endLoading);
+  document.getElementById('loader').addEventListener('click', endLoading);
+</script>
+
+
+    <div id="container">
+        <div id="wrap">
+            <header id="header">
+    
+        <img data-src="https://s1.imagehub.cc/images/2023/11/16/c848c0c6f1377a090736b04e35a4ee37.jpeg" data-sizes="auto" alt="HuggingFace实战——处理中文情感分类" class="lazyload">
+    
+    <div id="header-outer" class="outer">
+        <div id="header-title" class="inner">
+            <div id="logo-wrap">
+                
+                    
+                    
+                        <a href="/" id="logo"><h1>HuggingFace实战——处理中文情感分类</h1></a>
+                    
+                
+            </div>
+            
+                
+                
+            
+        </div>
+        <div id="header-inner">
+            <nav id="main-nav">
+                <a id="main-nav-toggle" class="nav-icon"></a>
+                
+                    <span class="main-nav-link-wrap">
+                        <span class="main-nav-icon"></span>
+                        <a class="main-nav-link" href="/">首页</a>
+                    </span>
+                
+                    <span class="main-nav-link-wrap">
+                        <span class="main-nav-icon"></span>
+                        <a class="main-nav-link" href="/archives">归档</a>
+                    </span>
+                
+                    <span class="main-nav-link-wrap">
+                        <span class="main-nav-icon"></span>
+                        <a class="main-nav-link" href="/about">关于</a>
+                    </span>
+                
+                    <span class="main-nav-link-wrap">
+                        <span class="main-nav-icon"></span>
+                        <a class="main-nav-link" href="/friend">友链</a>
+                    </span>
+                
+                    <span class="main-nav-link-wrap">
+                        <span class="main-nav-icon"></span>
+                        <a class="main-nav-link" href="/categories">分类</a>
+                    </span>
+                
+                    <span class="main-nav-link-wrap">
+                        <span class="main-nav-icon"></span>
+                        <a class="main-nav-link" href="/tags">标签</a>
+                    </span>
+                
+            </nav>
+            <nav id="sub-nav">
+                
+                    <a id="nav-rss-link" class="nav-icon" href="/atom.xml"
+                       title="RSS 订阅"></a>
+                
+                
+            </nav>
+            <div id="search-form-wrap">
+                <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+            </div>
+        </div>
+    </div>
+</header>
+
+            <div id="content" class="outer">
+                <section id="main"><article id="post-huggingface4" class="h-entry article article-type-post"
+         itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <div class="article-inner">
+        <div class="article-meta">
+            <div class="article-date wow slideInLeft">
+    <a href="/2023/11/19/huggingface4/" class="article-date-link">
+        <time datetime="2023-11-18T16:00:00.000Z"
+              itemprop="datePublished">2023-11-19</time>
+    </a>
+</div>
+
+            
+    <div class="article-category wow slideInLeft">
+        <a class="article-category-link" href="/categories/HuggingFace-NLP/">HuggingFace NLP</a>
+    </div>
+
+
+        </div>
+        <div class="hr-line"></div>
+        
+
+        <div class="e-content article-entry" itemprop="articleBody">
+            
+                <p>友情提示：由于HuggingFace社区触犯了天朝的某些法律，有关HuggingFace系列的内容中，提到“冲浪板”就指科学上网，需要借助国外旅游工具。</p>
+<h1 id="任务简介"><a href="#任务简介" class="headerlink" title="任务简介"></a>任务简介</h1><p>情感分类问题属于是自然语言处理中的”Hello World”，目的就是对一段话的情感进行分类。最简单的就是二分类，包含了积极和消极两种情感。</p>
+<h1 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h1><p>在本次任务中使用的数据集为ChnSentiCorp数据集。数据集包含了9600条训练集、1200条测试集、1200条验证集。每条数据包含了两个属性，分别是text和label。其中text是一段中文文本，代表一段评价，label是0或1的数字标签，分别代表了消极和积极。</p>
+<p><font color="#dd0000" size="3">那么，该怎样获取这个数据集呢？</font><br>正常来讲，我们只需要这样一段代码，就可以直接从HuggingFace上获取数据集。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> datasets <span class="keyword">import</span> load_dataset</span><br><span class="line">dataset = load_dataset(<span class="string">&quot;seamew/ChnSentiCorp&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>但是！这个数据集被放在了谷歌云上，我们没法直接获取，即便有冲浪板也不好用。不过不用担心，我们可以站在<a target="_blank" rel="noopener" href="https://github.com/lansinuote/Huggingface_Toturials">巨人的肩膀</a>上看世界。</p>
+<h1 id="开始实战"><a href="#开始实战" class="headerlink" title="开始实战"></a>开始实战</h1><h2 id="加载编码工具"><a href="#加载编码工具" class="headerlink" title="加载编码工具"></a>加载编码工具</h2><p>注意，第一次使用需要冲浪板。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> BertTokenizer</span><br><span class="line">tokenizer = BertTokenizer.from_pretrained(</span><br><span class="line">  pretrained_model_name_or_path=<span class="string">&#x27;bert-base-chinese&#x27;</span>,</span><br><span class="line">  cache_dir=<span class="literal">None</span>,</span><br><span class="line">  force_download=<span class="literal">False</span>,</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h2 id="加载和观察数据集"><a href="#加载和观察数据集" class="headerlink" title="加载和观察数据集"></a>加载和观察数据集</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> datasets <span class="keyword">import</span> load_from_disk</span><br><span class="line">dataset = load_from_disk(<span class="string">&#x27;./data/ChnSentiCorp/ChnSentiCorp&#x27;</span>)</span><br><span class="line">dataset</span><br><span class="line">dataset[<span class="string">&#x27;train&#x27;</span>][<span class="number">0</span>]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">DatasetDict(&#123;</span><br><span class="line">    train: Dataset(&#123;</span><br><span class="line">        features: [&#x27;text&#x27;, &#x27;label&#x27;],</span><br><span class="line">        num_rows: 9600</span><br><span class="line">    &#125;)</span><br><span class="line">    test: Dataset(&#123;</span><br><span class="line">        features: [&#x27;text&#x27;, &#x27;label&#x27;],</span><br><span class="line">        num_rows: 1200</span><br><span class="line">    &#125;)</span><br><span class="line">    validation: Dataset(&#123;</span><br><span class="line">        features: [&#x27;text&#x27;, &#x27;label&#x27;],</span><br><span class="line">        num_rows: 1200</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">&#123;&#x27;text&#x27;: &#x27;选择珠江花园的原因就是方便，有电动扶梯直接到达海边，周围餐馆、食廊、商场、超市、摊位一应俱全。酒店装修一般，但还算整洁。 泳池在大堂的屋顶，因此很小，不过女儿倒是喜欢。 包的早餐是西式的，还算丰富。 服务吗，一般&#x27;, &#x27;label&#x27;: 1&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们在后面要使用Pytorch的工具建立模型和训练，所以这里我们建立一个Pytorch可以直接使用的数据集。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Dataset</span>(torch.utils.data.Dataset):</span><br><span class="line">  <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,split</span>):</span><br><span class="line">    self.dataset = load_from_disk(<span class="string">&#x27;./data/ChnSentiCorp/ChnSentiCorp&#x27;</span>)[split]</span><br><span class="line">                                  <span class="comment">#注意数据路径，保证最后的路径文件夹下有一个ChnSentiCorp.json文件就行。</span></span><br><span class="line">  <span class="keyword">def</span> <span class="title function_">__len__</span>(<span class="params">self</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">len</span>(self.dataset)</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">def</span> <span class="title function_">__getitem__</span>(<span class="params">self,i</span>):</span><br><span class="line">    text = self.dataset[i][<span class="string">&#x27;text&#x27;</span>]</span><br><span class="line">    label = self.dataset[i][<span class="string">&#x27;label&#x27;</span>]</span><br><span class="line">    <span class="keyword">return</span> text,label</span><br><span class="line"><span class="comment">#获取训练集</span></span><br><span class="line">train_set = Dataset(<span class="string">&#x27;train&#x27;</span>)</span><br><span class="line"><span class="comment">#获取一下GPU。</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">try_gpu</span>(<span class="params">i=<span class="number">0</span></span>):</span><br><span class="line">  <span class="keyword">if</span> torch.cuda.device_count() &gt;= i + <span class="number">1</span>:</span><br><span class="line">    <span class="keyword">return</span> torch.device(<span class="string">f&#x27;cuda:<span class="subst">&#123;i&#125;</span>&#x27;</span>)</span><br><span class="line">  <span class="keyword">return</span> torch.device(<span class="string">&#x27;cpu&#x27;</span>)</span><br><span class="line">device = try_gpu()</span><br></pre></td></tr></table></figure>
+
+<h2 id="数据整理函数"><a href="#数据整理函数" class="headerlink" title="数据整理函数"></a>数据整理函数</h2><p>我们需要将文本数据编码后以张量的格式存储在GPU上。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">collate_fn</span>(<span class="params">data</span>):</span><br><span class="line">  sents = [i[<span class="number">0</span>] <span class="keyword">for</span> i <span class="keyword">in</span> data]</span><br><span class="line">  labels =[i[<span class="number">1</span>] <span class="keyword">for</span> i <span class="keyword">in</span> data]</span><br><span class="line">  </span><br><span class="line">  out = tokenizer.batch_encode_plus(</span><br><span class="line">    batch_text_or_text_pairs=sents,</span><br><span class="line">    add_special_tokens=<span class="literal">True</span>,  <span class="comment">#如果return_attention_mask为True，那么这个也要写True。</span></span><br><span class="line">    truncation=<span class="literal">True</span>,    <span class="comment">#当句子长度大于max_length时截断。</span></span><br><span class="line">    padding=<span class="string">&#x27;max_length&#x27;</span>, <span class="comment">#当句子长度小于max_length时补PAD。</span></span><br><span class="line">    max_length=<span class="number">500</span>,</span><br><span class="line">    return_tensors=<span class="string">&#x27;pt&#x27;</span>,  <span class="comment">#直接返回pytorch的张量。</span></span><br><span class="line">    return_token_type_ids=<span class="literal">True</span>,  </span><br><span class="line">    return_attention_mask=<span class="literal">True</span>,  <span class="comment">#返回attention_mask，即标注句子中的补足符号[PAD],1代表[PAD]，其余均为0。</span></span><br><span class="line">    return_special_tokens_mask=<span class="literal">False</span>,</span><br><span class="line">    return_length=<span class="literal">True</span></span><br><span class="line">  )</span><br><span class="line">  </span><br><span class="line">  input_ids = out[<span class="string">&#x27;input_ids&#x27;</span>]</span><br><span class="line">  attention_mask = out[<span class="string">&#x27;attention_mask&#x27;</span>]</span><br><span class="line">  token_type_ids = out[<span class="string">&#x27;token_type_ids&#x27;</span>]</span><br><span class="line">  labels = torch.LongTensor(labels)</span><br><span class="line">  </span><br><span class="line">  input_ids = input_ids.to(device)</span><br><span class="line">  attention_mask = attention_mask.to(device)</span><br><span class="line">  token_type_ids = token_type_ids.to(device)</span><br><span class="line">  labels = labels.to(device)</span><br><span class="line">  <span class="keyword">return</span> input_ids, attention_mask, token_type_ids, labels</span><br></pre></td></tr></table></figure>
+
+<p>接下来我们不着急进行下一步，可以先进行试算。随便弄一些文本和标签，将它们放入函数，看一看结果。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">demo = [</span><br><span class="line">(<span class="string">&#x27;你站在桥上看风景&#x27;</span>, <span class="number">1</span>),</span><br><span class="line">(<span class="string">&#x27;看风景的人在楼上看你&#x27;</span>, <span class="number">0</span>),</span><br><span class="line">(<span class="string">&#x27;明月装饰了你的窗子&#x27;</span>, <span class="number">1</span>),</span><br><span class="line">(<span class="string">&#x27;你装饰了别人的梦&#x27;</span>, <span class="number">0</span>),</span><br><span class="line">]</span><br><span class="line">input_ids, attention_mask, token_type_ids, labels = collate_fn(demo)</span><br><span class="line"></span><br><span class="line">input_ids</span><br><span class="line">attention_mask</span><br><span class="line">token_type_ids</span><br><span class="line">labels</span><br><span class="line">input_ids.shape,attention_mask.shape,token_type_ids.shape,labels.shape</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">tensor([[ 101,  872, 4991,  ...,    0,    0,    0],</span><br><span class="line">        [ 101, 4692, 7599,  ...,    0,    0,    0],</span><br><span class="line">        [ 101, 3209, 3299,  ...,    0,    0,    0],</span><br><span class="line">        [ 101,  872, 6163,  ...,    0,    0,    0]], device=&#x27;cuda:0&#x27;)</span><br><span class="line">tensor([[1, 1, 1,  ..., 0, 0, 0],</span><br><span class="line">        [1, 1, 1,  ..., 0, 0, 0],</span><br><span class="line">        [1, 1, 1,  ..., 0, 0, 0],</span><br><span class="line">        [1, 1, 1,  ..., 0, 0, 0]], device=&#x27;cuda:0&#x27;)</span><br><span class="line">tensor([[0, 0, 0,  ..., 0, 0, 0],</span><br><span class="line">        [0, 0, 0,  ..., 0, 0, 0],</span><br><span class="line">        [0, 0, 0,  ..., 0, 0, 0],</span><br><span class="line">        [0, 0, 0,  ..., 0, 0, 0]], device=&#x27;cuda:0&#x27;)</span><br><span class="line">tensor([1, 0, 1, 0], device=&#x27;cuda:0&#x27;)</span><br><span class="line">(torch.Size([4, 500]), torch.Size([4, 500]), torch.Size([4, 500]), torch.Size([4]))</span><br></pre></td></tr></table></figure>
+<p>注意，我们并不在意试算后的具体数值结果是多少。相比而言，我们更看重输出的数据格式，这一点非常重要！</p>
+<h2 id="数据加载器"><a href="#数据加载器" class="headerlink" title="数据加载器"></a>数据加载器</h2><p>现在的输出格式看上去没什么大问题，下一步就是构建加载器。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">train_load = torch.utils.data.DataLoader(</span><br><span class="line">  dataset=train_set,</span><br><span class="line">  batch_size=<span class="number">16</span>,</span><br><span class="line">  collate_fn=collate_fn,  <span class="comment">#指定数据整理函数。</span></span><br><span class="line">  shuffle=<span class="literal">True</span>,</span><br><span class="line">  drop_last=<span class="literal">True</span>)  <span class="comment">#当剩余数据不足一个批量大小时，舍弃。</span></span><br><span class="line"><span class="built_in">len</span>(train_load)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">600</span><br></pre></td></tr></table></figure>
+
+<h2 id="预训练模型"><a href="#预训练模型" class="headerlink" title="预训练模型"></a>预训练模型</h2><p>此处加载的模型为bert-base-chinese模型，和编码工具的名字一致，因为模型和其编码工具往往配套使用。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> BertModel</span><br><span class="line">pretrained = BertModel.from_pretrained(<span class="string">&#x27;bert-base-chinese&#x27;</span>)</span><br><span class="line"><span class="built_in">sum</span>(i.numel() <span class="keyword">for</span> i <span class="keyword">in</span> pretrained.parameters()) / <span class="number">10000</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">10226.7648</span><br></pre></td></tr></table></figure>
+
+<p>顺便可以查看一下模型的参数数量,一共是约为一亿个参数。<br>由于这个模型较大，并且已经是训练好的模型，并且它只负责特征提取工作，所以在本次任务中可以不对其再次进行训练。为了节省计算，可以将其梯度冻结。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> param <span class="keyword">in</span> pretrained.parameters():</span><br><span class="line">  param.requires_grad_(<span class="literal">False</span>)</span><br><span class="line"><span class="comment">#将模型转移到GPU上。</span></span><br><span class="line">pretrained.to(device)</span><br><span class="line"><span class="comment">#进行一次试算。</span></span><br><span class="line">out = pretrained(input_ids=input_ids,attention_mask=attention_mask,token_type_ids=token_type_ids)</span><br><span class="line">out.last_hidden_state.shape</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torch.Size([4, 500, 768])</span><br></pre></td></tr></table></figure>
+
+<p>这个数据的格式表示，模型将之前的四段文本的编码结果也就是[4,500]张量，变成了[4,500,768]的张量，也就是说，最初的每段文本，都变成了[500,768]的张量，这就是属于这个文本的特征。</p>
+<h2 id="下游任务模型"><a href="#下游任务模型" class="headerlink" title="下游任务模型"></a>下游任务模型</h2><p>在获取到特征以后，下游的模型只需要将特征转为0和1标签的概率。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Model</span>(nn.Module):</span><br><span class="line">  <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">    <span class="built_in">super</span>().__init__()</span><br><span class="line">    self.fc1 = nn.Linear(<span class="number">768</span>, <span class="number">2</span>)</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, input_ids, attention_mask, token_type_ids</span>):</span><br><span class="line">    <span class="comment">#使用预训练模型抽取数据特征</span></span><br><span class="line">    <span class="keyword">with</span> torch.no_grad():   <span class="comment">#我们不对Bert模型进行训练，所以这里就省去梯度的操作。</span></span><br><span class="line">      out = pretrained(input_ids=input_ids,attention_mask=attention_mask,token_type_ids=token_type_ids)</span><br><span class="line">      <span class="comment">#对抽取的特征只取第1个字的结果做分类即可</span></span><br><span class="line">    out = self.fc1(out.last_hidden_state[:, <span class="number">0</span>])</span><br><span class="line">    <span class="keyword">return</span> out</span><br></pre></td></tr></table></figure>
+
+<p>在这段代码中，定义了下游任务模型，该模型只包括一个全连接的线性神经网络，权重矩阵为768×2，所以它能够把一个768维度的向量转换到二维空间中。<br>下游任务模型的计算过程为，获取了一批数据之后，使用backbone将这批数据抽取成特征矩阵，抽取的特征矩阵的形状应该是16×500×768，这在之前预训练模型的试算中已经看到。这3个维度分别代表了16句话、500个词、768维度的特征向量。之后下游任务模型丢弃了499个词的特征，只取得第1个词（索引为0）的特征向量，对应编码结果中的[CLS]，把特征向量矩阵变成了16×768。相当于把每句话变成了一个768维度的向量。<br>注意：之所以只取了第0个词的特征做后续的判断计算，这和预训练模型BERT的训练方法有关系，这部分涉及到Bert的原理。</p>
+<p>然后可以对下游模型进行试算。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">model = Model()</span><br><span class="line">model.to(device)</span><br><span class="line">model(input_ids=input_ids,attention_mask=attention_mask,token_type_ids=token_type_ids).shape</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torch.Size([4, 2])</span><br></pre></td></tr></table></figure>
+<p>很好，输出的形状符合预期。</p>
+<h2 id="训练模型"><a href="#训练模型" class="headerlink" title="训练模型"></a>训练模型</h2><p>所有东西都准备好了，可以开始训练了。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#这里选用的是AdamW优化器，它是Adam的优化版，在自然语言处理处理领域一般比Adam更好用。</span></span><br><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> AdamW</span><br><span class="line"><span class="keyword">from</span> transformers.optimization <span class="keyword">import</span> get_scheduler</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">Train</span>():</span><br><span class="line">  optimizer = AdamW(model.parameters(),lr=<span class="number">1e-2</span>)</span><br><span class="line">  loss_fn = nn.CrossEntropyLoss()  <span class="comment">#选用交叉熵损失函数，分类任务一般都这么选。</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">#定义学习率调节器。</span></span><br><span class="line">  scheduler = get_scheduler(name=<span class="string">&#x27;linear&#x27;</span>,num_warmup_steps=<span class="number">3</span>,num_training_steps=<span class="built_in">len</span>(train_load),optimizer=optimizer)</span><br><span class="line">  model.train()  <span class="comment">#将模型切换到训练模式。</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">#遍历数据</span></span><br><span class="line">  <span class="keyword">for</span> i, (input_ids, attention_mask, token_type_ids,labels) <span class="keyword">in</span> <span class="built_in">enumerate</span>(train_load):</span><br><span class="line">    </span><br><span class="line">    <span class="comment">#计算模型预测结果。</span></span><br><span class="line">    out = model(input_ids=input_ids,attention_mask=attention_mask,token_type_ids=token_type_ids)</span><br><span class="line">    loss = loss_fn(out,labels) <span class="comment">#计算损失。</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">#经典老三行，多加了学习率的计算。</span></span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    loss.backward()</span><br><span class="line">    optimizer.step()</span><br><span class="line">    </span><br><span class="line">    scheduler.step()</span><br><span class="line">    </span><br><span class="line">    <span class="comment">#输出训练日志。</span></span><br><span class="line">    <span class="keyword">if</span> i%<span class="number">10</span> == <span class="number">0</span>:</span><br><span class="line">      out = out.argmax(dim=<span class="number">1</span>)</span><br><span class="line">      accuracy = (out == labels).<span class="built_in">sum</span>().item() / <span class="built_in">len</span>(labels)</span><br><span class="line">      lr = optimizer.state_dict()[<span class="string">&#x27;param_groups&#x27;</span>][<span class="number">0</span>][<span class="string">&#x27;lr&#x27;</span>]</span><br><span class="line">      <span class="built_in">print</span>(<span class="string">&quot;steps:&quot;</span>,i,<span class="string">&quot;loss:&quot;</span>,loss.item(),<span class="string">&quot;lr:&quot;</span>,lr,<span class="string">&quot;accuracy:&quot;</span>,accuracy)</span><br><span class="line"></span><br><span class="line">Train()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">steps: 0 loss: 0.9177090525627136 lr: 0.003333333333333333 accuracy: 0.3125</span><br><span class="line">steps: 10 loss: 0.2582670748233795 lr: 0.009865996649916248 accuracy: 0.875</span><br><span class="line">steps: 20 loss: 0.7411776185035706 lr: 0.009698492462311558 accuracy: 0.6875</span><br><span class="line">steps: 30 loss: 0.4699391722679138 lr: 0.009530988274706867 accuracy: 0.75</span><br><span class="line">steps: 40 loss: 0.5517882108688354 lr: 0.009363484087102178 accuracy: 0.8125</span><br><span class="line">steps: 50 loss: 0.13808736205101013 lr: 0.009195979899497487 accuracy: 0.9375</span><br><span class="line">steps: 60 loss: 0.06214526295661926 lr: 0.009028475711892798 accuracy: 1.0</span><br><span class="line">steps: 70 loss: 0.2960442900657654 lr: 0.008860971524288106 accuracy: 0.9375</span><br><span class="line">steps: 80 loss: 0.19490642845630646 lr: 0.008693467336683417 accuracy: 0.875</span><br><span class="line">steps: 90 loss: 0.24142661690711975 lr: 0.008525963149078728 accuracy: 0.9375</span><br><span class="line">steps: 100 loss: 0.17917616665363312 lr: 0.008358458961474037 accuracy: 0.9375</span><br><span class="line">steps: 110 loss: 0.10000098496675491 lr: 0.008190954773869347 accuracy: 0.9375</span><br><span class="line">steps: 120 loss: 0.28352534770965576 lr: 0.008023450586264656 accuracy: 0.9375</span><br><span class="line">steps: 130 loss: 0.2868281602859497 lr: 0.007855946398659967 accuracy: 0.875</span><br><span class="line">steps: 140 loss: 0.40539053082466125 lr: 0.007688442211055277 accuracy: 0.8125</span><br><span class="line">steps: 150 loss: 0.3733450472354889 lr: 0.0075209380234505865 accuracy: 0.875</span><br><span class="line">steps: 160 loss: 0.30549660325050354 lr: 0.007353433835845896 accuracy: 0.875</span><br><span class="line">steps: 170 loss: 0.3883017301559448 lr: 0.007185929648241206 accuracy: 0.8125</span><br><span class="line">steps: 180 loss: 0.2768547832965851 lr: 0.007018425460636516 accuracy: 0.8125</span><br><span class="line">steps: 190 loss: 0.29774126410484314 lr: 0.006850921273031826 accuracy: 0.875</span><br><span class="line">steps: 200 loss: 0.30697885155677795 lr: 0.0066834170854271355 accuracy: 0.875</span><br><span class="line">steps: 210 loss: 0.24537579715251923 lr: 0.006515912897822446 accuracy: 0.8125</span><br><span class="line">steps: 220 loss: 0.4430205523967743 lr: 0.006348408710217756 accuracy: 0.9375</span><br><span class="line">steps: 230 loss: 0.1357620805501938 lr: 0.006180904522613066 accuracy: 1.0</span><br><span class="line">steps: 240 loss: 0.5153148174285889 lr: 0.0060134003350083755 accuracy: 0.875</span><br><span class="line">steps: 250 loss: 0.42887353897094727 lr: 0.005845896147403685 accuracy: 0.875</span><br><span class="line">steps: 260 loss: 0.3042680323123932 lr: 0.005678391959798995 accuracy: 0.8125</span><br><span class="line">steps: 270 loss: 0.5260005593299866 lr: 0.005510887772194305 accuracy: 0.875</span><br><span class="line">steps: 280 loss: 0.08018901199102402 lr: 0.005343383584589615 accuracy: 0.9375</span><br><span class="line">steps: 290 loss: 0.14019827544689178 lr: 0.0051758793969849245 accuracy: 0.9375</span><br><span class="line">steps: 300 loss: 0.06537951529026031 lr: 0.005008375209380235 accuracy: 1.0</span><br><span class="line">steps: 310 loss: 0.706668496131897 lr: 0.004840871021775545 accuracy: 0.75</span><br><span class="line">steps: 320 loss: 0.046374961733818054 lr: 0.004673366834170855 accuracy: 1.0</span><br><span class="line">steps: 330 loss: 0.3127271831035614 lr: 0.0045058626465661646 accuracy: 0.875</span><br><span class="line">steps: 340 loss: 0.4731540083885193 lr: 0.0043383584589614735 accuracy: 0.875</span><br><span class="line">steps: 350 loss: 0.4876406490802765 lr: 0.004170854271356784 accuracy: 0.75</span><br><span class="line">steps: 360 loss: 0.57007896900177 lr: 0.004003350083752094 accuracy: 0.75</span><br><span class="line">steps: 370 loss: 0.6871400475502014 lr: 0.0038358458961474037 accuracy: 0.75</span><br><span class="line">steps: 380 loss: 0.4668954908847809 lr: 0.0036683417085427135 accuracy: 0.875</span><br><span class="line">steps: 390 loss: 0.3290950655937195 lr: 0.0035008375209380233 accuracy: 0.8125</span><br><span class="line">steps: 400 loss: 0.2054392397403717 lr: 0.003333333333333333 accuracy: 0.875</span><br><span class="line">steps: 410 loss: 0.16407813131809235 lr: 0.003165829145728643 accuracy: 0.9375</span><br><span class="line">steps: 420 loss: 0.13321591913700104 lr: 0.002998324958123953 accuracy: 0.9375</span><br><span class="line">steps: 430 loss: 0.25577545166015625 lr: 0.002830820770519263 accuracy: 0.875</span><br><span class="line">steps: 440 loss: 0.40148788690567017 lr: 0.0026633165829145727 accuracy: 0.75</span><br><span class="line">steps: 450 loss: 0.47690054774284363 lr: 0.0024958123953098825 accuracy: 0.75</span><br><span class="line">steps: 460 loss: 0.1761317253112793 lr: 0.0023283082077051927 accuracy: 0.9375</span><br><span class="line">steps: 470 loss: 0.07031602412462234 lr: 0.0021608040201005025 accuracy: 1.0</span><br><span class="line">steps: 480 loss: 0.11138499528169632 lr: 0.0019932998324958123 accuracy: 1.0</span><br><span class="line">steps: 490 loss: 0.10881906747817993 lr: 0.0018257956448911223 accuracy: 1.0</span><br><span class="line">steps: 500 loss: 0.2125333696603775 lr: 0.0016582914572864321 accuracy: 0.9375</span><br><span class="line">steps: 510 loss: 0.1883714199066162 lr: 0.0014907872696817421 accuracy: 0.875</span><br><span class="line">steps: 520 loss: 0.08775968104600906 lr: 0.001323283082077052 accuracy: 1.0</span><br><span class="line">steps: 530 loss: 0.05122673138976097 lr: 0.001155778894472362 accuracy: 1.0</span><br><span class="line">steps: 540 loss: 0.14849573373794556 lr: 0.0009882747068676717 accuracy: 0.9375</span><br><span class="line">steps: 550 loss: 0.0833907201886177 lr: 0.0008207705192629816 accuracy: 0.9375</span><br><span class="line">steps: 560 loss: 0.28355494141578674 lr: 0.0006532663316582915 accuracy: 0.875</span><br><span class="line">steps: 570 loss: 0.13419026136398315 lr: 0.00048576214405360134 accuracy: 1.0</span><br><span class="line">steps: 580 loss: 0.12551864981651306 lr: 0.00031825795644891124 accuracy: 1.0</span><br><span class="line">steps: 590 loss: 0.5847806930541992 lr: 0.00015075376884422112 accuracy: 0.8125</span><br></pre></td></tr></table></figure>
+
+<p>从训练过程来看，至少训练是有效的。</p>
+<h2 id="模型评价"><a href="#模型评价" class="headerlink" title="模型评价"></a>模型评价</h2><p>现在要对模型进行评价，测试其在测试集上的准确率。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">test_set = Dataset(<span class="string">&#x27;test&#x27;</span>)</span><br><span class="line">test_load = torch.utils.data.DataLoader(dataset=test_set,batch_size=<span class="number">32</span>,collate_fn=collate_fn,shuffle=<span class="literal">True</span>,drop_last=<span class="literal">True</span>)</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">Test</span>():</span><br><span class="line">  </span><br><span class="line">  model.<span class="built_in">eval</span>()</span><br><span class="line">  correct = <span class="number">0</span></span><br><span class="line">  total = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> i,(input_ids,attention_mask,token_type_ids,labels) <span class="keyword">in</span> <span class="built_in">enumerate</span>(test_load):</span><br><span class="line">    <span class="built_in">print</span>(i)</span><br><span class="line">    <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">      out = model(input_ids,attention_mask,token_type_ids)</span><br><span class="line">    </span><br><span class="line">    out = out.argmax(dim=<span class="number">1</span>)</span><br><span class="line">    correct += (out == labels).<span class="built_in">sum</span>().item()</span><br><span class="line">    total += <span class="built_in">len</span>(labels)</span><br><span class="line">  <span class="built_in">print</span>(correct/total)</span><br><span class="line"></span><br><span class="line">Test()</span><br><span class="line">torch.save(model.state_dict(),<span class="string">&#x27;./ChnSentiCorp.pth&#x27;</span>)<span class="comment">#保存模型。</span></span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">0</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">0.9197635135135135</span><br></pre></td></tr></table></figure>
+
+<p>在测试集上有91.98%的准确率，这个正确率不算高，但起码证明训练效果是有的。我们只是训练的一轮，如果再多训练几轮，说不定可以提高一些。并且下游模型只有一层网络，只提取的第一个字符，如果模型更复杂一些，说不定也能提高准确率。</p>
+
+            
+        </div>
+        <footer class="article-footer">
+            <a data-url="http://example.com/2023/11/19/huggingface4/" data-id="clp9u7o6q000x10vv65h2fks0" data-title="HuggingFace实战——处理中文情感分类"
+               class="article-share-link">分享</a>
+            
+            
+            
+            
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HuggingFace/" rel="tag">HuggingFace</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li></ul>
+
+
+        </footer>
+    </div>
+    
+        
+    <nav id="article-nav" class="wow fadeInUp">
+        
+        
+            <div class="article-nav-link-wrap article-nav-link-right">
+                
+                    <img data-src="https://s1.imagehub.cc/images/2023/11/16/153d55d1011ee144c40f0888df5056bb.jpeg" data-sizes="auto" alt="HuggingFace数据集工具"
+                         class="lazyload">
+                
+                <a href="/2023/11/17/huggingface2/"></a>
+                <div class="article-nav-caption">后一篇</div>
+                <h3 class="article-nav-title">
+                    
+                        HuggingFace数据集工具
+                    
+                </h3>
+            </div>
+        
+    </nav>
+
+
+    
+    
+        <! -- 添加捐赠图标 -->
+<div class ="post-donate">
+    <div id="donate_board" class="donate_bar center">
+        <a id="btn_donate" class="btn_donate" href="javascript:;" title="打赏"></a>
+        <span class="donate_txt">
+           &uarr;<br>
+           如果对你有帮助，可以给孩子补充点营养～
+        </span>
+        <br>
+      </div>  
+    <div id="donate_guide" class="donate_bar center hidden" >
+        <!-- 支付宝打赏图案 -->
+        <img src="https://s1.imagehub.cc/images/2023/11/07/145e231e987c98b9c334e515d745bda0.th.jpeg" alt="支付宝打赏"> 
+        <!-- 微信打赏图案 -->
+        <img src="https://s1.imagehub.cc/images/2023/11/07/037cb5190ad5875f03275730e26b5d27.th.jpeg" alt="微信打赏">  
+    </div>
+    <script type="text/javascript">
+        document.getElementById('btn_donate').onclick = function(){
+            $('#donate_board').addClass('hidden');
+            $('#donate_guide').removeClass('hidden');
+        }
+    </script>
+</div>
+<! -- 添加捐赠图标 -->
+    
+</article>
+
+
+
+
+
+
+
+
+
+
+
+</section>
+                
+                    <aside id="sidebar">
+    <div class="sidebar-wrap wow fadeInRight">
+        <div class="sidebar-author">
+            <img data-src="/avatar/avatar.jpg" data-sizes="auto" alt="Luviichann" class="lazyload">
+            <div class="sidebar-author-name">Luviichann</div>
+            <div class="sidebar-description">任何一种伟大的思想都源于一个微不足道的开始。</div>
+        </div>
+        <div class="sidebar-state">
+            <div class="sidebar-state-article">
+                <div>文章</div>
+                <div class="sidebar-state-number">14</div>
+            </div>
+            <div class="sidebar-state-category">
+                <div>分类</div>
+                <div class="sidebar-state-number">5</div>
+            </div>
+            <div class="sidebar-state-tag">
+                <div>标签</div>
+                <div class="sidebar-state-number">12</div>
+            </div>
+        </div>
+        <div class="sidebar-social">
+            
+                <div class=icon-github>
+                    <a href=https://github.com/Luviichann itemprop="url" target="_blank"></a>
+                </div>
+            
+        </div>
+        <div class="sidebar-menu">
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">首页</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/archives"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">归档</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/about"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">关于</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/friend"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">友链</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/categories"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">分类</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/tags"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">标签</div>
+                </div>
+            
+        </div>
+    </div>
+    
+        
+    <div class="widget-wrap wow fadeInRight">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/HuggingFace-NLP/">HuggingFace NLP</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%99%E7%A8%8B/">教程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B5%8B%E8%AF%95%E6%96%87%E6%A1%A3/">测试文档</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a></li></ul>
+        </div>
+    </div>
+
+
+    
+        
+    <div class="widget-wrap wow fadeInRight">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/HuggingFace/" rel="tag">HuggingFace</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/" rel="tag">MNIST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pytorch/" rel="tag">Pytorch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/" rel="tag">html</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%A0%E9%87%8F/" rel="tag">张量</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" rel="tag">数据处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8B%E8%AF%95%E6%96%87%E6%9C%AC/" rel="tag">测试文本</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" rel="tag">神经网络</a></li></ul>
+        </div>
+    </div>
+
+
+    
+        
+    <div class="widget-wrap wow fadeInRight">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/HuggingFace/" style="font-size: 16.67px;">HuggingFace</a> <a href="/tags/MNIST/" style="font-size: 10px;">MNIST</a> <a href="/tags/NLP/" style="font-size: 16.67px;">NLP</a> <a href="/tags/Pytorch/" style="font-size: 16.67px;">Pytorch</a> <a href="/tags/css/" style="font-size: 13.33px;">css</a> <a href="/tags/html/" style="font-size: 13.33px;">html</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 13.33px;">前端</a> <a href="/tags/%E5%BC%A0%E9%87%8F/" style="font-size: 10px;">张量</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" style="font-size: 10px;">数据处理</a> <a href="/tags/%E6%B5%8B%E8%AF%95%E6%96%87%E6%9C%AC/" style="font-size: 10px;">测试文本</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 20px;">深度学习</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">神经网络</a>
+        </div>
+    </div>
+
+
+    
+        
+    <div class="widget-wrap wow fadeInRight">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">十一月 2023</a></li></ul>
+        </div>
+    </div>
+
+
+    
+</aside>
+
+                
+            </div>
+            <footer id="footer" class="wow fadeInUp">
+    <div style="width: 100%; overflow: hidden"><div class="footer-line"></div></div>
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            
+            <div>
+                <span class="icon-copyright"></span>
+                Sun Nov 05 2023 08:00:00 GMT+0800 (中国标准时间)-2023
+                <span class="footer-info-sep"></span>
+                Luviichann
+            </div>
+            
+                <div>
+                    基于&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>&nbsp;
+                    Theme.<a href="https://github.com/D-Sketon/hexo-theme-reimu" target="_blank">Reimu</a>
+                </div>
+            
+            
+                <div>
+                    <span class="icon-brush"></span>
+                    16.2k
+                    &nbsp;|&nbsp;
+                    <span class="icon-coffee"></span>
+                    01:09
+                </div>
+            
+            
+                <div>
+                    <span class="icon-eye"></span>
+                    <span id="busuanzi_container_site_pv">总访问量&nbsp;<span id="busuanzi_value_site_pv"></span></span>
+                    &nbsp;|&nbsp;
+                    <span class="icon-user"></span>
+                    <span id="busuanzi_container_site_uv">总访客量&nbsp;<span id="busuanzi_value_site_uv"></span></span>
+                </div>
+            
+        </div>
+    </div>
+</footer>
+
+        </div>
+        <nav id="mobile-nav">
+    <div class="sidebar-wrap">
+        <div class="sidebar-author">
+            <img data-src="/avatar/avatar.jpg" data-sizes="auto" alt="Luviichann" class="lazyload">
+            <div class="sidebar-author-name">Luviichann</div>
+            <div class="sidebar-description">任何一种伟大的思想都源于一个微不足道的开始。</div>
+        </div>
+        <div class="sidebar-state">
+            <div class="sidebar-state-article">
+                <div>文章</div>
+                <div class="sidebar-state-number">14</div>
+            </div>
+            <div class="sidebar-state-category">
+                <div>分类</div>
+                <div class="sidebar-state-number">5</div>
+            </div>
+            <div class="sidebar-state-tag">
+                <div>标签</div>
+                <div class="sidebar-state-number">12</div>
+            </div>
+        </div>
+        <div class="sidebar-social">
+            
+                <div class=icon-github>
+                    <a href=https://github.com/Luviichann itemprop="url" target="_blank"></a>
+                </div>
+            
+        </div>
+        <div class="sidebar-menu">
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">首页</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/archives"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">归档</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/about"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">关于</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/friend"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">友链</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/categories"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">分类</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/tags"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">标签</div>
+                </div>
+            
+        </div>
+    </div>
+</nav>
+
+        
+<script src="https://unpkg.com/jquery@3.7.0/dist/jquery.min.js"></script>
+
+
+<script src="https://unpkg.com/lazysizes@5.3.2/lazysizes.min.js"></script>
+
+
+<script src="https://unpkg.com/clipboard@2.0.11/dist/clipboard.min.js"></script>
+
+
+
+    
+<script src="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+
+    
+<script src="https://unpkg.com/busuanzi@2.3.0/bsz.pure.mini.js"></script>
+
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+    <div class="site-search">
+        <div class="algolia-popup popup">
+            <div class="algolia-search">
+                <span class="algolia-search-input-icon"></span>
+                <div class="algolia-search-input" id="algolia-search-input"></div>
+            </div>
+
+            <div class="algolia-results">
+                <div id="algolia-stats"></div>
+                <div id="algolia-hits"></div>
+                <div id="algolia-pagination" class="algolia-pagination"></div>
+            </div>
+
+            <span class="popup-btn-close"></span>
+        </div>
+    </div>
+    <!-- hexo injector body_end start -->
+<script src="/js/insertHighlight.js"></script>
+<!-- hexo injector body_end end --></body>
+    </html>
+
+<!--单击显示文字-->
+<script type="text/javascript" src="/js/click_show_text.js"></script>
+
+
+<!--浏览器搞笑标题-->
+<script type="text/javascript" src="\js\FunnyTitle.js"></script>
+
+
+<script type="text/javascript" src="http://libs.baidu.com/jquery/1.8.3/jquery.js"></script>
+<script type="text/javascript" src="http://libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+<!-- 雪花特效 -->
+<script type="text/javascript" src="\js\snow.js"></script>
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/love.js"></script>
+
+
+<canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+<script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+<script type="text/javascript" src="/js/fireworks.js"></script>
+
+
+
+
+
