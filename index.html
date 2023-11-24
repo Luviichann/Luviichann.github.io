@@ -351,12 +351,50 @@
         
     <div class="post-wrap-right wow fadeInUp">
         
-            <a class="post-link" href="/2023/11/13/css2/"></a>
+            <a class="post-link" href="/2023/11/15/css4/"></a>
         
         <div class="post-cover-right">
             
+                <img data-src="https://s1.imagehub.cc/images/2023/11/24/d7c2ea6c1b2b192780f9e0e4c89cdd45.jpeg" data-sizes="auto" alt="CSS（四）属性" class="lazyload">
+            
+        </div>
+        <div class="post-info">
+            <div class="post-meta">
+                <a><span class="icon-calendar"></span>2023-11-15</a>
+                
+                    <a><span class="icon-pencil"></span>1.3k 字</a>
+                
+                
+                    <a><span class="icon-clock"></span>5 分钟</a>
+                
+            </div>
+            <h2 class="post-title">CSS（四）属性</h2>
+            <article class="post-article">
+                
+                    颜色表示方法rgb或rgbargb(0255或0%100%)代表红绿蓝三个颜色深度，a(01或0%100%)代表不透明度(0代表完全透明)。我更喜欢直接数字表示而不是百分比。
+123456#id1 &amp;#123;  color: rgb(255,37,90);&amp;#125;#id2 &amp;#123;  color: rgba(100,30,90,0.5);&amp;#125;
+
+
+16进制这是我比较喜欢的表示方法，格式为#rrggbbaa，rr,gg,bb分别代表红绿蓝的颜色深度，aa代表不透明度，其范围都是00~ff的16进制数。最后的aa位置可以不写，默认是完全不透明。
+123456#id1 &amp;#123;
+                
+            </article>
+        </div>
+    </div>
+
+
+    
+        
+    <div class="post-wrap-left wow fadeInUp">
+        
+            <a class="post-link" href="/2023/11/13/css2/"></a>
+        
+        
+        <div class="post-cover-left">
+            
                 <img data-src="https://s1.imagehub.cc/images/2023/11/14/8062d386d6b320708eeb1e7fb681432c.jpeg" data-sizes="auto" alt="CSS（二）复合选择器" class="lazyload">
             
+
         </div>
         <div class="post-info">
             <div class="post-meta">
@@ -384,16 +422,14 @@
 
     
         
-    <div class="post-wrap-left wow fadeInUp">
+    <div class="post-wrap-right wow fadeInUp">
         
             <a class="post-link" href="/2023/11/12/css1/"></a>
         
-        
-        <div class="post-cover-left">
+        <div class="post-cover-right">
             
                 <img data-src="https://s1.imagehub.cc/images/2023/11/13/5ba10d12d12da12ba444ff9dcc5e84cb.jpeg" data-sizes="auto" alt="CSS（一）样式与基本选择器" class="lazyload">
             
-
         </div>
         <div class="post-info">
             <div class="post-meta">
@@ -418,14 +454,16 @@
 
     
         
-    <div class="post-wrap-right wow fadeInUp">
+    <div class="post-wrap-left wow fadeInUp">
         
             <a class="post-link" href="/2023/11/10/datapr/"></a>
         
-        <div class="post-cover-right">
+        
+        <div class="post-cover-left">
             
                 <img data-src="https://s1.imagehub.cc/images/2023/11/10/a6baa2d36b4e2e350452c7077a98fbc4.jpeg" data-sizes="auto" alt="数据预处理方法" class="lazyload">
             
+
         </div>
         <div class="post-info">
             <div class="post-meta">
@@ -451,16 +489,14 @@
 
     
         
-    <div class="post-wrap-left wow fadeInUp">
+    <div class="post-wrap-right wow fadeInUp">
         
             <a class="post-link" href="/2023/11/10/MNIST/"></a>
         
-        
-        <div class="post-cover-left">
+        <div class="post-cover-right">
             
                 <img data-src="https://s1.imagehub.cc/images/2023/11/10/ce04757714e61a4559d3d400d9d24e19.jpeg" data-sizes="auto" alt="神经网络实战项目——MNIST手写数字识别" class="lazyload">
             
-
         </div>
         <div class="post-info">
             <div class="post-meta">
@@ -477,44 +513,6 @@
                 
                     数据集数据集介绍MNIST是一个手写数字的数据集，专门用于进行深度学习训练，属于是深度学习中的”Hello World”，已经算是经典中的经典。其中有60000个训练集和10000个测试集，每个数据包含了28×28的灰度图像和对应的标签0~9。
 获取数据集12345678import torchvisionfrom torchvision import transformstrans = transforms.ToTensor()  #将图像数据直接转为张量。#root指定数据路径，train指定训练集或测试集，transform指定转换格式，download表示是否需要下载，下载一次就可以了
-                
-            </article>
-        </div>
-    </div>
-
-
-    
-        
-    <div class="post-wrap-right wow fadeInUp">
-        
-            <a class="post-link" href="/2023/11/07/nn/"></a>
-        
-        <div class="post-cover-right">
-            
-                <img data-src="https://s1.imagehub.cc/images/2023/11/07/a66cde4d14d46288b4fa9e9ec00cfd95.jpeg" data-sizes="auto" alt="神经网络的结构与搭建" class="lazyload">
-            
-        </div>
-        <div class="post-info">
-            <div class="post-meta">
-                <a><span class="icon-calendar"></span>2023-11-07</a>
-                
-                    <a><span class="icon-pencil"></span>639 字</a>
-                
-                
-                    <a><span class="icon-clock"></span>3 分钟</a>
-                
-            </div>
-            <h2 class="post-title">神经网络的结构与搭建</h2>
-            <article class="post-article">
-                
-                    
-
-神经网络层利用Pytorch可以快速建立神经网络的层。
-全连接层123456import torch.nn as nn #以后调用torch.nn就用nn，约定俗成的。import torchx = torch.tensor([1.,2.,3.])fc = nn.Linear(in_features=3,out_features=5)  #实例化一个全连接层。y = fc(x)y
-
-1tensor([ 0.0927,  0.6689,  1.1373, -1.7523, -0.4160], grad_fn=&amp;lt;AddBackward0&amp;gt;)
-
-卷积层1234567891011121
                 
             </article>
         </div>
@@ -542,7 +540,7 @@
         <div class="sidebar-state">
             <div class="sidebar-state-article">
                 <div>文章</div>
-                <div class="sidebar-state-number">14</div>
+                <div class="sidebar-state-number">15</div>
             </div>
             <div class="sidebar-state-category">
                 <div>分类</div>
@@ -625,7 +623,7 @@
     <div class="widget-wrap wow fadeInRight">
         <h3 class="widget-title">标签云</h3>
         <div class="widget tagcloud">
-            <a href="/tags/HuggingFace/" style="font-size: 16.67px;">HuggingFace</a> <a href="/tags/MNIST/" style="font-size: 10px;">MNIST</a> <a href="/tags/NLP/" style="font-size: 16.67px;">NLP</a> <a href="/tags/Pytorch/" style="font-size: 16.67px;">Pytorch</a> <a href="/tags/css/" style="font-size: 13.33px;">css</a> <a href="/tags/html/" style="font-size: 13.33px;">html</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 13.33px;">前端</a> <a href="/tags/%E5%BC%A0%E9%87%8F/" style="font-size: 10px;">张量</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" style="font-size: 10px;">数据处理</a> <a href="/tags/%E6%B5%8B%E8%AF%95%E6%96%87%E6%9C%AC/" style="font-size: 10px;">测试文本</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 20px;">深度学习</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">神经网络</a>
+            <a href="/tags/HuggingFace/" style="font-size: 15px;">HuggingFace</a> <a href="/tags/MNIST/" style="font-size: 10px;">MNIST</a> <a href="/tags/NLP/" style="font-size: 15px;">NLP</a> <a href="/tags/Pytorch/" style="font-size: 15px;">Pytorch</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 15px;">前端</a> <a href="/tags/%E5%BC%A0%E9%87%8F/" style="font-size: 10px;">张量</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" style="font-size: 10px;">数据处理</a> <a href="/tags/%E6%B5%8B%E8%AF%95%E6%96%87%E6%9C%AC/" style="font-size: 10px;">测试文本</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 20px;">深度学习</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">神经网络</a>
         </div>
     </div>
 
@@ -665,10 +663,10 @@
             
                 <div>
                     <span class="icon-brush"></span>
-                    16.2k
+                    17.5k
                     &nbsp;|&nbsp;
                     <span class="icon-coffee"></span>
-                    01:09
+                    01:14
                 </div>
             
             
@@ -695,7 +693,7 @@
         <div class="sidebar-state">
             <div class="sidebar-state-article">
                 <div>文章</div>
-                <div class="sidebar-state-number">14</div>
+                <div class="sidebar-state-number">15</div>
             </div>
             <div class="sidebar-state-category">
                 <div>分类</div>
