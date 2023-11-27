@@ -12,7 +12,7 @@
 
     
     <title>
-        标签 |
+        在Linux服务器上部署Mirai框架的QQ机器人 |
         
         Lcblogcraft</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -23,16 +23,18 @@
     
 <link rel="stylesheet" href="/css/loader.css">
 
-    <meta name="description" content="任何一种伟大的思想都源于一个微不足道的开始。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="标签">
-<meta property="og:url" content="http://example.com/tags/index.html">
+    <meta name="description" content="友情提示：本篇内容的步骤只是回忆内容，只能作为大致参考，不一定准确，因为我没有再一次验证这些步骤的可行性。 下载mcl-installer前往这里，找到对应的Linux版本的mcl-installer。找到以后这里有两种可以将mcl-installer下载到服务器：一是先点击要下载的那个版本，然后会跳出下载链接和路径，不要点下载，直接复制链接用Linux的命令下载。二是直接下载到本地，然后上传到服">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在Linux服务器上部署Mirai框架的QQ机器人">
+<meta property="og:url" content="http://example.com/2023/11/27/miraiqqbot/index.html">
 <meta property="og:site_name" content="Lcblogcraft">
-<meta property="og:description" content="任何一种伟大的思想都源于一个微不足道的开始。">
+<meta property="og:description" content="友情提示：本篇内容的步骤只是回忆内容，只能作为大致参考，不一定准确，因为我没有再一次验证这些步骤的可行性。 下载mcl-installer前往这里，找到对应的Linux版本的mcl-installer。找到以后这里有两种可以将mcl-installer下载到服务器：一是先点击要下载的那个版本，然后会跳出下载链接和路径，不要点下载，直接复制链接用Linux的命令下载。二是直接下载到本地，然后上传到服">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-11-05T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-11-06T02:57:27.241Z">
+<meta property="article:published_time" content="2023-11-26T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-11-27T14:42:36.603Z">
 <meta property="article:author" content="Luviichann">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Mirai">
 <meta name="twitter:card" content="summary">
     
         <link rel="alternate" href="/atom.xml" title="Lcblogcraft" type="application/atom+xml">
@@ -108,7 +110,7 @@
         <div id="wrap">
             <header id="header">
     
-        <img data-src="/images/banner_instead.jpg" data-sizes="auto" alt="标签" class="lazyload">
+        <img data-src="https://s1.imagehub.cc/images/2023/11/27/5af231add6caaffcfd970fb3e9d2f942.jpeg" data-sizes="auto" alt="在Linux服务器上部署Mirai框架的QQ机器人" class="lazyload">
     
     <div id="header-outer" class="outer">
         <div id="header-title" class="inner">
@@ -116,7 +118,7 @@
                 
                     
                     
-                        <a href="/" id="logo"><h1>标签</h1></a>
+                        <a href="/" id="logo"><h1>在Linux服务器上部署Mirai框架的QQ机器人</h1></a>
                     
                 
             </div>
@@ -175,18 +177,22 @@
 </header>
 
             <div id="content" class="outer">
-                <section id="main"><article id="page-" class="h-entry article article-type-page"
+                <section id="main"><article id="post-miraiqqbot" class="h-entry article article-type-post"
          itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
     <div class="article-inner">
         <div class="article-meta">
             <div class="article-date wow slideInLeft">
-    <a href="/tags/index.html" class="article-date-link">
-        <time datetime="2023-11-05T16:00:00.000Z"
-              itemprop="datePublished">2023-11-06</time>
+    <a href="/2023/11/27/miraiqqbot/" class="article-date-link">
+        <time datetime="2023-11-26T16:00:00.000Z"
+              itemprop="datePublished">2023-11-27</time>
     </a>
 </div>
 
             
+    <div class="article-category wow slideInLeft">
+        <a class="article-category-link" href="/categories/%E6%95%99%E7%A8%8B/">教程</a>
+    </div>
+
 
         </div>
         <div class="hr-line"></div>
@@ -194,21 +200,87 @@
 
         <div class="e-content article-entry" itemprop="articleBody">
             
-                
+                <p>友情提示：本篇内容的步骤只是回忆内容，只能作为大致参考，不一定准确，因为我没有再一次验证这些步骤的可行性。</p>
+<h1 id="下载mcl-installer"><a href="#下载mcl-installer" class="headerlink" title="下载mcl-installer"></a>下载mcl-installer</h1><p>前往<a target="_blank" rel="noopener" href="https://github.com/iTXTech/mcl-installer/releases">这里</a>，找到对应的Linux版本的mcl-installer。<br>找到以后这里有两种可以将mcl-installer下载到服务器：一是先点击要下载的那个版本，然后会跳出下载链接和路径，不要点下载，直接复制链接用Linux的命令下载。二是直接下载到本地，然后上传到服务器。这里要提供一个路径，比如我在服务器上的路径就是&#x2F;usr&#x2F;qqbot。方法是先进入&#x2F;usr目录，然后在该目录下创建一个名为”qqbot”的文件夹。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /usr</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir qqbot</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd qqbot</span><br></pre></td></tr></table></figure>
+<p>进入到qqbot文件夹后，再用命令行下载文件。记得把下面那一大串乱七八糟的字母改成你的具体链接。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget ancieowhoeuheuiwod</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>这一步其实我自己也不是很明白，当时也是捣鼓了一会儿。</p>
+<p>以防万一，先切换到root权限。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">su root</span><br></pre></td></tr></table></figure>
+
+<p>然后，给文件赋予权限，并且以防万一，给文件夹也赋个权限。<br><font color="#0000dd" size="4">这里要注意，下面命令中的mcl-installer换成你qqbot文件夹下的那个带版本号的文件名。</font> </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">chomd 777 /usr/qqbot</span><br><span class="line"></span><br><span class="line">chomd 777 mcl-installer</span><br></pre></td></tr></table></figure>
+<p>接着就可以安装了。<br>这里也要记得补全文件名。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./mcl-installer</span><br></pre></td></tr></table></figure>
+<p>对于跳出来的所有询问一律按Enter键选择默认值就可以。<br>等一会儿当画面不再出现字的时候，输入以下命令。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/autoLogin add QQ账号 QQ密码</span><br></pre></td></tr></table></figure>
+<p><del>不会真有人就这么把QQ账号和QQ密码这几个字当成命令输入吧？</del><br>成功添加之后，输入stop，退出mcl。</p>
+<h1 id="配置相关文件"><a href="#配置相关文件" class="headerlink" title="配置相关文件"></a>配置相关文件</h1><p>这一步比较复杂。<br>先到<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1iLCtxIUg5XzGpPVMmRXMqA">这里</a>(提取码4900)下载需要的配置文件，下载到你的电脑磁盘里就行。<br>在服务器的qqbot文件夹下，有一个plugins文件夹，里面应该是空的。很巧，我给的资源其中有一个文件夹是plugins，将文件夹内的所有文件都上传到服务器的plugins文件夹内。然后，再把txlib.zip上传到服务器的qqbot文件夹下，然后解压。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unzip txlib.zip</span><br></pre></td></tr></table></figure>
+<p>如果上面的命令执行不成功，那是因为服务器没有解压zip的功能，去搜一下教程怎么让服务器解压zip就行。</p>
+<p>然后你要去到[这里]继续看教程。注意！只看第三部分登录QQ和第四部分完成就行，前面的就不用看了。<br>如果中途出现了报错说什么code&#x3D;45，QQ版本太低什么的，那就是你没把前面的plugins和txlib配置好。</p>
+<p>到这一步还没完，你在使用.&#x2F;mcl启动时有可能显示”successfully”之后又出现报错并强制退出。<br>注意，这只是有可能，不是一定，没有事就不用看了。<br>大概是这么个样的报错？</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">SIGSEGV (0xb) at pc=0x00007fa6302e8b26, pid=140182, tid=140364</span><br><span class="line">JRE version: OpenJDK Runtime Environment Temurin-17.0.9+9 (17.0.9+9) (build 17.0.9+9)</span><br><span class="line">Java VM: OpenJDK 64-Bit Server VM Temurin-17.0.9+9 (17.0.9+9, mixed mode, sharing, tiered, compressed oops, compressed class ptrs, g1 gc, linux-amd64)</span><br><span class="line">Problematic frame:</span><br><span class="line">C [libunicorn.so+0xe8b26] tb_find_fast_aarch64+0x7b</span><br><span class="line">Core dump will be written. Default location: Core dumps may be processed with &quot;/usr/lib/systemd/systemd-coredump %P %u %g %s %t %c %h %e&quot; (or dumping to /usr/qqbot/core.140182)</span><br><span class="line">An error report file with more information is saved as:</span><br><span class="line">/usr/qqbot/hs_err_pid140182.log</span><br><span class="line">If you would like to submit a bug report, please visit:</span><br><span class="line">https://github.com/adoptium/adoptium-support/issues</span><br><span class="line">The crash happened outside the Java Virtual Machine in native code.</span><br><span class="line">See problematic frame for where to report the bug.</span><br><span class="line">./mcl: line 3: 140182 Aborted (core dumped) $JAVA_BINARY -jar mcl.jar $*</span><br><span class="line"></span><br><span class="line">A fatal error has been detected by the Java Runtime Environment:</span><br><span class="line">#</span><br><span class="line">#  SIGSEGV (0xb) at pc=0x00007feda97239f4, pid=159837, tid=160025</span><br><span class="line">#</span><br><span class="line"># JRE version: OpenJDK Runtime Environment Temurin-17.0.9+9 (17.0.9+9) (build 17.0.9+9)</span><br><span class="line"># Java VM: OpenJDK 64-Bit Server VM Temurin-17.0.9+9 (17.0.9+9, mixed mode, sharing, tiered, compressed oops, compressed class ptrs, g1 gc, linux-amd64)</span><br><span class="line"># Problematic frame:</span><br><span class="line"># C  0x00007feda97239f4</span><br><span class="line">#</span><br><span class="line"># Core dump will be written. Default location: Core dumps may be processed with &quot;/usr/lib/systemd/systemd-coredump %P %u %g %s %t %c %h %e&quot; (or dumping to /usr/qqbot/core.159837)</span><br><span class="line">#</span><br><span class="line"># An error report file with more information is saved as:</span><br><span class="line"># /usr/qqbot/hs_err_pid159837.log</span><br><span class="line">dynarmic assertion failed: !is_executingterminate called without an active exception</span><br><span class="line">./mcl: line 3: 159837 Aborted                 (core dumped) $JAVA_BINARY -jar mcl.jar $*</span><br></pre></td></tr></table></figure>
+
+<p>看到这一大串是不是要崩溃了？明明前面每一步都没问题的。</p>
+<p>进入txlib文件夹</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd txlib</span><br></pre></td></tr></table></figure>
+<p>这个文件夹内有一些版本，你看哪个文件夹内有stdin和stdout这两个文件，就进入到这个文件，我的是8.9.63。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd 8.9.63</span><br></pre></td></tr></table></figure>
+
+<p>然后打开config.json</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi config.json</span><br></pre></td></tr></table></figure>
+<p>然后你就会进入一个很想记事本一样的界面，这其实是Vim，你可以理解为高级记事本。注意！如果你以前没有接触过Vim的编辑模式，那么你千万别轻举妄动，这里的操作和一般的记事本不太一样。</p>
+<p>找到unidbg。一共就那么几行，应该很好找。可以看到花括号里面有dynarmic,unicorn,debug。并且unicorn是true，另外两个是false。你需要选择新的一个作为true，另外两个作为false。</p>
+<p>在vim模式中，你要按下”i”或者”Insert”键进入编辑模式，然后进行修改，注意别用你那什么”Ctrl+C+V”，老老实实打true和false。改完之后，按下”Esc”，然后输入”:”，再输入”wq”，再按”Enter”。之后回到qqbot文件夹下，再启动mcl。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd ../..</span><br><span class="line"></span><br><span class="line">./mcl</span><br></pre></td></tr></table></figure>
+<p>如果还是出现像刚才一样的报错，就按刚才的操作再换一下true和false。如果都不行的话，那我也没辙了，你可以去<a target="_blank" rel="noopener" href="https://mirai.mamoe.net/">这里</a>求助。登录成功之后可以用另一个qq号给你这个作为机器人的qq发消息，验证一下确实成功了。</p>
+<p>到这里就基本完成了，后续你想要什么插件也是去<a target="_blank" rel="noopener" href="https://mirai.mamoe.net/">这里</a>找，把下载的插件放到plugins文件夹下就可以了。</p>
+<h1 id="持续运行"><a href="#持续运行" class="headerlink" title="持续运行"></a>持续运行</h1><p>等等，还不算完，因为这个时候如果你断开连接，你的QQ也就退了，我们需要让它在后台可以持续运行，一天24小时高强度运行。这里可以参考<a target="_blank" rel="noopener" href="https://uint128.com/2020/08/25/%E5%BC%80%E6%BA%90Android-QQ%E5%8D%8F%E8%AE%AE%E5%BA%93mirai%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B-2020-08%E7%89%88%E6%9C%AC/">这篇博客</a>的最后一部分。</p>
+
             
         </div>
         <footer class="article-footer">
-            <a data-url="http://example.com/tags/index.html" data-id="clph0r03y0008n8vvgiz8fshx" data-title="标签"
+            <a data-url="http://example.com/2023/11/27/miraiqqbot/" data-id="clph0r04g002ln8vv20ox5fzc" data-title="在Linux服务器上部署Mirai框架的QQ机器人"
                class="article-share-link">分享</a>
             
             
             
             
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mirai/" rel="tag">Mirai</a></li></ul>
+
 
         </footer>
     </div>
     
         
+    <nav id="article-nav" class="wow fadeInUp">
+        
+        
+            <div class="article-nav-link-wrap article-nav-link-right">
+                
+                    <img data-src="https://s1.imagehub.cc/images/2023/11/27/901fd5e48cc1af1f9f90bcc6217dbea5.jpeg" data-sizes="auto" alt="~~碎碎念~~"
+                         class="lazyload">
+                
+                <a href="/2023/11/26/ssn1/"></a>
+                <div class="article-nav-caption">后一篇</div>
+                <h3 class="article-nav-title">
+                    
+                        ~~碎碎念~~
+                    
+                </h3>
+            </div>
+        
+    </nav>
+
 
     
     
