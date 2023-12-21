@@ -12,7 +12,7 @@
 
     
     <title>
-        CSS（二）复合选择器 |
+        归档: 2023/12 |
         
         Lcblogcraft</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -23,19 +23,14 @@
     
 <link rel="stylesheet" href="/css/loader.css">
 
-    <meta name="description" content="集合选择器交集选择器选择同时符合多个条件的元素。直接排列就代表且的意思。 1234&#x2F;*选中标签为p并且类名为class_value1和class_value2的元素*&#x2F;p.class_value1.class2_value2 &#123;  color: red;&#125; 为什么能直接排列？首先如果有标签名那么标签名必须写在第一位，其余后面的不管是类值还是id值，都带有天然的分隔’.’或者’#">
-<meta property="og:type" content="article">
-<meta property="og:title" content="CSS（二）复合选择器">
-<meta property="og:url" content="http://example.com/2023/11/13/css2/index.html">
+    <meta name="description" content="任何一种伟大的思想都源于一个微不足道的开始。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Lcblogcraft">
+<meta property="og:url" content="http://example.com/archives/2023/12/index.html">
 <meta property="og:site_name" content="Lcblogcraft">
-<meta property="og:description" content="集合选择器交集选择器选择同时符合多个条件的元素。直接排列就代表且的意思。 1234&#x2F;*选中标签为p并且类名为class_value1和class_value2的元素*&#x2F;p.class_value1.class2_value2 &#123;  color: red;&#125; 为什么能直接排列？首先如果有标签名那么标签名必须写在第一位，其余后面的不管是类值还是id值，都带有天然的分隔’.’或者’#">
+<meta property="og:description" content="任何一种伟大的思想都源于一个微不足道的开始。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-11-12T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-11-14T08:19:47.756Z">
 <meta property="article:author" content="Luviichann">
-<meta property="article:tag" content="css">
-<meta property="article:tag" content="html">
-<meta property="article:tag" content="前端">
 <meta name="twitter:card" content="summary">
     
         <link rel="alternate" href="/atom.xml" title="Lcblogcraft" type="application/atom+xml">
@@ -111,7 +106,7 @@
         <div id="wrap">
             <header id="header">
     
-        <img data-src="https://s1.imagehub.cc/images/2023/11/14/8062d386d6b320708eeb1e7fb681432c.jpeg" data-sizes="auto" alt="CSS（二）复合选择器" class="lazyload">
+        <img data-src="/images/banner_instead.jpg" data-sizes="auto" alt="" class="lazyload">
     
     <div id="header-outer" class="outer">
         <div id="header-title" class="inner">
@@ -119,7 +114,7 @@
                 
                     
                     
-                        <a href="/" id="logo"><h1>CSS（二）复合选择器</h1></a>
+                        <a href="/" id="logo"><h1>归档</h1></a>
                     
                 
             </div>
@@ -178,153 +173,130 @@
 </header>
 
             <div id="content" class="outer">
-                <section id="main"><article id="post-css2" class="h-entry article article-type-post"
-         itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-    <div class="article-inner">
-        <div class="article-meta">
-            <div class="article-date wow slideInLeft">
-    <a href="/2023/11/13/css2/" class="article-date-link">
-        <time datetime="2023-11-12T16:00:00.000Z"
-              itemprop="datePublished">2023-11-13</time>
-    </a>
-</div>
-
+                <section id="main">
+    <div class="archives-outer-wrap wow fadeInUp">
+        <div class="tag-wrap">
             
-    <div class="article-category wow slideInLeft">
-        <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
-    </div>
-
-
-        </div>
-        <div class="hr-line"></div>
-        
-
-        <div class="e-content article-entry" itemprop="articleBody">
+                <div class="archives-tag-list-item">
+                    <a class="archives-tag-list-link" href="/tags/深度学习/">深度学习</a>
+                </div>
             
-                <h1 id="集合选择器"><a href="#集合选择器" class="headerlink" title="集合选择器"></a>集合选择器</h1><h2 id="交集选择器"><a href="#交集选择器" class="headerlink" title="交集选择器"></a>交集选择器</h2><p>选择同时符合多个条件的元素。<br>直接排列就代表且的意思。</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*选中标签为p并且类名为class_value1和class_value2的元素*/</span></span><br><span class="line"><span class="selector-tag">p</span><span class="selector-class">.class_value1</span><span class="selector-class">.class2_value2</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>为什么能直接排列？<br>首先如果有标签名那么标签名必须写在第一位，其余后面的不管是类值还是id值，都带有天然的分隔’.’或者’#’。而且后面不会再跟其他标签，因为一个标签就是一个标签，不可能还含有另一个标签。</p>
-<h2 id="并集选择器"><a href="#并集选择器" class="headerlink" title="并集选择器"></a>并集选择器</h2><p>选择满足选择器条件中任意一条的元素。<br>‘,’就代表或的意思。</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*选择标签为p，类名为class_value1，id值为id_value1的元素*/</span></span><br><span class="line"><span class="selector-tag">p</span>,</span><br><span class="line"><span class="selector-class">.class_value1</span>,</span><br><span class="line"><span class="selector-id">#id_value1</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>并集选择器一般竖着写，没有明确的先后顺序。</p>
-<h1 id="元素关系选择器"><a href="#元素关系选择器" class="headerlink" title="元素关系选择器"></a>元素关系选择器</h1><h2 id="后代选择器"><a href="#后代选择器" class="headerlink" title="后代选择器"></a>后代选择器</h2><p>选择指定的元素中，<font color="#dd0000">所有</font>符合要求的后代元素。</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*选择标签为div的元素中所有标签为a的后代元素。*/</span></span><br><span class="line"><span class="selector-tag">div</span> <span class="selector-tag">a</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*选择类名为class_value1的元素中所有类名为class_value2且标签为p的元素。*/</span></span><br><span class="line"><span class="selector-class">.class_value1</span> <span class="selector-tag">p</span><span class="selector-class">.class_value2</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>空格代表后代关系，可以叠加多层。选择的后代是所有后代，<font color="#dd0000">后代的后代也包括在内</font>，只要符合条件就会被选中。</p>
-<h2 id="子代选择器"><a href="#子代选择器" class="headerlink" title="子代选择器"></a>子代选择器</h2><p>选择指定元素中，所有符合要求的<font color="#dd0000">子元素（就指儿子元素）</font>。</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*选择标签为div的元素中，标签为p的子元素。*/</span></span><br><span class="line"><span class="selector-tag">div</span>&gt;<span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: blue;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*选择类名为class_value的元素中，标签为p的子元素。*/</span></span><br><span class="line"><span class="selector-class">.class_value</span>&gt;<span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: blue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="兄弟选择器"><a href="#兄弟选择器" class="headerlink" title="兄弟选择器"></a>兄弟选择器</h2><h3 id="相邻兄弟选择器"><a href="#相邻兄弟选择器" class="headerlink" title="相邻兄弟选择器"></a>相邻兄弟选择器</h3><p>选择指定元素的<font color="#dd0000">相邻（紧挨着的下一个，只有这一个！）</font>的兄弟元素。</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*选择标签为p的元素的相邻的下一个标签为a的元素。*/</span></span><br><span class="line"><span class="selector-tag">p</span>+<span class="selector-tag">a</span> &#123;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">100px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>注意，必须是紧挨着p元素的a，中间插入一个别的元素都不行，并且p和a必须是兄弟元素。</p>
-<h3 id="通用兄弟选择器"><a href="#通用兄弟选择器" class="headerlink" title="通用兄弟选择器"></a>通用兄弟选择器</h3><p>选择指定元素后面的所有符合条件的兄弟元素。</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*选择标签为p的元素的所有标签为a的兄弟元素。*/</span></span><br><span class="line"><span class="selector-tag">p</span>~<span class="selector-tag">a</span> &#123;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">100px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>注意，虽说是所有元素，但只作用于指定元素的后面的元素，前面的不会被选。</p>
-<h1 id="属性选择器"><a href="#属性选择器" class="headerlink" title="属性选择器"></a>属性选择器</h1><h2 id="包含某个属性的元素"><a href="#包含某个属性的元素" class="headerlink" title="包含某个属性的元素"></a>包含某个属性的元素</h2><p>选择包含某个属性的元素。</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*选择含有title属性的元素。*/</span></span><br><span class="line"><span class="selector-attr">[title]</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: green;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>‘[]’就是选择某个属性。</p>
-<h2 id="指定属性值"><a href="#指定属性值" class="headerlink" title="指定属性值"></a>指定属性值</h2><p>选择包含某个属性且属性值等于指定值的元素。</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*选择符合title=&quot;value&quot;条件的元素。*/</span></span><br><span class="line"><span class="selector-attr">[title=<span class="string">&quot;value&quot;</span>]</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: green;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="指定属性值的开头"><a href="#指定属性值的开头" class="headerlink" title="指定属性值的开头"></a>指定属性值的开头</h2><p>选择包含某个属性且属性值的开头等于给定值的元素。<br>‘^&#x3D;’代表给定开头值。</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-attr">[title^=<span class="string">&quot;v&quot;</span>]</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: green;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*指定值可以是一个开头字母，也可以是多个字母甚至是一整个值，只要是开头就可以。*/</span></span><br><span class="line"><span class="selector-attr">[title^=<span class="string">&quot;value&quot;</span>]</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: green;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="指定属性值的结尾"><a href="#指定属性值的结尾" class="headerlink" title="指定属性值的结尾"></a>指定属性值的结尾</h2><p>选择包含某个属性且属性值的结尾等于给定值的元素。<br>‘&amp;&#x3D;’代表给定结尾值。</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-attr">[title$=<span class="string">&quot;e&quot;</span>]</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: green;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*同样地，给定值可以是一个字母也可以是多个字母。*/</span></span><br><span class="line"><span class="selector-attr">[title$=<span class="string">&quot;lue&quot;</span>]</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: green;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="指定属性值的包含部分"><a href="#指定属性值的包含部分" class="headerlink" title="指定属性值的包含部分"></a>指定属性值的包含部分</h2><p>选择包含某个属性且属性值中含有给定值的元素。<br>‘*&#x3D;’代表要求含有给定值。</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-attr">[title*=<span class="string">&#x27;alu&#x27;</span>]</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: green;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-
-
+                <div class="archives-tag-list-item">
+                    <a class="archives-tag-list-link" href="/tags/Pytorch/">Pytorch</a>
+                </div>
+            
+                <div class="archives-tag-list-item">
+                    <a class="archives-tag-list-link" href="/tags/张量/">张量</a>
+                </div>
+            
+                <div class="archives-tag-list-item">
+                    <a class="archives-tag-list-link" href="/tags/MNIST/">MNIST</a>
+                </div>
+            
+                <div class="archives-tag-list-item">
+                    <a class="archives-tag-list-link" href="/tags/css/">css</a>
+                </div>
+            
+                <div class="archives-tag-list-item">
+                    <a class="archives-tag-list-link" href="/tags/html/">html</a>
+                </div>
+            
+                <div class="archives-tag-list-item">
+                    <a class="archives-tag-list-link" href="/tags/前端/">前端</a>
+                </div>
+            
+                <div class="archives-tag-list-item">
+                    <a class="archives-tag-list-link" href="/tags/数据处理/">数据处理</a>
+                </div>
+            
+                <div class="archives-tag-list-item">
+                    <a class="archives-tag-list-link" href="/tags/HuggingFace/">HuggingFace</a>
+                </div>
+            
+                <div class="archives-tag-list-item">
+                    <a class="archives-tag-list-link" href="/tags/NLP/">NLP</a>
+                </div>
+            
+                <div class="archives-tag-list-item">
+                    <a class="archives-tag-list-link" href="/tags/Linux/">Linux</a>
+                </div>
+            
+                <div class="archives-tag-list-item">
+                    <a class="archives-tag-list-link" href="/tags/Mirai/">Mirai</a>
+                </div>
+            
+                <div class="archives-tag-list-item">
+                    <a class="archives-tag-list-link" href="/tags/神经网络/">神经网络</a>
+                </div>
+            
+                <div class="archives-tag-list-item">
+                    <a class="archives-tag-list-link" href="/tags/测试文本/">测试文本</a>
+                </div>
             
         </div>
-        <footer class="article-footer">
-            <a data-url="http://example.com/2023/11/13/css2/" data-id="clqf3u3b1000a0cvvafvdfc61" data-title="CSS（二）复合选择器"
-               class="article-share-link">分享</a>
+        <div class="category-wrap">
+            
+                <div class="archives-category-list-item">
+                    <a class="archives-category-list-link" href="/categories/深度学习/">深度学习</a>
+                </div>
+            
+                <div class="archives-category-list-item">
+                    <a class="archives-category-list-link" href="/categories/教程/">教程</a>
+                </div>
+            
+                <div class="archives-category-list-item">
+                    <a class="archives-category-list-link" href="/categories/前端/">前端</a>
+                </div>
+            
+                <div class="archives-category-list-item">
+                    <a class="archives-category-list-link" href="/categories/HuggingFace-NLP/">HuggingFace NLP</a>
+                </div>
+            
+                <div class="archives-category-list-item">
+                    <a class="archives-category-list-link" href="/categories/杂项/">杂项</a>
+                </div>
+            
+                <div class="archives-category-list-item">
+                    <a class="archives-category-list-link" href="/categories/测试文档/">测试文档</a>
+                </div>
+            
+        </div>
+        
+        
             
             
-            
-            
-    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/" rel="tag">css</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html/" rel="tag">html</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li></ul>
-
-
-        </footer>
+                
+    
+    <section class="archives-wrap wow fadeInUp">
+        <div class="archive-year-wrap">
+            <a href="/archives/2023" class="archive-year">2023</a>
+        </div>
+        <div class="archives">
+            <ul>
+                
+                <li class="archive-article">
+    <div class="archive-article-date-wrap">
+        <a href="/2023/12/21/ssn2/">
+            <time class="dt-published" datetime="2023-12-20T16:00:00.000Z"
+                  itemprop="datePublished">12-21</time>
+        </a>
     </div>
-    
+    <div class="archive-article-title-wrap">
         
-    <nav id="article-nav" class="wow fadeInUp">
+            
+                <a class="archive-article-title" href="/2023/12/21/ssn2/">一些吐槽</a>
+            
         
-            <div class="article-nav-link-wrap article-nav-link-left">
-                
-                    <img data-src="https://s1.imagehub.cc/images/2023/11/14/1446f759e9cf06967bce2501f8b38de9.jpeg" data-sizes="auto" alt="CSS（三）伪类、伪元素选择器"
-                         class="lazyload">
-                
-                <a href="/2023/11/15/css3/"></a>
-                <div class="article-nav-caption">前一篇</div>
-                <h3 class="article-nav-title">
-                    
-                        CSS（三）伪类、伪元素选择器
-                    
-                </h3>
-            </div>
-        
-        
-            <div class="article-nav-link-wrap article-nav-link-right">
-                
-                    <img data-src="https://s1.imagehub.cc/images/2023/11/13/5ba10d12d12da12ba444ff9dcc5e84cb.jpeg" data-sizes="auto" alt="CSS（一）样式与基本选择器"
-                         class="lazyload">
-                
-                <a href="/2023/11/12/css1/"></a>
-                <div class="article-nav-caption">后一篇</div>
-                <h3 class="article-nav-title">
-                    
-                        CSS（一）样式与基本选择器
-                    
-                </h3>
-            </div>
-        
-    </nav>
-
-
-    
-    
-        <! -- 添加捐赠图标 -->
-<div class ="post-donate">
-    <div id="donate_board" class="donate_bar center">
-        <a id="btn_donate" class="btn_donate" href="javascript:;" title="打赏"></a>
-        <span class="donate_txt">
-           &uarr;<br>
-           如果对你有帮助，可以给孩子补充点营养～
-        </span>
-        <br>
-      </div>  
-    <div id="donate_guide" class="donate_bar center hidden" >
-        <!-- 支付宝打赏图案 -->
-        <img src="https://s1.imagehub.cc/images/2023/11/07/145e231e987c98b9c334e515d745bda0.th.jpeg" alt="支付宝打赏"> 
-        <!-- 微信打赏图案 -->
-        <img src="https://s1.imagehub.cc/images/2023/11/07/037cb5190ad5875f03275730e26b5d27.th.jpeg" alt="微信打赏">  
     </div>
-    <script type="text/javascript">
-        document.getElementById('btn_donate').onclick = function(){
-            $('#donate_board').addClass('hidden');
-            $('#donate_guide').removeClass('hidden');
-        }
-    </script>
-</div>
-<! -- 添加捐赠图标 -->
+</li>
+
+                
+                
+            </ul>
+        </div>
+    </section>
     
-</article>
-
-
-
-
-
-
-
-
+    </div>
 
 
 
