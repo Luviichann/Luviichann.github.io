@@ -1,0 +1,651 @@
+
+    <!DOCTYPE html>
+    <html lang="zh-CN"
+            
+          
+    >
+    <head>
+    <meta charset="utf-8">
+    
+
+    
+
+    
+    <title>
+        Gin的结构 |
+        
+        Lcblogcraft</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CUbuntu%20Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+    
+<link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free/css/v4-font-face.min.css">
+
+    
+<link rel="stylesheet" href="/css/loader.css">
+
+    <meta name="description" content="Gin的基本使用首先用go mod建立一个项目，比如就叫ginnote吧。 1go mod init ginnote  然后获取一下gin包，即便是已经装了gin包，也要获取，因为要配置go.mod文件。 1go get github.com&#x2F;gin-gonic&#x2F;gin 除此以外，还需要另一项工具，可以提供热加载，也就是可以一边写一边加载网页，每次保存项目都会自动重新编译运行。 1go get g">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gin的结构">
+<meta property="og:url" content="http://example.com/2024/02/09/go3/index.html">
+<meta property="og:site_name" content="Lcblogcraft">
+<meta property="og:description" content="Gin的基本使用首先用go mod建立一个项目，比如就叫ginnote吧。 1go mod init ginnote  然后获取一下gin包，即便是已经装了gin包，也要获取，因为要配置go.mod文件。 1go get github.com&#x2F;gin-gonic&#x2F;gin 除此以外，还需要另一项工具，可以提供热加载，也就是可以一边写一边加载网页，每次保存项目都会自动重新编译运行。 1go get g">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-02-08T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-02-09T10:07:27.539Z">
+<meta property="article:author" content="Luviichann">
+<meta property="article:tag" content="html">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="Golang">
+<meta property="article:tag" content="Go语言">
+<meta property="article:tag" content="Gin框架">
+<meta name="twitter:card" content="summary">
+    
+        <link rel="alternate" href="/atom.xml" title="Lcblogcraft" type="application/atom+xml">
+    
+    
+        <link rel="shortcut icon" href="/images/favicon_instead.ico">
+    
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/typeface-source-code-pro@1.1.13/index.css">
+
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+    
+    
+    
+    
+    
+<script src="https://unpkg.com/pace-js@1.2.4/pace.min.js"></script>
+
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/wowjs@1.1.3/css/libs/animate.css">
+
+        
+<script src="https://unpkg.com/wowjs@1.1.3/dist/wow.min.js"></script>
+
+        <script>
+          new WOW({
+            offset: 0,
+            mobile: true,
+            live: false
+          }).init();
+        </script>
+    
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+    <body>
+    
+<div id='loader'>
+  <div class="loading-left-bg"></div>
+  <div class="loading-right-bg"></div>
+  <div class="spinner-box">
+    <div class="loading-taichi">
+      <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+      <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="#ff6e6b" />
+      <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z" fill="#fd0d00" />
+      <path d="M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95" fill="#fd0d00" />
+    </svg>
+    </div>
+    <div class="loading-word">少女祈祷中...</div>
+  </div>
+</div>
+</div>
+
+<script>
+  const endLoading = function() {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loader').classList.add("loading");
+  }
+  window.addEventListener('load', endLoading);
+  document.getElementById('loader').addEventListener('click', endLoading);
+</script>
+
+
+    <div id="container">
+        <div id="wrap">
+            <header id="header">
+    
+        <img data-src="https://pic.imgdb.cn/item/65c24eb99f345e8d03c5e6fe.webp" data-sizes="auto" alt="Gin的结构" class="lazyload">
+    
+    <div id="header-outer" class="outer">
+        <div id="header-title" class="inner">
+            <div id="logo-wrap">
+                
+                    
+                    
+                        <a href="/" id="logo"><h1>Gin的结构</h1></a>
+                    
+                
+            </div>
+            
+                
+                
+            
+        </div>
+        <div id="header-inner">
+            <nav id="main-nav">
+                <a id="main-nav-toggle" class="nav-icon"></a>
+                
+                    <span class="main-nav-link-wrap">
+                        <span class="main-nav-icon"></span>
+                        <a class="main-nav-link" href="/">首页</a>
+                    </span>
+                
+                    <span class="main-nav-link-wrap">
+                        <span class="main-nav-icon"></span>
+                        <a class="main-nav-link" href="/archives">归档</a>
+                    </span>
+                
+                    <span class="main-nav-link-wrap">
+                        <span class="main-nav-icon"></span>
+                        <a class="main-nav-link" href="/about">关于</a>
+                    </span>
+                
+                    <span class="main-nav-link-wrap">
+                        <span class="main-nav-icon"></span>
+                        <a class="main-nav-link" href="/friend">友链</a>
+                    </span>
+                
+                    <span class="main-nav-link-wrap">
+                        <span class="main-nav-icon"></span>
+                        <a class="main-nav-link" href="/categories">分类</a>
+                    </span>
+                
+                    <span class="main-nav-link-wrap">
+                        <span class="main-nav-icon"></span>
+                        <a class="main-nav-link" href="/tags">标签</a>
+                    </span>
+                
+            </nav>
+            <nav id="sub-nav">
+                
+                    <a id="nav-rss-link" class="nav-icon" href="/atom.xml"
+                       title="RSS 订阅"></a>
+                
+                
+            </nav>
+            <div id="search-form-wrap">
+                <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+            </div>
+        </div>
+    </div>
+</header>
+
+            <div id="content" class="outer">
+                <section id="main"><article id="post-go3" class="h-entry article article-type-post"
+         itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <div class="article-inner">
+        <div class="article-meta">
+            <div class="article-date wow slideInLeft">
+    <a href="/2024/02/09/go3/" class="article-date-link">
+        <time datetime="2024-02-08T16:00:00.000Z"
+              itemprop="datePublished">2024-02-09</time>
+    </a>
+</div>
+
+            
+    <div class="article-category wow slideInLeft">
+        <a class="article-category-link" href="/categories/Go%E8%AF%AD%E8%A8%80/">Go语言</a>
+    </div>
+
+
+        </div>
+        <div class="hr-line"></div>
+        
+
+        <div class="e-content article-entry" itemprop="articleBody">
+            
+                <h2 id="Gin的基本使用"><a href="#Gin的基本使用" class="headerlink" title="Gin的基本使用"></a>Gin的基本使用</h2><p>首先用go mod建立一个项目，比如就叫ginnote吧。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go mod init ginnote</span><br></pre></td></tr></table></figure>
+
+<p>然后获取一下gin包，即便是已经装了gin包，也要获取，因为要配置go.mod文件。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go get github.com/gin-gonic/gin</span><br></pre></td></tr></table></figure>
+<p>除此以外，还需要另一项工具，可以提供热加载，也就是可以一边写一边加载网页，每次保存项目都会自动重新编译运行。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go get github.com/pilu/fresh</span><br></pre></td></tr></table></figure>
+<p>执行完之后，文件夹里会多一个tmp文件夹，这就表示成功了。</p>
+<p>然后新建一个main.go，用这样一段代码就可以生成一个网页。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;net/http&quot;</span></span><br><span class="line"></span><br><span class="line">	<span class="string">&quot;github.com/gin-gonic/gin&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	r := gin.Default()</span><br><span class="line">	r.GET(<span class="string">&quot;/&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(ctx *gin.Context)</span></span> &#123;</span><br><span class="line">		ctx.String(http.StatusOK, <span class="string">&quot;Hello World!&quot;</span>) <span class="comment">//http.StatusOK就等于200。</span></span><br><span class="line">	&#125;)</span><br><span class="line">	r.Run() <span class="comment">//默认端口是8000。括号里可以指定端口号，接收字符串类型，比如&quot;:4000&quot;。注意&quot;:&quot;不能省略！</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在终端中输入下面这行即可开启热加载，Ctrl+C退出。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go run github.com/pilu/fresh</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Gin的目录结构"><a href="#Gin的目录结构" class="headerlink" title="Gin的目录结构"></a>Gin的目录结构</h2><p>假如，现在有这么一个项目：</p>
+<ul>
+<li>网页主要分为三部分，包含default，admin，api。</li>
+<li>每部分各有自己的首页，default包含了普通人能看到的页面，admin有一些高级权限，api包含一些功能。</li>
+<li>项目里包含了静态资源，css,js,image。</li>
+</ul>
+<p>那么整个项目的目录大概是这样的。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">project</span><br><span class="line">│</span><br><span class="line">└───controllers</span><br><span class="line">│   │</span><br><span class="line">│   └───admin</span><br><span class="line">│   │   │   articleController.go</span><br><span class="line">│   │   │   indexController.go</span><br><span class="line">│   │   │   userController.go</span><br><span class="line">│   │</span><br><span class="line">│   └───api</span><br><span class="line">│   │   │   apiController.go</span><br><span class="line">│   │   </span><br><span class="line">│   └───defaults</span><br><span class="line">│       │   defaultController.go</span><br><span class="line">│   </span><br><span class="line">└───routers</span><br><span class="line">│   │   adminRouters.go</span><br><span class="line">│   │   apiRouters.go</span><br><span class="line">│   │   defaultRouters.go</span><br><span class="line">│</span><br><span class="line">└───static</span><br><span class="line">│   │</span><br><span class="line">│   └───css</span><br><span class="line">│   │   │   base.css</span><br><span class="line">│   │</span><br><span class="line">│   └───image</span><br><span class="line">│   │   │   pm.jpg</span><br><span class="line">│   │   </span><br><span class="line">│   └───js</span><br><span class="line">│       │   base.js</span><br><span class="line">│</span><br><span class="line">└───templates</span><br><span class="line">│   │</span><br><span class="line">│   └───admin</span><br><span class="line">│   │   │   index.html</span><br><span class="line">│   │   │   news.html</span><br><span class="line">│   │</span><br><span class="line">│   └───default</span><br><span class="line">│   │   │   index.html</span><br><span class="line">│   │   │   news.html</span><br><span class="line">│   │   │   user.html</span><br><span class="line">│   │   </span><br><span class="line">│   └───public</span><br><span class="line">│       │   page_header.html</span><br><span class="line">│</span><br><span class="line">└───tmp</span><br><span class="line">│   │   runner-build.exe</span><br><span class="line">│   │   runner-build.exe~</span><br><span class="line">│   </span><br><span class="line">│   go.mod</span><br><span class="line">│   go.sum</span><br><span class="line">│   main.go</span><br><span class="line">│</span><br></pre></td></tr></table></figure>
+
+<p><del>很吓人对吧，但是别急。</del><br>从下往上看，go.mod,go.sum都是自动生成的，不用管，main.go是我们自己写的。tmp文件夹和里面的exe都是前面go get github.com&#x2F;pilu&#x2F;fresh自动生成的。<br>templates文件夹里面存放的是html文件，也就是模板，page_header.html代表被继承的父模板。<br>static存放静态资源，包括css,js和图片。<br>重点就在于最上面这两个文件夹。<br>routers中的.go文件是路由组，包含了那一部分网页的全部路由。并且只包含路由的路径，而不包括具体实现方法。所有的实现方法都写在controllers下的文件中。</p>
+<p>这里以controllers&#x2F;admin中的文件举例，比如这个indexController.go。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> admin</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;net/http&quot;</span></span><br><span class="line"></span><br><span class="line">	<span class="string">&quot;github.com/gin-gonic/gin&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> IndexController <span class="keyword">struct</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(con IndexController)</span></span> Index(ctx *gin.Context) &#123;</span><br><span class="line">	ctx.String(http.StatusOK, <span class="string">&quot;首页--&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在之前的Gin的基本使用里给的例子中，是直接把逻辑写在了匿名函数里作为参数，而这里是直接把函数抽离出来，以便后续维护。如果在测试过程中出现了什么bug，那么就找到对应的函数进行修改即可。这里的函数并不是独立的，而是作为结构体IndexController的方法而存在，这是为了继承，并且可以将函数分类，增强代码的可读性。</p>
+<p>再看articleController.go中的内容。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> admin</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;net/http&quot;</span></span><br><span class="line"></span><br><span class="line">	<span class="string">&quot;github.com/gin-gonic/gin&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> ArticleController <span class="keyword">struct</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(con ArticleController)</span></span> Index(ctx *gin.Context) &#123;</span><br><span class="line">	ctx.String(http.StatusOK, <span class="string">&quot;文章列表--&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(con ArticleController)</span></span> Add(ctx *gin.Context) &#123;</span><br><span class="line">	ctx.String(http.StatusOK, <span class="string">&quot;增加文章--&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(con ArticleController)</span></span> Edit(ctx *gin.Context) &#123;</span><br><span class="line">	ctx.String(http.StatusOK, <span class="string">&quot;修改文章--&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里定义了名为ArticleController的结构体及其相关方法，这表明这些方法都是和Article相关的。</p>
+<p>定义好这些方法以后，就可以在routers&#x2F;adminRouters.go中调用了。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> routers</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;ginpro2/controllers/admin&quot;</span></span><br><span class="line">	<span class="string">&quot;net/http&quot;</span></span><br><span class="line"></span><br><span class="line">	<span class="string">&quot;github.com/gin-gonic/gin&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">AdminRoutersInit</span><span class="params">(r *gin.Engine)</span></span> &#123;</span><br><span class="line">	adminRouters := r.Group(<span class="string">&quot;/admin&quot;</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		adminRouters.GET(<span class="string">&quot;/&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(ctx *gin.Context)</span></span> &#123;</span><br><span class="line">			ctx.String(http.StatusOK, <span class="string">&quot;后台首页&quot;</span>)</span><br><span class="line">		&#125;)</span><br><span class="line">		adminRouters.GET(<span class="string">&quot;/user&quot;</span>, admin.UserController&#123;&#125;.Index) <span class="comment">//先实例化结构体，再调用方法。</span></span><br><span class="line">		adminRouters.GET(<span class="string">&quot;/user/add&quot;</span>, admin.UserController&#123;&#125;.Add)</span><br><span class="line">		adminRouters.GET(<span class="string">&quot;/user/edit&quot;</span>, admin.UserController&#123;&#125;.Edit)</span><br><span class="line">		adminRouters.GET(<span class="string">&quot;/article&quot;</span>, admin.ArticleController&#123;&#125;.Index)</span><br><span class="line">		adminRouters.GET(<span class="string">&quot;/article/add&quot;</span>, admin.ArticleController&#123;&#125;.Add)</span><br><span class="line">		adminRouters.GET(<span class="string">&quot;/article/edit&quot;</span>, admin.ArticleController&#123;&#125;.Edit)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里就是一个路由组，把”&#x2F;admin”路径下的所有路由集合在一起，虽然很多方法命重名了，但它们都是不同结构体的方法，所以也是不同的功能。要注意的是，路由组自身也是一个函数，它要在main.go中被调用，就像这样：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;ginnote/routers&quot;</span></span><br><span class="line">	<span class="string">&quot;net/http&quot;</span></span><br><span class="line"></span><br><span class="line">	<span class="string">&quot;github.com/gin-gonic/gin&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	r := gin.Default()</span><br><span class="line">	r.GET(<span class="string">&quot;/&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(ctx *gin.Context)</span></span> &#123;</span><br><span class="line">		ctx.String(http.StatusOK, <span class="string">&quot;Hello World!&quot;</span>) <span class="comment">//http.StatusOK就等于200。</span></span><br><span class="line">	&#125;)</span><br><span class="line">	routers.AdminRoutersInit(r) <span class="comment">//调用路由组。</span></span><br><span class="line">	r.Run(<span class="string">&quot;:4000&quot;</span>)              <span class="comment">//默认端口是8000。括号里可以指定端口号，接收字符串类型，比如&quot;:4000&quot;。注意&quot;:&quot;不能省略！</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>于是就形成了这样一种关系：main.go调用路由组，路由组adminRouters.go包含了路由路径并调用了方法，在controllers&#x2F;admin中实现了具体的方法。</p>
+<h2 id="渲染模板和静态资源"><a href="#渲染模板和静态资源" class="headerlink" title="渲染模板和静态资源"></a>渲染模板和静态资源</h2><p>我们决定在default部分渲染一个html网页。<br>在defaultController.go中写好渲染模板的方法。这里要注意的是，package后面不能直接写default，因为default是go中的关键词，所以写成了defaults，或者写个别的包名也行。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> defaults</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;net/http&quot;</span></span><br><span class="line"></span><br><span class="line">	<span class="string">&quot;github.com/gin-gonic/gin&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> DefaultController <span class="keyword">struct</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Article <span class="keyword">struct</span> &#123;</span><br><span class="line">	Title   <span class="type">string</span> <span class="string">`json:&quot;title&quot;`</span></span><br><span class="line">	Content <span class="type">string</span> <span class="string">`json:&quot;content&quot;`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(con DefaultController)</span></span> Index(ctx *gin.Context) &#123;</span><br><span class="line">	ctx.HTML(http.StatusOK, <span class="string">&quot;default/index.html&quot;</span>, gin.H&#123;  <span class="comment">//这里的路径是&quot;default/index.html&quot;</span></span><br><span class="line">		<span class="string">&quot;title&quot;</span>: <span class="string">&quot;首页&quot;</span>,</span><br><span class="line">		<span class="string">&quot;msg&quot;</span>:   <span class="string">&quot;我是msg&quot;</span>,</span><br><span class="line">		<span class="string">&quot;score&quot;</span>: <span class="number">89</span>,</span><br><span class="line">		<span class="string">&quot;hobby&quot;</span>: []<span class="type">string</span>&#123;<span class="string">&quot;吃饭&quot;</span>, <span class="string">&quot;睡觉&quot;</span>, <span class="string">&quot;写代码&quot;</span>&#125;,</span><br><span class="line">		<span class="string">&quot;newsList&quot;</span>: []<span class="keyword">interface</span>&#123;&#125;&#123;</span><br><span class="line">			Article&#123;</span><br><span class="line">				Title:   <span class="string">&quot;新闻标题1&quot;</span>,</span><br><span class="line">				Content: <span class="string">&quot;新闻内容1&quot;</span>,</span><br><span class="line">			&#125;,</span><br><span class="line">			Article&#123;</span><br><span class="line">				Title:   <span class="string">&quot;新闻标题2&quot;</span>,</span><br><span class="line">				Content: <span class="string">&quot;新闻内容2&quot;</span>,</span><br><span class="line">			&#125;,</span><br><span class="line">		&#125;,</span><br><span class="line">		<span class="string">&quot;testSlice&quot;</span>: []<span class="type">string</span>&#123;&#125;,</span><br><span class="line">		<span class="string">&quot;news&quot;</span>: Article&#123;</span><br><span class="line">			Title:   <span class="string">&quot;新闻标题3&quot;</span>,</span><br><span class="line">			Content: <span class="string">&quot;新闻内容3&quot;</span>,</span><br><span class="line">		&#125;,</span><br><span class="line">		<span class="string">&quot;date&quot;</span>: <span class="number">1629423555</span>,</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(con DefaultController)</span></span> News(ctx *gin.Context) &#123;</span><br><span class="line">	ctx.String(http.StatusOK, <span class="string">&quot;新闻&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在defaultRouters.go中调用方法。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> routers</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;ginnote/controllers/defaults&quot;</span></span><br><span class="line"></span><br><span class="line">	<span class="string">&quot;github.com/gin-gonic/gin&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">DefaultRoutersInit</span><span class="params">(r *gin.Engine)</span></span> &#123;</span><br><span class="line">	defaultRouters := r.Group(<span class="string">&quot;/&quot;</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		defaultRouters.GET(<span class="string">&quot;/&quot;</span>, defaults.DefaultController&#123;&#125;.Index)</span><br><span class="line">		defaultRouters.GET(<span class="string">&quot;/news&quot;</span>, defaults.DefaultController&#123;&#125;.News)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>除此之外，我们还要在main.go中加载模板。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;ginnote/routers&quot;</span></span><br><span class="line">	<span class="string">&quot;html/template&quot;</span></span><br><span class="line">	<span class="string">&quot;time&quot;</span></span><br><span class="line"></span><br><span class="line">	<span class="string">&quot;github.com/gin-gonic/gin&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">UnixToTime</span><span class="params">(timestamp <span class="type">int</span>)</span></span> <span class="type">string</span> &#123;</span><br><span class="line">	t := time.Unix(<span class="type">int64</span>(timestamp), <span class="number">0</span>)</span><br><span class="line">	<span class="keyword">return</span> t.Format(<span class="string">&quot;2006-01-02 15:04:05&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	r := gin.Default()</span><br><span class="line"></span><br><span class="line">	<span class="comment">//自定义模板函数</span></span><br><span class="line">	r.SetFuncMap(template.FuncMap&#123;</span><br><span class="line">		<span class="string">&quot;UnixToTime&quot;</span>: UnixToTime,</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">	<span class="comment">//加载模板</span></span><br><span class="line">	r.LoadHTMLGlob(<span class="string">&quot;templates/**/*&quot;</span>)</span><br><span class="line">	<span class="comment">//这里括号里参数的意思就是加载目录&quot;templates/xxx/&quot;下的所有模板。</span></span><br><span class="line">	<span class="comment">//如果换成&quot;templates/*&quot;就变成的加载目录&quot;templates/&quot;下的所有模板。</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//配置静态web服务，第一个参数表示路由，第二个参数表示映射的目录。</span></span><br><span class="line">	r.Static(<span class="string">&quot;/static&quot;</span>, <span class="string">&quot;./static&quot;</span>)</span><br><span class="line"></span><br><span class="line">	routers.AdminRoutersInit(r) <span class="comment">//调用路由组</span></span><br><span class="line">	routers.DefaultRoutersInit(r)</span><br><span class="line">	routers.ApiRoutersInit(r)</span><br><span class="line">	r.Run() <span class="comment">//默认端口是8000。括号里可以指定端口号，接收字符串类型，比如&quot;:4000&quot;。注意&quot;:&quot;不能省略！</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面代码中多了一些奇奇怪怪的东西，现在大可以忽略或者照抄。其中routers.ApiRoutersInit(r)中的定义与之前的routers.AdminRoutersInit(r)类似，不再赘述。</p>
+<p>在templates&#x2F;default中新建一个index.html，在里面随便写点什么。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;define &quot;default/index.html&quot;&#125;&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;/static/css/base.css&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    &#123;&#123;template &quot;public/page_header.html&quot; .&#125;&#125;</span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>index<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>&#123;&#123;.title&#125;&#125;<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 定义变量 --&gt;</span></span><br><span class="line">    &#123;&#123;$t := .title&#125;&#125;</span><br><span class="line">    <span class="tag">&lt;<span class="name">hr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h4</span>&gt;</span></span><br><span class="line">        &#123;&#123;$t&#125;&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">h4</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 条件判断 --&gt;</span></span><br><span class="line">    &#123;&#123;if ge .score 60&#125;&#125;</span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>及格<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    &#123;&#123;else&#125;&#125;</span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>不及格<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    &#123;&#123;end&#125;&#125;</span><br><span class="line"></span><br><span class="line">    &#123;&#123;if gt .score 90&#125;&#125;</span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>优秀<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    &#123;&#123;else if gt .score 80&#125;&#125;</span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>良好<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    &#123;&#123;else if gt .score 60&#125;&#125;</span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>及格<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    &#123;&#123;else&#125;&#125;</span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>不及格<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    &#123;&#123;end&#125;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 循环遍历数据 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">        &#123;&#123;range $key,$value := .hobby&#125;&#125;</span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span>&#123;&#123;$key&#125;&#125;-----&#123;&#123;$value&#125;&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        &#123;&#123;end&#125;&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">        &#123;&#123;range $key,$value := .newsList&#125;&#125;</span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span>&#123;&#123;$key&#125;&#125;-----&#123;&#123;$value.Title&#125;&#125;----&#123;&#123;$value.Content&#125;&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        &#123;&#123;end&#125;&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">hr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">        &#123;&#123;range $key,$value := .hobby&#125;&#125;</span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span>&#123;&#123;$key&#125;&#125;-----&#123;&#123;$value&#125;&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        &#123;&#123;else&#125;&#125;</span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span>切片没有数据<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        &#123;&#123;end&#125;&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 解构结构体 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">hr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">        &#123;&#123;with.news&#125;&#125;</span><br><span class="line">        &#123;&#123;.Title&#125;&#125;</span><br><span class="line">        &#123;&#123;.Content&#125;&#125;</span><br><span class="line">        &#123;&#123;end&#125;&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">hr</span>&gt;</span></span><br><span class="line">    &#123;&#123;len .title&#125;&#125;</span><br><span class="line">    <span class="tag">&lt;<span class="name">hr</span>&gt;</span></span><br><span class="line">    &#123;&#123;.date&#125;&#125;</span><br><span class="line">    <span class="tag">&lt;<span class="name">hr</span>&gt;</span></span><br><span class="line">    &#123;&#123;UnixToTime .date&#125;&#125;</span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;/static/image/pm.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line">&#123;&#123;end&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>这里开头写一句<code>&#123;&#123;define "default/index.html"&#125;&#125;</code>意思是在调用这个模板时要用的路径。<br><br><br>这还没完，我们还希望引入一些静态资源。可以看到，我们在html中已经写了一行导入外部css，<link rel="stylesheet" href="/static/css/base.css">，但这样直接导入会失败。所以所以前面的mian.go中已经加了一行代码r.Static(“&#x2F;static”, “.&#x2F;static”)。第二个参数”.&#x2F;static”表示我们引入了相对于main.go文件的”.&#x2F;static”目录下的资源，并把他的路由链接设定为”&#x2F;static”。（这里我在写博客的时候，我这里搞了好一会儿一直都是即便故意不配置也能加载css和图片。后来发现是浏览器的缓存原因。）</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>至此，Gin的大致结构就是这样，主要就包含这么几个部分。</p>
+<ul>
+<li>用于启动的main.go</li>
+<li>用于存放模板的templates</li>
+<li>用于存放静态资源的static</li>
+<li>用于集合路由的路由组routers</li>
+<li>用于实现方法逻辑的controllers</li>
+</ul>
+<p>最后这篇文章里还有一些没有解释的地方，以后再解释。</p>
+
+            
+        </div>
+        <footer class="article-footer">
+            <a data-url="http://example.com/2024/02/09/go3/" data-id="clseitb72002byovv13h30gub" data-title="Gin的结构"
+               class="article-share-link">分享</a>
+            
+            
+            
+            
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gin%E6%A1%86%E6%9E%B6/" rel="tag">Gin框架</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Golang/" rel="tag">Golang</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Go%E8%AF%AD%E8%A8%80/" rel="tag">Go语言</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html/" rel="tag">html</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li></ul>
+
+
+        </footer>
+    </div>
+    
+        
+    <nav id="article-nav" class="wow fadeInUp">
+        
+        
+            <div class="article-nav-link-wrap article-nav-link-right">
+                
+                    <img data-src="https://pic.imgdb.cn/item/65c5fa359f345e8d037f7db2.jpg" data-sizes="auto" alt="通道的工作方式"
+                         class="lazyload">
+                
+                <a href="/2024/02/04/go2/"></a>
+                <div class="article-nav-caption">后一篇</div>
+                <h3 class="article-nav-title">
+                    
+                        通道的工作方式
+                    
+                </h3>
+            </div>
+        
+    </nav>
+
+
+    
+    
+        <! -- 添加捐赠图标 -->
+<div class ="post-donate">
+    <div id="donate_board" class="donate_bar center">
+        <a id="btn_donate" class="btn_donate" href="javascript:;" title="打赏"></a>
+        <span class="donate_txt">
+           &uarr;<br>
+           如果对你有帮助，可以给孩子补充点营养～
+        </span>
+        <br>
+      </div>  
+    <div id="donate_guide" class="donate_bar center hidden" >
+        <!-- 支付宝打赏图案 -->
+        <img src="https://s1.imagehub.cc/images/2023/11/07/145e231e987c98b9c334e515d745bda0.th.jpeg" alt="支付宝打赏"> 
+        <!-- 微信打赏图案 -->
+        <img src="https://s1.imagehub.cc/images/2023/11/07/037cb5190ad5875f03275730e26b5d27.th.jpeg" alt="微信打赏">  
+    </div>
+    <script type="text/javascript">
+        document.getElementById('btn_donate').onclick = function(){
+            $('#donate_board').addClass('hidden');
+            $('#donate_guide').removeClass('hidden');
+        }
+    </script>
+</div>
+<! -- 添加捐赠图标 -->
+    
+</article>
+
+
+
+
+
+
+
+
+
+
+
+</section>
+                
+                    <aside id="sidebar">
+    <div class="sidebar-wrap wow fadeInRight">
+        <div class="sidebar-author">
+            <img data-src="/avatar/avatar.jpg" data-sizes="auto" alt="Luviichann" class="lazyload">
+            <div class="sidebar-author-name">Luviichann</div>
+            <div class="sidebar-description">任何一种伟大的思想都源于一个微不足道的开始。</div>
+        </div>
+        <div class="sidebar-state">
+            <div class="sidebar-state-article">
+                <div>文章</div>
+                <div class="sidebar-state-number">23</div>
+            </div>
+            <div class="sidebar-state-category">
+                <div>分类</div>
+                <div class="sidebar-state-number">9</div>
+            </div>
+            <div class="sidebar-state-tag">
+                <div>标签</div>
+                <div class="sidebar-state-number">19</div>
+            </div>
+        </div>
+        <div class="sidebar-social">
+            
+                <div class=icon-github>
+                    <a href=https://github.com/Luviichann itemprop="url" target="_blank"></a>
+                </div>
+            
+        </div>
+        <div class="sidebar-menu">
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">首页</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/archives"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">归档</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/about"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">关于</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/friend"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">友链</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/categories"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">分类</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/tags"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">标签</div>
+                </div>
+            
+        </div>
+    </div>
+    
+        
+    <div class="widget-wrap wow fadeInRight">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Go%E8%AF%AD%E8%A8%80/">Go语言</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/HuggingFace-NLP/">HuggingFace NLP</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AF%B9%E8%AF%9D%E7%B3%BB%E5%88%97/">对话系列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%99%E7%A8%8B/">教程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9D%82%E8%B0%88/">杂谈</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9D%82%E9%A1%B9/">杂项</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B5%8B%E8%AF%95%E6%96%87%E6%A1%A3/">测试文档</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a></li></ul>
+        </div>
+    </div>
+
+
+    
+        
+    <div class="widget-wrap wow fadeInRight">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gin%E6%A1%86%E6%9E%B6/" rel="tag">Gin框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Golang/" rel="tag">Golang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go%E8%AF%AD%E8%A8%80/" rel="tag">Go语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HuggingFace/" rel="tag">HuggingFace</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/" rel="tag">MNIST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mirai/" rel="tag">Mirai</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pytorch/" rel="tag">Pytorch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/" rel="tag">html</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" rel="tag">大语言模型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%A0%E9%87%8F/" rel="tag">张量</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" rel="tag">数据处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8B%E8%AF%95%E6%96%87%E6%9C%AC/" rel="tag">测试文本</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" rel="tag">神经网络</a></li></ul>
+        </div>
+    </div>
+
+
+    
+        
+    <div class="widget-wrap wow fadeInRight">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Gin%E6%A1%86%E6%9E%B6/" style="font-size: 10px;">Gin框架</a> <a href="/tags/Golang/" style="font-size: 12.5px;">Golang</a> <a href="/tags/Go%E8%AF%AD%E8%A8%80/" style="font-size: 12.5px;">Go语言</a> <a href="/tags/HuggingFace/" style="font-size: 15px;">HuggingFace</a> <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/MNIST/" style="font-size: 10px;">MNIST</a> <a href="/tags/Mirai/" style="font-size: 10px;">Mirai</a> <a href="/tags/NLP/" style="font-size: 15px;">NLP</a> <a href="/tags/Pytorch/" style="font-size: 15px;">Pytorch</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/html/" style="font-size: 17.5px;">html</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 17.5px;">前端</a> <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" style="font-size: 10px;">大语言模型</a> <a href="/tags/%E5%BC%A0%E9%87%8F/" style="font-size: 10px;">张量</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" style="font-size: 10px;">数据处理</a> <a href="/tags/%E6%B5%8B%E8%AF%95%E6%96%87%E6%9C%AC/" style="font-size: 10px;">测试文本</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 20px;">深度学习</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">神经网络</a>
+        </div>
+    </div>
+
+
+    
+        
+    <div class="widget-wrap wow fadeInRight">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">十一月 2023</a></li></ul>
+        </div>
+    </div>
+
+
+    
+</aside>
+
+                
+            </div>
+            <footer id="footer" class="wow fadeInUp">
+    <div style="width: 100%; overflow: hidden"><div class="footer-line"></div></div>
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            
+            <div>
+                <span class="icon-copyright"></span>
+                Sun Nov 05 2023 08:00:00 GMT+0800 (中国标准时间)-2024
+                <span class="footer-info-sep"></span>
+                Luviichann
+            </div>
+            
+                <div>
+                    基于&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>&nbsp;
+                    Theme.<a href="https://github.com/D-Sketon/hexo-theme-reimu" target="_blank">Reimu</a>
+                </div>
+            
+            
+                <div>
+                    <span class="icon-brush"></span>
+                    28.6k
+                    &nbsp;|&nbsp;
+                    <span class="icon-coffee"></span>
+                    01:54
+                </div>
+            
+            
+                <div>
+                    <span class="icon-eye"></span>
+                    <span id="busuanzi_container_site_pv">总访问量&nbsp;<span id="busuanzi_value_site_pv"></span></span>
+                    &nbsp;|&nbsp;
+                    <span class="icon-user"></span>
+                    <span id="busuanzi_container_site_uv">总访客量&nbsp;<span id="busuanzi_value_site_uv"></span></span>
+                </div>
+            
+        </div>
+    </div>
+</footer>
+
+        </div>
+        <nav id="mobile-nav">
+    <div class="sidebar-wrap">
+        <div class="sidebar-author">
+            <img data-src="/avatar/avatar.jpg" data-sizes="auto" alt="Luviichann" class="lazyload">
+            <div class="sidebar-author-name">Luviichann</div>
+            <div class="sidebar-description">任何一种伟大的思想都源于一个微不足道的开始。</div>
+        </div>
+        <div class="sidebar-state">
+            <div class="sidebar-state-article">
+                <div>文章</div>
+                <div class="sidebar-state-number">23</div>
+            </div>
+            <div class="sidebar-state-category">
+                <div>分类</div>
+                <div class="sidebar-state-number">9</div>
+            </div>
+            <div class="sidebar-state-tag">
+                <div>标签</div>
+                <div class="sidebar-state-number">19</div>
+            </div>
+        </div>
+        <div class="sidebar-social">
+            
+                <div class=icon-github>
+                    <a href=https://github.com/Luviichann itemprop="url" target="_blank"></a>
+                </div>
+            
+        </div>
+        <div class="sidebar-menu">
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">首页</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/archives"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">归档</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/about"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">关于</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/friend"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">友链</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/categories"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">分类</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/tags"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">标签</div>
+                </div>
+            
+        </div>
+    </div>
+</nav>
+
+        
+<script src="https://unpkg.com/jquery@3.7.0/dist/jquery.min.js"></script>
+
+
+<script src="https://unpkg.com/lazysizes@5.3.2/lazysizes.min.js"></script>
+
+
+<script src="https://unpkg.com/clipboard@2.0.11/dist/clipboard.min.js"></script>
+
+
+
+    
+<script src="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+
+    
+<script src="https://unpkg.com/busuanzi@2.3.0/bsz.pure.mini.js"></script>
+
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+    <div class="site-search">
+        <div class="algolia-popup popup">
+            <div class="algolia-search">
+                <span class="algolia-search-input-icon"></span>
+                <div class="algolia-search-input" id="algolia-search-input"></div>
+            </div>
+
+            <div class="algolia-results">
+                <div id="algolia-stats"></div>
+                <div id="algolia-hits"></div>
+                <div id="algolia-pagination" class="algolia-pagination"></div>
+            </div>
+
+            <span class="popup-btn-close"></span>
+        </div>
+    </div>
+    <!-- hexo injector body_end start -->
+<script src="/js/insertHighlight.js"></script>
+<!-- hexo injector body_end end --></body>
+    </html>
+
+<!--单击显示文字-->
+<script type="text/javascript" src="/js/click_show_text.js"></script>
+
+
+<!--浏览器搞笑标题-->
+<script type="text/javascript" src="\js\FunnyTitle.js"></script>
+
+
+<script type="text/javascript" src="http://libs.baidu.com/jquery/1.8.3/jquery.js"></script>
+<script type="text/javascript" src="http://libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+<!-- 雪花特效 -->
+<script type="text/javascript" src="\js\snow.js"></script>
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/love.js"></script>
+
+
+<canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+<script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+<script type="text/javascript" src="/js/fireworks.js"></script>
+
+
+
+
+

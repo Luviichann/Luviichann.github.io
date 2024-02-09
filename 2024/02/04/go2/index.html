@@ -31,7 +31,7 @@
 <meta property="og:description" content="Go语言中存在着一种名为通道(channel)的类型，是一种用来在goroutine之间传递数据的通信机制。 求取素数这里我们打算求1~N之间的素数，算法是判断每个数是不是素数（而不用筛法）。但是当N（比如10000）较大时，这样会很慢，那我们可以开启多个协程，同时进行计算。 判断素数经典算法从2模到p的平方根。 1234567891011func isPrime(p int) bool &amp;#12">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-02-03T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-02-04T13:30:31.234Z">
+<meta property="article:modified_time" content="2024-02-09T10:34:18.994Z">
 <meta property="article:author" content="Luviichann">
 <meta property="article:tag" content="Golang">
 <meta property="article:tag" content="Go语言">
@@ -110,7 +110,7 @@
         <div id="wrap">
             <header id="header">
     
-        <img data-src="https://s1.imagehub.cc/images/2024/02/04/3b80e33bb855c228494caa40f869afb1.jpeg" data-sizes="auto" alt="通道的工作方式" class="lazyload">
+        <img data-src="https://pic.imgdb.cn/item/65c5fa359f345e8d037f7db2.jpg" data-sizes="auto" alt="通道的工作方式" class="lazyload">
     
     <div id="header-outer" class="outer">
         <div id="header-title" class="inner">
@@ -205,7 +205,7 @@
 <h2 id="判断素数"><a href="#判断素数" class="headerlink" title="判断素数"></a>判断素数</h2><p>经典算法从2模到p的平方根。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">isPrime</span><span class="params">(p <span class="type">int</span>)</span></span> <span class="type">bool</span> &#123;</span><br><span class="line">	<span class="keyword">if</span> p == <span class="number">1</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">2</span>; i &lt; <span class="type">int</span>(math.Sqrt(<span class="type">float64</span>(p))); i++ &#123;</span><br><span class="line">		<span class="keyword">if</span> p%<span class="number">2</span> == <span class="number">0</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="如何开启多个协程"><a href="#如何开启多个协程" class="headerlink" title="如何开启多个协程"></a>如何开启多个协程</h2><p>我们想开启多个协程来判断素数，那么其中一种发放就是把1~10000分成几份，然后把这几份数据分给每个协程进行计算。但这么做显然有个缺点，我们不知道到底该怎么分才能使每个协程的计算量大致相同。通过计算时间复杂度再去分配或许是可行的，但不够优雅。我们希望的是一堆数字就摆放在那里，然后每个协程每次都可以从那里取走一个数字进行判断，直到把所有的数字都判断完成。</p>
+<h2 id="如何开启多个协程"><a href="#如何开启多个协程" class="headerlink" title="如何开启多个协程"></a>如何开启多个协程</h2><p>我们想开启多个协程来判断素数，那么其中一种方法就是把1~10000分成几份，然后把这几份数据分给每个协程进行计算。但这么做显然有个缺点，我们不知道到底该怎么分才能使每个协程的计算量大致相同。通过计算时间复杂度再去分配或许是可行的，但不够优雅。我们希望的是一堆数字就摆放在那里，然后每个协程每次都可以从那里取走一个数字进行判断，直到把所有的数字都判断完成。</p>
 <p>我们可以使用一个通道来存储这些数据，用循环把每个数字放进去，而且还可以为这个函数单独开一个协程，实现一边往里存放数据，一边从里面拿去数据进行判断。在下文函数的形参中，intChan用来存放1~10000的数据primeChan用来存放素数。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">putNum</span><span class="params">(intChan <span class="keyword">chan</span> <span class="type">int</span>)</span></span> &#123;</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">2</span>; i &lt; <span class="number">10000</span>; i++ &#123;</span><br><span class="line">		intChan &lt;- i</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">primeNum</span><span class="params">(intChan <span class="keyword">chan</span> <span class="type">int</span>, primeChan <span class="keyword">chan</span> <span class="type">int</span>)</span></span> &#123;</span><br><span class="line">	<span class="keyword">for</span> num := <span class="keyword">range</span> intChan &#123;</span><br><span class="line">		<span class="keyword">if</span> isPrime(num) == <span class="literal">true</span> &#123;</span><br><span class="line">			primeChan &lt;- num</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printPrime</span><span class="params">(primeChan <span class="keyword">chan</span> <span class="type">int</span>)</span></span> &#123;</span><br><span class="line">	<span class="keyword">for</span> v = <span class="keyword">range</span> primeChan &#123;</span><br><span class="line">		fmt.Printf(<span class="string">&quot;v: %v\n&quot;</span>, v)</span><br><span class="line">	&#125;</span><br><span class="line">	wg.Done()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -223,7 +223,7 @@
             
         </div>
         <footer class="article-footer">
-            <a data-url="http://example.com/2024/02/04/go2/" data-id="cls7jnvw4000ngovv627i9u23" data-title="通道的工作方式"
+            <a data-url="http://example.com/2024/02/04/go2/" data-id="clseitb6o000nyovval9m50ac" data-title="通道的工作方式"
                class="article-share-link">分享</a>
             
             
@@ -238,10 +238,24 @@
         
     <nav id="article-nav" class="wow fadeInUp">
         
+            <div class="article-nav-link-wrap article-nav-link-left">
+                
+                    <img data-src="https://pic.imgdb.cn/item/65c24eb99f345e8d03c5e6fe.webp" data-sizes="auto" alt="Gin的结构"
+                         class="lazyload">
+                
+                <a href="/2024/02/09/go3/"></a>
+                <div class="article-nav-caption">前一篇</div>
+                <h3 class="article-nav-title">
+                    
+                        Gin的结构
+                    
+                </h3>
+            </div>
+        
         
             <div class="article-nav-link-wrap article-nav-link-right">
                 
-                    <img data-src="https://s1.imagehub.cc/images/2024/02/02/134f118453be9c4fb20e74d5ef782baa.jpeg" data-sizes="auto" alt="一些胡思乱想"
+                    <img data-src="https://pic.imgdb.cn/item/65c5fa539f345e8d037fbc6a.jpg" data-sizes="auto" alt="一些胡思乱想"
                          class="lazyload">
                 
                 <a href="/2024/02/02/zt1/"></a>
@@ -307,7 +321,7 @@
         <div class="sidebar-state">
             <div class="sidebar-state-article">
                 <div>文章</div>
-                <div class="sidebar-state-number">22</div>
+                <div class="sidebar-state-number">23</div>
             </div>
             <div class="sidebar-state-category">
                 <div>分类</div>
@@ -315,7 +329,7 @@
             </div>
             <div class="sidebar-state-tag">
                 <div>标签</div>
-                <div class="sidebar-state-number">18</div>
+                <div class="sidebar-state-number">19</div>
             </div>
         </div>
         <div class="sidebar-social">
@@ -380,7 +394,7 @@
     <div class="widget-wrap wow fadeInRight">
         <h3 class="widget-title">标签</h3>
         <div class="widget">
-            <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Golang/" rel="tag">Golang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go%E8%AF%AD%E8%A8%80/" rel="tag">Go语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HuggingFace/" rel="tag">HuggingFace</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/" rel="tag">MNIST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mirai/" rel="tag">Mirai</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pytorch/" rel="tag">Pytorch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/" rel="tag">html</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" rel="tag">大语言模型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%A0%E9%87%8F/" rel="tag">张量</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" rel="tag">数据处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8B%E8%AF%95%E6%96%87%E6%9C%AC/" rel="tag">测试文本</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" rel="tag">神经网络</a></li></ul>
+            <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gin%E6%A1%86%E6%9E%B6/" rel="tag">Gin框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Golang/" rel="tag">Golang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go%E8%AF%AD%E8%A8%80/" rel="tag">Go语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HuggingFace/" rel="tag">HuggingFace</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/" rel="tag">MNIST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mirai/" rel="tag">Mirai</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pytorch/" rel="tag">Pytorch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/" rel="tag">html</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" rel="tag">大语言模型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%A0%E9%87%8F/" rel="tag">张量</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" rel="tag">数据处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8B%E8%AF%95%E6%96%87%E6%9C%AC/" rel="tag">测试文本</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" rel="tag">神经网络</a></li></ul>
         </div>
     </div>
 
@@ -390,7 +404,7 @@
     <div class="widget-wrap wow fadeInRight">
         <h3 class="widget-title">标签云</h3>
         <div class="widget tagcloud">
-            <a href="/tags/Golang/" style="font-size: 13.33px;">Golang</a> <a href="/tags/Go%E8%AF%AD%E8%A8%80/" style="font-size: 13.33px;">Go语言</a> <a href="/tags/HuggingFace/" style="font-size: 16.67px;">HuggingFace</a> <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/MNIST/" style="font-size: 10px;">MNIST</a> <a href="/tags/Mirai/" style="font-size: 10px;">Mirai</a> <a href="/tags/NLP/" style="font-size: 16.67px;">NLP</a> <a href="/tags/Pytorch/" style="font-size: 16.67px;">Pytorch</a> <a href="/tags/css/" style="font-size: 16.67px;">css</a> <a href="/tags/html/" style="font-size: 16.67px;">html</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 16.67px;">前端</a> <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" style="font-size: 10px;">大语言模型</a> <a href="/tags/%E5%BC%A0%E9%87%8F/" style="font-size: 10px;">张量</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" style="font-size: 10px;">数据处理</a> <a href="/tags/%E6%B5%8B%E8%AF%95%E6%96%87%E6%9C%AC/" style="font-size: 10px;">测试文本</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 20px;">深度学习</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">神经网络</a>
+            <a href="/tags/Gin%E6%A1%86%E6%9E%B6/" style="font-size: 10px;">Gin框架</a> <a href="/tags/Golang/" style="font-size: 12.5px;">Golang</a> <a href="/tags/Go%E8%AF%AD%E8%A8%80/" style="font-size: 12.5px;">Go语言</a> <a href="/tags/HuggingFace/" style="font-size: 15px;">HuggingFace</a> <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/MNIST/" style="font-size: 10px;">MNIST</a> <a href="/tags/Mirai/" style="font-size: 10px;">Mirai</a> <a href="/tags/NLP/" style="font-size: 15px;">NLP</a> <a href="/tags/Pytorch/" style="font-size: 15px;">Pytorch</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/html/" style="font-size: 17.5px;">html</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 17.5px;">前端</a> <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" style="font-size: 10px;">大语言模型</a> <a href="/tags/%E5%BC%A0%E9%87%8F/" style="font-size: 10px;">张量</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" style="font-size: 10px;">数据处理</a> <a href="/tags/%E6%B5%8B%E8%AF%95%E6%96%87%E6%9C%AC/" style="font-size: 10px;">测试文本</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 20px;">深度学习</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">神经网络</a>
         </div>
     </div>
 
@@ -430,10 +444,10 @@
             
                 <div>
                     <span class="icon-brush"></span>
-                    25.9k
+                    28.6k
                     &nbsp;|&nbsp;
                     <span class="icon-coffee"></span>
-                    01:42
+                    01:54
                 </div>
             
             
@@ -460,7 +474,7 @@
         <div class="sidebar-state">
             <div class="sidebar-state-article">
                 <div>文章</div>
-                <div class="sidebar-state-number">22</div>
+                <div class="sidebar-state-number">23</div>
             </div>
             <div class="sidebar-state-category">
                 <div>分类</div>
@@ -468,7 +482,7 @@
             </div>
             <div class="sidebar-state-tag">
                 <div>标签</div>
-                <div class="sidebar-state-number">18</div>
+                <div class="sidebar-state-number">19</div>
             </div>
         </div>
         <div class="sidebar-social">
