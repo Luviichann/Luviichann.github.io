@@ -12,7 +12,7 @@
 
     
     <title>
-        Go语言的包管理 |
+        Gin的结构（补） |
         
         Luviichann的小天地</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -23,18 +23,21 @@
     
 <link rel="stylesheet" href="/css/loader.css">
 
-    <meta name="description" content="创建项目首先新建一个项目。在项目的文件夹（我这里创建了一个叫pro的文件夹）的根目录中打开终端，输入命令，其中gopro就是项目名称（项目名称不一定必须是文件夹名称）。 1go mod init gopro 然后就会出现一个go.mod文件，里面大概是这样的内容。 123module goprogo 1.21.4  不同目录下的包引用在pro文件夹中创建一个新文件夹，比如就叫hello。在hell">
+    <meta name="description" content="本篇内容主要是对上一篇的补充。 自定义模板函数在上一篇文章中，定义了这样一段函数。 1234func UnixToTime(timestamp int) string &#123;	t :&#x3D; time.Unix(int64(timestamp), 0)	return t.Format(&quot;2006-01-02 15:04:05&quot;)&#125; 这就是一段自定义模板函数，其作用是接">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Go语言的包管理">
-<meta property="og:url" content="http://example.com/2024/01/20/go1/index.html">
+<meta property="og:title" content="Gin的结构（补）">
+<meta property="og:url" content="http://example.com/2024/02/12/go4/index.html">
 <meta property="og:site_name" content="Luviichann的小天地">
-<meta property="og:description" content="创建项目首先新建一个项目。在项目的文件夹（我这里创建了一个叫pro的文件夹）的根目录中打开终端，输入命令，其中gopro就是项目名称（项目名称不一定必须是文件夹名称）。 1go mod init gopro 然后就会出现一个go.mod文件，里面大概是这样的内容。 123module goprogo 1.21.4  不同目录下的包引用在pro文件夹中创建一个新文件夹，比如就叫hello。在hell">
+<meta property="og:description" content="本篇内容主要是对上一篇的补充。 自定义模板函数在上一篇文章中，定义了这样一段函数。 1234func UnixToTime(timestamp int) string &#123;	t :&#x3D; time.Unix(int64(timestamp), 0)	return t.Format(&quot;2006-01-02 15:04:05&quot;)&#125; 这就是一段自定义模板函数，其作用是接">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-01-19T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-02-09T10:12:31.286Z">
+<meta property="article:published_time" content="2024-02-11T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-02-12T11:52:53.844Z">
 <meta property="article:author" content="Luviichann">
+<meta property="article:tag" content="html">
+<meta property="article:tag" content="前端">
 <meta property="article:tag" content="Golang">
 <meta property="article:tag" content="Go语言">
+<meta property="article:tag" content="Gin框架">
 <meta name="twitter:card" content="summary">
     
         <link rel="alternate" href="/atom.xml" title="Luviichann的小天地" type="application/atom+xml">
@@ -110,7 +113,7 @@
         <div id="wrap">
             <header id="header">
     
-        <img data-src="https://pic.imgdb.cn/item/65c5fa849f345e8d03801bbc.jpg" data-sizes="auto" alt="Go语言的包管理" class="lazyload">
+        <img data-src="https://pic.imgdb.cn/item/65ca06679f345e8d0385fb4d.jpg" data-sizes="auto" alt="Gin的结构（补）" class="lazyload">
     
     <div id="header-outer" class="outer">
         <div id="header-title" class="inner">
@@ -118,7 +121,7 @@
                 
                     
                     
-                        <a href="/" id="logo"><h1>Go语言的包管理</h1></a>
+                        <a href="/" id="logo"><h1>Gin的结构（补）</h1></a>
                     
                 
             </div>
@@ -177,14 +180,14 @@
 </header>
 
             <div id="content" class="outer">
-                <section id="main"><article id="post-go1" class="h-entry article article-type-post"
+                <section id="main"><article id="post-go4" class="h-entry article article-type-post"
          itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
     <div class="article-inner">
         <div class="article-meta">
             <div class="article-date wow slideInLeft">
-    <a href="/2024/01/20/go1/" class="article-date-link">
-        <time datetime="2024-01-19T16:00:00.000Z"
-              itemprop="datePublished">2024-01-20</time>
+    <a href="/2024/02/12/go4/" class="article-date-link">
+        <time datetime="2024-02-11T16:00:00.000Z"
+              itemprop="datePublished">2024-02-12</time>
     </a>
 </div>
 
@@ -200,44 +203,40 @@
 
         <div class="e-content article-entry" itemprop="articleBody">
             
-                <h1 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h1><p>首先新建一个项目。在项目的文件夹（我这里创建了一个叫pro的文件夹）的根目录中打开终端，输入命令，其中gopro就是项目名称（项目名称不一定必须是文件夹名称）。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go mod init gopro</span><br></pre></td></tr></table></figure>
-<p>然后就会出现一个go.mod文件，里面大概是这样的内容。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">module gopro</span><br><span class="line"></span><br><span class="line">go 1.21.4</span><br></pre></td></tr></table></figure>
+                <p><font color="#0000dd" size="4">本篇内容主要是对<a target="_blank" rel="noopener" href="https://luviichann.top/2024/02/09/go3/">上一篇</a>的补充。</font></p>
+<h2 id="自定义模板函数"><a href="#自定义模板函数" class="headerlink" title="自定义模板函数"></a>自定义模板函数</h2><p>在上一篇文章中，定义了这样一段函数。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">UnixToTime</span><span class="params">(timestamp <span class="type">int</span>)</span></span> <span class="type">string</span> &#123;</span><br><span class="line">	t := time.Unix(<span class="type">int64</span>(timestamp), <span class="number">0</span>)</span><br><span class="line">	<span class="keyword">return</span> t.Format(<span class="string">&quot;2006-01-02 15:04:05&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这就是一段自定义模板函数，其作用是接收一个参数<code>timestamp</code>，将时间戳转换成标准的时间格式并返回。它的调用是在<code>default/index</code>中。<code>&#123;&#123;UnixToTime .date&#125;&#125;</code>，意思是后台向前台返回了一个时间戳<code>date</code>，让后通过自定义的<code>UnixTotime</code>函数对其进行标准化。</p>
+<p><code>date</code>是在defautlController.go中被返回的，在前台的html中要渲染它的话需要用<code>&#123;&#123;.date&#125;&#125;</code>调用。<code>gin.H&#123;&#125;</code>包含的内容就是所有从后台传给前台的数据，格式仿照下面的代码。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(con DefaultController)</span></span> Index(ctx *gin.Context) &#123;</span><br><span class="line">	ctx.HTML(http.StatusOK, <span class="string">&quot;default/index.html&quot;</span>, gin.H&#123;</span><br><span class="line">		<span class="string">&quot;title&quot;</span>: <span class="string">&quot;首页&quot;</span>,</span><br><span class="line">		<span class="string">&quot;msg&quot;</span>:   <span class="string">&quot;我是msg&quot;</span>,</span><br><span class="line">		<span class="string">&quot;score&quot;</span>: <span class="number">89</span>,</span><br><span class="line">		<span class="string">&quot;hobby&quot;</span>: []<span class="type">string</span>&#123;<span class="string">&quot;吃饭&quot;</span>, <span class="string">&quot;睡觉&quot;</span>, <span class="string">&quot;写代码&quot;</span>&#125;,</span><br><span class="line">		<span class="string">&quot;newsList&quot;</span>: []<span class="keyword">interface</span>&#123;&#125;&#123;</span><br><span class="line">			Article&#123;</span><br><span class="line">				Title:   <span class="string">&quot;新闻标题1&quot;</span>,</span><br><span class="line">				Content: <span class="string">&quot;新闻内容1&quot;</span>,</span><br><span class="line">			&#125;,</span><br><span class="line">			Article&#123;</span><br><span class="line">				Title:   <span class="string">&quot;新闻标题2&quot;</span>,</span><br><span class="line">				Content: <span class="string">&quot;新闻内容2&quot;</span>,</span><br><span class="line">			&#125;,</span><br><span class="line">		&#125;,</span><br><span class="line">		<span class="string">&quot;testSlice&quot;</span>: []<span class="type">string</span>&#123;&#125;,</span><br><span class="line">		<span class="string">&quot;news&quot;</span>: Article&#123;</span><br><span class="line">			Title:   <span class="string">&quot;新闻标题3&quot;</span>,</span><br><span class="line">			Content: <span class="string">&quot;新闻内容3&quot;</span>,</span><br><span class="line">		&#125;,</span><br><span class="line">		<span class="string">&quot;date&quot;</span>: <span class="number">1707723555</span>,</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>另外就是关于<code>t.Format(&quot;2006-01-02 15:04:05&quot;)</code>，使用Format可以指定的时间的格式，并且只能用这个时间(2006-01-02 15:04:05)，换成其他的时间不行。一般来说常用的是这些</p>
+<ul>
+<li>2006-01-02 15:04:05</li>
+<li>Mon Jan 2 15:04:05 MST 2006</li>
+<li>01&#x2F;02 03:04:05PM ‘06 -0700<br>更多的还可以参考<a target="_blank" rel="noopener" href="https://golang.google.cn/pkg/time/#example_Time_Format_pad">官方文档</a></li>
+</ul>
+<h2 id="从前台获取表单数据"><a href="#从前台获取表单数据" class="headerlink" title="从前台获取表单数据"></a>从前台获取表单数据</h2><p>想获取表单数据那就要先创造一个表单。<br>在templates&#x2F;default下创建user.html。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;define &quot;default/user.html&quot;&#125;&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;/static/css/base.css&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 注意这里的action的值doAddUser要与下文一样 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;doAddUser&quot;</span> <span class="attr">method</span>=<span class="string">&quot;post&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 下面两个输入框的name指定的将要把数据传给后台哪个变量 --&gt;</span></span><br><span class="line">        用户名：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">        密码：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">value</span>=<span class="string">&quot;提交&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line">&#123;&#123;end&#125;&#125;</span><br></pre></td></tr></table></figure>
 
-<h1 id="不同目录下的包引用"><a href="#不同目录下的包引用" class="headerlink" title="不同目录下的包引用"></a>不同目录下的包引用</h1><p>在pro文件夹中创建一个新文件夹，比如就叫hello。在hello中创建一个.go文件，比如就叫hello1.go。然后可以写一些函数，比如：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> hello</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Hello</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">&quot;Hello&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>注意：这里的package后面的包名似乎要与文件夹名一致。我看的一些教程对此没有做要求，但我实测下来，如果名称不一样会报错。还有，func后的Hello的首字母必须大写。</p>
-<p>再在pro文件夹下创建一个main.go文件，写入代码。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;gopro/hello&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	hello.Hello()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在controllers&#x2F;defaults&#x2F;defaultCoutroller.go中添加下面的函数。为了验证后台确实接受到了数据，这里在控制台打印的数据，并且在前台以json的格式返回。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义了一个结构体并把前台返回的数据绑定在结构体中。</span></span><br><span class="line"><span class="keyword">type</span> UserInfo <span class="keyword">struct</span> &#123;</span><br><span class="line">	Username <span class="type">string</span> <span class="string">`json:&quot;username&quot; form:&quot;username&quot;`</span> <span class="comment">//form是浏览器链接?username=xxxx</span></span><br><span class="line">	Password <span class="type">string</span> <span class="string">`json:&quot;password&quot; form:&quot;password&quot;`</span> <span class="comment">//这表示分别接收前台name=&quot;username&quot;和name=&quot;password&quot;的输入框提交的数据。</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(con DefaultController)</span></span> DoAddUser(ctx *gin.Context) &#123;</span><br><span class="line">    <span class="comment">//这种方法可以不绑定结构体，直接获取前台数据，括号里的是html里的form里的input的name。</span></span><br><span class="line">    <span class="comment">// username := ctx.PostForm(&quot;username&quot;)</span></span><br><span class="line">    <span class="comment">// password := ctx.PostForm(&quot;password&quot;)</span></span><br><span class="line">	</span><br><span class="line">    <span class="comment">// 这里是绑定结构体的方法。</span></span><br><span class="line">    user := UserInfo&#123;&#125;</span><br><span class="line">	<span class="keyword">if</span> err := ctx.ShouldBind(&amp;user); err == <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Printf(<span class="string">&quot;user: %v\n&quot;</span>, user)</span><br><span class="line">		ctx.JSON(http.StatusOK, gin.H&#123;</span><br><span class="line">			<span class="string">&quot;username&quot;</span>: user.Username, <span class="comment">//&quot;&quot;里的是返回值，:后的是变量</span></span><br><span class="line">			<span class="string">&quot;password&quot;</span>: user.Password,</span><br><span class="line">		&#125;)</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		ctx.JSON(http.StatusOK, gin.H&#123;</span><br><span class="line">			<span class="string">&quot;err&quot;</span>: err.Error(),</span><br><span class="line">		&#125;)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在routers&#x2F;defaultRouters.go中配置路由。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">DefaultRoutersInit</span><span class="params">(r *gin.Engine)</span></span> &#123;</span><br><span class="line">	defaultRouters := r.Group(<span class="string">&quot;/&quot;</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		defaultRouters.GET(<span class="string">&quot;/&quot;</span>, defaults.DefaultController&#123;&#125;.Index)</span><br><span class="line">		defaultRouters.GET(<span class="string">&quot;/news&quot;</span>, defaults.DefaultController&#123;&#125;.News)</span><br><span class="line">		defaultRouters.GET(<span class="string">&quot;/user&quot;</span>, defaults.DefaultController&#123;&#125;.User)</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//由于是向服务器发送数据，所以这里使用POST而不是GET。</span></span><br><span class="line">        <span class="comment">//还要注意这里的&quot;/doAddUser&quot;路径要与前台的html中form的action值一样。</span></span><br><span class="line">		defaultRouters.POST(<span class="string">&quot;/doAddUser&quot;</span>, defaults.DefaultController&#123;&#125;.DoAddUser)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>在终端框中输入命令（二选一）：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">go run main.go</span><br><span class="line">go run .</span><br></pre></td></tr></table></figure>
-
-<p>能得到输出：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hello</span><br></pre></td></tr></table></figure>
-
-<h1 id="相同目录下的包引用"><a href="#相同目录下的包引用" class="headerlink" title="相同目录下的包引用"></a>相同目录下的包引用</h1><p>接着上面的项目，在与main.go相同的目录下，也就是pro文件夹下创建一个world.go。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">world</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">&quot;World&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在终端框中输入命令，这时候就不能再用go run main.go了，不然会报错。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go run .</span><br></pre></td></tr></table></figure>
-
-<p>然后就能得到输出：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Hello</span><br><span class="line">world</span><br></pre></td></tr></table></figure>
-
-
+<h2 id="从前台获取后台数据"><a href="#从前台获取后台数据" class="headerlink" title="从前台获取后台数据"></a>从前台获取后台数据</h2><p>这部分前面一直在用，也粗略地提及了一些。<br>这里以成分最复杂的<code>templates/default/index.html</code>为例。<br><code>&#123;&#123;template "public/page_header.html" .&#125;&#125;</code>这段代码是调用了一个父模板，注意要在最后加上一个点。<br><code>&#123;&#123;$t := .title&#125;&#125;</code>是获取从后台传过来的数据title并赋值给t。其中，<code>$</code>和<code>.</code>都不能省略。</p>
+<h3 id="if语句"><a href="#if语句" class="headerlink" title="if语句"></a>if语句</h3><p><code>&#123;&#123;if ge .xxx yyy&#125;&#125;</code>表示判断<code>xxx &gt;= yyy</code>，<code>ge</code>也可以换成别的(这里真的没找到官方文档提供的示例，不过可以去知乎上找，有相关的语法)。<br>记得在用完if语句后加上<code>&#123;&#123;end&#125;&#125;</code>来结束语句。</p>
+<h3 id="循环遍历数据"><a href="#循环遍历数据" class="headerlink" title="循环遍历数据"></a>循环遍历数据</h3><p>在index.html中。<br><code>&#123;&#123;range $key,$value := .hobby&#125;&#125;</code><br>由于hobby是一个<code>string</code>类型的切片，所以这里的<code>key</code>和<code>value</code>就分别是下标和值。<br>也要记得在用完<code>range</code>循环以后加上一句<code>&#123;&#123;end&#125;&#125;</code>来结束循环。</p>
 
             
         </div>
         <footer class="article-footer">
-            <a data-url="http://example.com/2024/01/20/go1/" data-id="clsix6paj000j0kvv73bhgss9" data-title="Go语言的包管理"
+            <a data-url="http://example.com/2024/02/12/go4/" data-id="clsix6pal000p0kvvf6vx6xun" data-title="Gin的结构（补）"
                class="article-share-link">分享</a>
             
             
             
             
-    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Golang/" rel="tag">Golang</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Go%E8%AF%AD%E8%A8%80/" rel="tag">Go语言</a></li></ul>
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gin%E6%A1%86%E6%9E%B6/" rel="tag">Gin框架</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Golang/" rel="tag">Golang</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Go%E8%AF%AD%E8%A8%80/" rel="tag">Go语言</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html/" rel="tag">html</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li></ul>
 
 
         </footer>
@@ -246,31 +245,17 @@
         
     <nav id="article-nav" class="wow fadeInUp">
         
-            <div class="article-nav-link-wrap article-nav-link-left">
-                
-                    <img data-src="https://pic.imgdb.cn/item/65c5fa539f345e8d037fbc6a.jpg" data-sizes="auto" alt="一些胡思乱想"
-                         class="lazyload">
-                
-                <a href="/2024/02/02/zt1/"></a>
-                <div class="article-nav-caption">前一篇</div>
-                <h3 class="article-nav-title">
-                    
-                        一些胡思乱想
-                    
-                </h3>
-            </div>
-        
         
             <div class="article-nav-link-wrap article-nav-link-right">
                 
-                    <img data-src="https://pic.imgdb.cn/item/65c5fab29f345e8d038075e9.jpg" data-sizes="auto" alt="对话"
+                    <img data-src="https://pic.imgdb.cn/item/65c24eb99f345e8d03c5e6fe.webp" data-sizes="auto" alt="Gin的结构"
                          class="lazyload">
                 
-                <a href="/2024/01/02/llm1/"></a>
+                <a href="/2024/02/09/go3/"></a>
                 <div class="article-nav-caption">后一篇</div>
                 <h3 class="article-nav-title">
                     
-                        对话
+                        Gin的结构
                     
                 </h3>
             </div>
