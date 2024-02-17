@@ -177,14 +177,52 @@
         
     <div class="post-wrap-left wow fadeInUp">
         
-            <a class="post-link" href="/2024/02/12/go4/"></a>
+            <a class="post-link" href="/2024/02/17/go5/"></a>
         
         
         <div class="post-cover-left">
             
-                <img data-src="https://pic.imgdb.cn/item/65ca06679f345e8d0385fb4d.jpg" data-sizes="auto" alt="Gin的结构（补）" class="lazyload">
+                <img data-src="https://pic.imgdb.cn/item/65d0a1149f345e8d034b8864.jpg" data-sizes="auto" alt="Gorm与数据库" class="lazyload">
             
 
+        </div>
+        <div class="post-info">
+            <div class="post-meta">
+                <a><span class="icon-calendar"></span>2024-02-17</a>
+                
+                    <a><span class="icon-pencil"></span>4.9k 字</a>
+                
+                
+                    <a><span class="icon-clock"></span>22 分钟</a>
+                
+            </div>
+            <h2 class="post-title">Gorm与数据库</h2>
+            <article class="post-article">
+                
+                    本篇是对上一篇博客的继续补充（当然也可以视作独立的一篇）。
+友情提示，本篇博客中用到了数据库可视化工具Navicat。另外，本篇博客的所有代码都可以从这里获取
+建立大致项目结构Gorm是一个可以操作数据库的框架。为了更方便观察对数据库的操作，我们先建立一个基础从项目结构：只有一个路由组，路由组里只有一个首页的路由。还要配置一下go mod的相关项。
+先使用go mod创建一个项目，比如项目名称就叫gormnote。
+1go mod init gormnote
+
+然后获取一下要用到的包。
+123go get github.com/gin-gonic/gingo get gorm.io/drive
+                
+            </article>
+        </div>
+    </div>
+
+
+    
+        
+    <div class="post-wrap-right wow fadeInUp">
+        
+            <a class="post-link" href="/2024/02/12/go4/"></a>
+        
+        <div class="post-cover-right">
+            
+                <img data-src="https://pic.imgdb.cn/item/65ca06679f345e8d0385fb4d.jpg" data-sizes="auto" alt="Gin的结构（补）" class="lazyload">
+            
         </div>
         <div class="post-info">
             <div class="post-meta">
@@ -211,14 +249,16 @@
 
     
         
-    <div class="post-wrap-right wow fadeInUp">
+    <div class="post-wrap-left wow fadeInUp">
         
             <a class="post-link" href="/2024/02/09/go3/"></a>
         
-        <div class="post-cover-right">
+        
+        <div class="post-cover-left">
             
                 <img data-src="https://pic.imgdb.cn/item/65c24eb99f345e8d03c5e6fe.webp" data-sizes="auto" alt="Gin的结构" class="lazyload">
             
+
         </div>
         <div class="post-info">
             <div class="post-meta">
@@ -233,7 +273,8 @@
             <h2 class="post-title">Gin的结构</h2>
             <article class="post-article">
                 
-                    Gin的基本使用首先用go mod建立一个项目，比如就叫ginnote吧。
+                    友情提示，本篇博客的代码都可以从这里获取。
+Gin的基本使用首先用go mod建立一个项目，比如就叫ginnote吧。
 1go mod init ginnote
 
 然后获取一下gin包，即便是已经装了gin包，也要获取，因为要配置go.mod文件。
@@ -241,8 +282,7 @@
 除此以外，还需要另一项工具，可以提供热加载，也就是可以一边写一边加载网页，每次保存项目都会自动重新编译运行。
 1go get github.com/pilu/fresh
 执行完之后，文件夹里会多一个tmp文件夹，这就表示成功了。
-然后新建一个main.go，用这样一段代码就可以生成一个网页。
-12345678910111213
+然后新建一个main.go，用这样一段代码就可以生成一
                 
             </article>
         </div>
@@ -251,16 +291,14 @@
 
     
         
-    <div class="post-wrap-left wow fadeInUp">
+    <div class="post-wrap-right wow fadeInUp">
         
             <a class="post-link" href="/2024/02/04/go2/"></a>
         
-        
-        <div class="post-cover-left">
+        <div class="post-cover-right">
             
                 <img data-src="https://pic.imgdb.cn/item/65c5fa359f345e8d037f7db2.jpg" data-sizes="auto" alt="通道的工作方式" class="lazyload">
             
-
         </div>
         <div class="post-info">
             <div class="post-meta">
@@ -287,14 +325,16 @@
 
     
         
-    <div class="post-wrap-right wow fadeInUp">
+    <div class="post-wrap-left wow fadeInUp">
         
             <a class="post-link" href="/2024/02/02/zt1/"></a>
         
-        <div class="post-cover-right">
+        
+        <div class="post-cover-left">
             
                 <img data-src="https://pic.imgdb.cn/item/65c5fa539f345e8d037fbc6a.jpg" data-sizes="auto" alt="一些胡思乱想" class="lazyload">
             
+
         </div>
         <div class="post-info">
             <div class="post-meta">
@@ -320,16 +360,14 @@
 
     
         
-    <div class="post-wrap-left wow fadeInUp">
+    <div class="post-wrap-right wow fadeInUp">
         
             <a class="post-link" href="/2024/01/20/go1/"></a>
         
-        
-        <div class="post-cover-left">
+        <div class="post-cover-right">
             
                 <img data-src="https://pic.imgdb.cn/item/65c5fa849f345e8d03801bbc.jpg" data-sizes="auto" alt="Go语言的包管理" class="lazyload">
             
-
         </div>
         <div class="post-info">
             <div class="post-meta">
@@ -359,14 +397,16 @@
 
     
         
-    <div class="post-wrap-right wow fadeInUp">
+    <div class="post-wrap-left wow fadeInUp">
         
             <a class="post-link" href="/2024/01/02/llm1/"></a>
         
-        <div class="post-cover-right">
+        
+        <div class="post-cover-left">
             
                 <img data-src="https://pic.imgdb.cn/item/65c5fab29f345e8d038075e9.jpg" data-sizes="auto" alt="对话" class="lazyload">
             
+
         </div>
         <div class="post-info">
             <div class="post-meta">
@@ -394,16 +434,14 @@ pip相关的指令问：python中的pip在命令行窗口中有哪些指令？
 
     
         
-    <div class="post-wrap-left wow fadeInUp">
+    <div class="post-wrap-right wow fadeInUp">
         
             <a class="post-link" href="/2023/12/21/ssn2/"></a>
         
-        
-        <div class="post-cover-left">
+        <div class="post-cover-right">
             
                 <img data-src="https://pic.imgdb.cn/item/65c5faed9f345e8d0380ed81.jpg" data-sizes="auto" alt="一些吐槽" class="lazyload">
             
-
         </div>
         <div class="post-info">
             <div class="post-meta">
@@ -437,14 +475,16 @@ pip相关的指令问：python中的pip在命令行窗口中有哪些指令？
 
     
         
-    <div class="post-wrap-right wow fadeInUp">
+    <div class="post-wrap-left wow fadeInUp">
         
             <a class="post-link" href="/2023/11/27/miraiqqbot/"></a>
         
-        <div class="post-cover-right">
+        
+        <div class="post-cover-left">
             
                 <img data-src="https://pic.imgdb.cn/item/65c5fb399f345e8d03818e90.jpg" data-sizes="auto" alt="在Linux服务器上部署Mirai框架的QQ机器人" class="lazyload">
             
+
         </div>
         <div class="post-info">
             <div class="post-meta">
@@ -471,16 +511,14 @@ pip相关的指令问：python中的pip在命令行窗口中有哪些指令？
 
     
         
-    <div class="post-wrap-left wow fadeInUp">
+    <div class="post-wrap-right wow fadeInUp">
         
             <a class="post-link" href="/2023/11/26/ssn1/"></a>
         
-        
-        <div class="post-cover-left">
+        <div class="post-cover-right">
             
                 <img data-src="https://pic.imgdb.cn/item/65c5fb779f345e8d03820c63.jpg" data-sizes="auto" alt="碎碎念" class="lazyload">
             
-
         </div>
         <div class="post-info">
             <div class="post-meta">
@@ -497,42 +535,6 @@ pip相关的指令问：python中的pip在命令行窗口中有哪些指令？
                 
                     事情的起因&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;本来不想记录的，因为已经是几天前的事了，不过今天又遇见了类似的事。上周的今天，也就是周日，我去给一个室友K先生庆祝大寿，晚上在HDL火锅店。我们的桌在一个雅间，中途有服务人员来给K先生唱歌庆祝。后来，似乎雅间外的一桌有人过生日。一个男服务员跳起了一种很新的舞，腿一扭一扭的，胳膊一晃一晃的。我当时还并不知道这是什么，但是今天我在网上冲浪时，看到了一个视频。同样是HDL火锅店，同样是有人生日，同样是男服务员跳舞。视频内容告诉我这个舞叫科目三。
 天马行空时间&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;视频里那个服务员就是作者，看他似乎跳得
-                
-            </article>
-        </div>
-    </div>
-
-
-    
-        
-    <div class="post-wrap-right wow fadeInUp">
-        
-            <a class="post-link" href="/2023/11/24/css4/"></a>
-        
-        <div class="post-cover-right">
-            
-                <img data-src="https://pic.imgdb.cn/item/65c5fb989f345e8d03825119.jpg" data-sizes="auto" alt="CSS（四）属性" class="lazyload">
-            
-        </div>
-        <div class="post-info">
-            <div class="post-meta">
-                <a><span class="icon-calendar"></span>2023-11-24</a>
-                
-                    <a><span class="icon-pencil"></span>1.3k 字</a>
-                
-                
-                    <a><span class="icon-clock"></span>5 分钟</a>
-                
-            </div>
-            <h2 class="post-title">CSS（四）属性</h2>
-            <article class="post-article">
-                
-                    颜色表示方法rgb或rgbargb(0到255或0%到100%)代表红绿蓝三个颜色深度，a(0到1或0%到100%)代表不透明度(0代表完全透明)。我更喜欢直接数字表示而不是百分比。
-123456#id1 &amp;#123;  color: rgb(255,37,90);&amp;#125;#id2 &amp;#123;  color: rgba(100,30,90,0.5);&amp;#125;
-
-
-16进制这是我比较喜欢的表示方法，格式为#rrggbbaa，rr,gg,bb分别代表红绿蓝的颜色深度，aa代表不透明度，其范围都是00~ff的16进制数。最后的aa位置可以不写，默认是完全不透明。
-123456#id1 &amp;#
                 
             </article>
         </div>
@@ -560,7 +562,7 @@ pip相关的指令问：python中的pip在命令行窗口中有哪些指令？
         <div class="sidebar-state">
             <div class="sidebar-state-article">
                 <div>文章</div>
-                <div class="sidebar-state-number">24</div>
+                <div class="sidebar-state-number">25</div>
             </div>
             <div class="sidebar-state-category">
                 <div>分类</div>
@@ -568,7 +570,7 @@ pip相关的指令问：python中的pip在命令行窗口中有哪些指令？
             </div>
             <div class="sidebar-state-tag">
                 <div>标签</div>
-                <div class="sidebar-state-number">19</div>
+                <div class="sidebar-state-number">21</div>
             </div>
         </div>
         <div class="sidebar-social">
@@ -633,7 +635,7 @@ pip相关的指令问：python中的pip在命令行窗口中有哪些指令？
     <div class="widget-wrap wow fadeInRight">
         <h3 class="widget-title">标签</h3>
         <div class="widget">
-            <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gin%E6%A1%86%E6%9E%B6/" rel="tag">Gin框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Golang/" rel="tag">Golang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go%E8%AF%AD%E8%A8%80/" rel="tag">Go语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HuggingFace/" rel="tag">HuggingFace</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/" rel="tag">MNIST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mirai/" rel="tag">Mirai</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pytorch/" rel="tag">Pytorch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/" rel="tag">html</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" rel="tag">大语言模型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%A0%E9%87%8F/" rel="tag">张量</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" rel="tag">数据处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8B%E8%AF%95%E6%96%87%E6%9C%AC/" rel="tag">测试文本</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" rel="tag">神经网络</a></li></ul>
+            <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gin%E6%A1%86%E6%9E%B6/" rel="tag">Gin框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Golang/" rel="tag">Golang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gorm/" rel="tag">Gorm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go%E8%AF%AD%E8%A8%80/" rel="tag">Go语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HuggingFace/" rel="tag">HuggingFace</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/" rel="tag">MNIST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mirai/" rel="tag">Mirai</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pytorch/" rel="tag">Pytorch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/" rel="tag">html</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" rel="tag">大语言模型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%A0%E9%87%8F/" rel="tag">张量</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" rel="tag">数据处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8B%E8%AF%95%E6%96%87%E6%9C%AC/" rel="tag">测试文本</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" rel="tag">神经网络</a></li></ul>
         </div>
     </div>
 
@@ -643,7 +645,7 @@ pip相关的指令问：python中的pip在命令行窗口中有哪些指令？
     <div class="widget-wrap wow fadeInRight">
         <h3 class="widget-title">标签云</h3>
         <div class="widget tagcloud">
-            <a href="/tags/Gin%E6%A1%86%E6%9E%B6/" style="font-size: 12.5px;">Gin框架</a> <a href="/tags/Golang/" style="font-size: 15px;">Golang</a> <a href="/tags/Go%E8%AF%AD%E8%A8%80/" style="font-size: 15px;">Go语言</a> <a href="/tags/HuggingFace/" style="font-size: 15px;">HuggingFace</a> <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/MNIST/" style="font-size: 10px;">MNIST</a> <a href="/tags/Mirai/" style="font-size: 10px;">Mirai</a> <a href="/tags/NLP/" style="font-size: 15px;">NLP</a> <a href="/tags/Pytorch/" style="font-size: 15px;">Pytorch</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/html/" style="font-size: 17.5px;">html</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 17.5px;">前端</a> <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" style="font-size: 10px;">大语言模型</a> <a href="/tags/%E5%BC%A0%E9%87%8F/" style="font-size: 10px;">张量</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" style="font-size: 10px;">数据处理</a> <a href="/tags/%E6%B5%8B%E8%AF%95%E6%96%87%E6%9C%AC/" style="font-size: 10px;">测试文本</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 20px;">深度学习</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">神经网络</a>
+            <a href="/tags/Gin%E6%A1%86%E6%9E%B6/" style="font-size: 12px;">Gin框架</a> <a href="/tags/Golang/" style="font-size: 16px;">Golang</a> <a href="/tags/Gorm/" style="font-size: 10px;">Gorm</a> <a href="/tags/Go%E8%AF%AD%E8%A8%80/" style="font-size: 16px;">Go语言</a> <a href="/tags/HuggingFace/" style="font-size: 14px;">HuggingFace</a> <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/MNIST/" style="font-size: 10px;">MNIST</a> <a href="/tags/Mirai/" style="font-size: 10px;">Mirai</a> <a href="/tags/NLP/" style="font-size: 14px;">NLP</a> <a href="/tags/Pytorch/" style="font-size: 14px;">Pytorch</a> <a href="/tags/css/" style="font-size: 14px;">css</a> <a href="/tags/html/" style="font-size: 18px;">html</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 18px;">前端</a> <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" style="font-size: 10px;">大语言模型</a> <a href="/tags/%E5%BC%A0%E9%87%8F/" style="font-size: 10px;">张量</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" style="font-size: 10px;">数据处理</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/tags/%E6%B5%8B%E8%AF%95%E6%96%87%E6%9C%AC/" style="font-size: 10px;">测试文本</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 20px;">深度学习</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">神经网络</a>
         </div>
     </div>
 
@@ -683,10 +685,10 @@ pip相关的指令问：python中的pip在命令行窗口中有哪些指令？
             
                 <div>
                     <span class="icon-brush"></span>
-                    29.9k
+                    34.8k
                     &nbsp;|&nbsp;
                     <span class="icon-coffee"></span>
-                    02:00
+                    02:22
                 </div>
             
             
@@ -713,7 +715,7 @@ pip相关的指令问：python中的pip在命令行窗口中有哪些指令？
         <div class="sidebar-state">
             <div class="sidebar-state-article">
                 <div>文章</div>
-                <div class="sidebar-state-number">24</div>
+                <div class="sidebar-state-number">25</div>
             </div>
             <div class="sidebar-state-category">
                 <div>分类</div>
@@ -721,7 +723,7 @@ pip相关的指令问：python中的pip在命令行窗口中有哪些指令？
             </div>
             <div class="sidebar-state-tag">
                 <div>标签</div>
-                <div class="sidebar-state-number">19</div>
+                <div class="sidebar-state-number">21</div>
             </div>
         </div>
         <div class="sidebar-social">

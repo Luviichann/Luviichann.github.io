@@ -1,0 +1,699 @@
+
+    <!DOCTYPE html>
+    <html lang="zh-CN"
+            
+          
+    >
+    <head>
+    <meta charset="utf-8">
+    
+
+    
+
+    
+    <title>
+        Gorm与数据库 |
+        
+        Luviichann的小天地</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CUbuntu%20Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+    
+<link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free/css/v4-font-face.min.css">
+
+    
+<link rel="stylesheet" href="/css/loader.css">
+
+    <meta name="description" content="本篇是对上一篇博客的继续补充（当然也可以视作独立的一篇）。 友情提示，本篇博客中用到了数据库可视化工具Navicat。另外，本篇博客的所有代码都可以从这里获取 建立大致项目结构Gorm是一个可以操作数据库的框架。为了更方便观察对数据库的操作，我们先建立一个基础从项目结构：只有一个路由组，路由组里只有一个首页的路由。还要配置一下go mod的相关项。 先使用go mod创建一个项目，比如项目名称就叫">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gorm与数据库">
+<meta property="og:url" content="http://example.com/2024/02/17/go5/index.html">
+<meta property="og:site_name" content="Luviichann的小天地">
+<meta property="og:description" content="本篇是对上一篇博客的继续补充（当然也可以视作独立的一篇）。 友情提示，本篇博客中用到了数据库可视化工具Navicat。另外，本篇博客的所有代码都可以从这里获取 建立大致项目结构Gorm是一个可以操作数据库的框架。为了更方便观察对数据库的操作，我们先建立一个基础从项目结构：只有一个路由组，路由组里只有一个首页的路由。还要配置一下go mod的相关项。 先使用go mod创建一个项目，比如项目名称就叫">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-02-16T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-02-17T13:19:27.777Z">
+<meta property="article:author" content="Luviichann">
+<meta property="article:tag" content="Golang">
+<meta property="article:tag" content="Go语言">
+<meta property="article:tag" content="Gin框架">
+<meta property="article:tag" content="Gorm">
+<meta property="article:tag" content="数据库">
+<meta name="twitter:card" content="summary">
+    
+        <link rel="alternate" href="/atom.xml" title="Luviichann的小天地" type="application/atom+xml">
+    
+    
+        <link rel="shortcut icon" href="/images/favicon_instead.ico">
+    
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/typeface-source-code-pro@1.1.13/index.css">
+
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+    
+    
+    
+    
+    
+<script src="https://unpkg.com/pace-js@1.2.4/pace.min.js"></script>
+
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/wowjs@1.1.3/css/libs/animate.css">
+
+        
+<script src="https://unpkg.com/wowjs@1.1.3/dist/wow.min.js"></script>
+
+        <script>
+          new WOW({
+            offset: 0,
+            mobile: true,
+            live: false
+          }).init();
+        </script>
+    
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+    <body>
+    
+<div id='loader'>
+  <div class="loading-left-bg"></div>
+  <div class="loading-right-bg"></div>
+  <div class="spinner-box">
+    <div class="loading-taichi">
+      <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+      <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="#ff6e6b" />
+      <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z" fill="#fd0d00" />
+      <path d="M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95" fill="#fd0d00" />
+    </svg>
+    </div>
+    <div class="loading-word">少女祈祷中...</div>
+  </div>
+</div>
+</div>
+
+<script>
+  const endLoading = function() {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loader').classList.add("loading");
+  }
+  window.addEventListener('load', endLoading);
+  document.getElementById('loader').addEventListener('click', endLoading);
+</script>
+
+
+    <div id="container">
+        <div id="wrap">
+            <header id="header">
+    
+        <img data-src="https://pic.imgdb.cn/item/65d0a1149f345e8d034b8864.jpg" data-sizes="auto" alt="Gorm与数据库" class="lazyload">
+    
+    <div id="header-outer" class="outer">
+        <div id="header-title" class="inner">
+            <div id="logo-wrap">
+                
+                    
+                    
+                        <a href="/" id="logo"><h1>Gorm与数据库</h1></a>
+                    
+                
+            </div>
+            
+                
+                
+            
+        </div>
+        <div id="header-inner">
+            <nav id="main-nav">
+                <a id="main-nav-toggle" class="nav-icon"></a>
+                
+                    <span class="main-nav-link-wrap">
+                        <span class="main-nav-icon"></span>
+                        <a class="main-nav-link" href="/">首页</a>
+                    </span>
+                
+                    <span class="main-nav-link-wrap">
+                        <span class="main-nav-icon"></span>
+                        <a class="main-nav-link" href="/archives">归档</a>
+                    </span>
+                
+                    <span class="main-nav-link-wrap">
+                        <span class="main-nav-icon"></span>
+                        <a class="main-nav-link" href="/about">关于</a>
+                    </span>
+                
+                    <span class="main-nav-link-wrap">
+                        <span class="main-nav-icon"></span>
+                        <a class="main-nav-link" href="/friend">友链</a>
+                    </span>
+                
+                    <span class="main-nav-link-wrap">
+                        <span class="main-nav-icon"></span>
+                        <a class="main-nav-link" href="/categories">分类</a>
+                    </span>
+                
+                    <span class="main-nav-link-wrap">
+                        <span class="main-nav-icon"></span>
+                        <a class="main-nav-link" href="/tags">标签</a>
+                    </span>
+                
+            </nav>
+            <nav id="sub-nav">
+                
+                    <a id="nav-rss-link" class="nav-icon" href="/atom.xml"
+                       title="RSS 订阅"></a>
+                
+                
+            </nav>
+            <div id="search-form-wrap">
+                <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+            </div>
+        </div>
+    </div>
+</header>
+
+            <div id="content" class="outer">
+                <section id="main"><article id="post-go5" class="h-entry article article-type-post"
+         itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <div class="article-inner">
+        <div class="article-meta">
+            <div class="article-date wow slideInLeft">
+    <a href="/2024/02/17/go5/" class="article-date-link">
+        <time datetime="2024-02-16T16:00:00.000Z"
+              itemprop="datePublished">2024-02-17</time>
+    </a>
+</div>
+
+            
+    <div class="article-category wow slideInLeft">
+        <a class="article-category-link" href="/categories/Go%E8%AF%AD%E8%A8%80/">Go语言</a>
+    </div>
+
+
+        </div>
+        <div class="hr-line"></div>
+        
+
+        <div class="e-content article-entry" itemprop="articleBody">
+            
+                <p>本篇是对上一篇博客的继续补充（当然也可以视作独立的一篇）。</p>
+<p><font color="#0000dd">友情提示，本篇博客中用到了数据库可视化工具Navicat。另外，本篇博客的所有代码都可以从<a target="_blank" rel="noopener" href="https://github.com/Luviichann/example-of-Gorm">这里</a>获取</font></p>
+<h1 id="建立大致项目结构"><a href="#建立大致项目结构" class="headerlink" title="建立大致项目结构"></a>建立大致项目结构</h1><p>Gorm是一个可以操作数据库的框架。为了更方便观察对数据库的操作，我们先建立一个基础从项目结构：<br>只有一个路由组，路由组里只有一个首页的路由。还要配置一下go mod的相关项。</p>
+<p>先使用go mod创建一个项目，比如项目名称就叫gormnote。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go mod init gormnote</span><br></pre></td></tr></table></figure>
+
+<p>然后获取一下要用到的包。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">go get github.com/gin-gonic/gin</span><br><span class="line">go get gorm.io/driver/mysql</span><br><span class="line">go get gorm.io/gorm</span><br></pre></td></tr></table></figure>
+
+<p>然后就要建立项目结构了：<br>和之前的一样，在<code>main.go</code>中调用路由组。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;gormnote/routers&quot;</span></span><br><span class="line"></span><br><span class="line">	<span class="string">&quot;github.com/gin-gonic/gin&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	r := gin.Default()</span><br><span class="line">	r.LoadHTMLGlob(<span class="string">&quot;templates/**/*&quot;</span>)</span><br><span class="line">	routers.DefaultRoutersInit(r)</span><br><span class="line">	r.Run()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// github.com/pilu/fresh</span></span><br></pre></td></tr></table></figure>
+
+<p>在<code>routers/defaultRouters.go</code>中配置路由。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> routers</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;gormnote/controllers/defaults&quot;</span></span><br><span class="line"></span><br><span class="line">	<span class="string">&quot;github.com/gin-gonic/gin&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">DefaultRoutersInit</span><span class="params">(r *gin.Engine)</span></span> &#123;</span><br><span class="line">	defaultRouters := r.Group(<span class="string">&quot;/&quot;</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		defaultRouters.GET(<span class="string">&quot;/&quot;</span>, defaults.DefaultController&#123;&#125;.Index)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在<code>controllers/default/defaultController.go</code>中实现路由逻辑。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> defaults <span class="comment">//注意这里的包名不要定义成default关键字，稍微区分一下。</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;net/http&quot;</span></span><br><span class="line"></span><br><span class="line">	<span class="string">&quot;github.com/gin-gonic/gin&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> DefaultController <span class="keyword">struct</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(con DefaultController)</span></span> Index(ctx *gin.Context) &#123;</span><br><span class="line">	<span class="comment">// ctx.String(http.StatusOK, &quot;首页&quot;)</span></span><br><span class="line">	ctx.HTML(http.StatusOK, <span class="string">&quot;default/index.html&quot;</span>, gin.H&#123;&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果只是观察数据库的变化，不需要再渲染一张网页，但为了讲究一点，我们再在templates&#x2F;default中写一个简单的index.html。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;define &quot;default/index.html&quot;&#125;&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>首页<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line">&#123;&#123;end&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>到这里，静态的网页基本结构就写好了，之后就要和数据库建立联系。</p>
+<p>新建一个<code>models/core.go</code>。<br>这个文件里包含了一个<code>init</code>函数，里面是数据库的连接方法。其中<code>DB</code>就是数据库。<br>至于那一长串<code>dsn</code>：</p>
+<ul>
+<li>第一个<code>root</code>是用户名。</li>
+<li>第二个<code>root</code>也就是冒号后面那个是密码。这里简单起见我就都设置成了<code>root</code>。</li>
+<li>括号里那部分是ip和端口。</li>
+<li><code>/</code>和<code>?</code>中间的是数据库的名称，注意是数据库的名称，不是连接的名称。</li>
+<li><code>charset=</code>后面的是编码格式，好像一般都会用<code>utf8mb4</code>。</li>
+<li>其他部分一般不用改动。</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> models</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line">	<span class="string">&quot;gorm.io/driver/mysql&quot;</span></span><br><span class="line">	<span class="string">&quot;gorm.io/gorm&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> DB *gorm.DB</span><br><span class="line"><span class="keyword">var</span> err <span class="type">error</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">// 参考 https://github.com/go-sql-driver/mysql#dsn-data-source-name 获取详情</span></span><br><span class="line">	dsn := <span class="string">&quot;root:root@tcp(127.0.0.1:3306)/gogin?charset=utf8mb4&amp;parseTime=True&amp;loc=Local&quot;</span></span><br><span class="line">	DB, err = gorm.Open(mysql.Open(dsn), &amp;gorm.Config&#123;&#125;)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Printf(<span class="string">&quot;err: %v\n&quot;</span>, err)</span><br><span class="line">		fmt.Println(<span class="string">&quot;数据库连接失败！&quot;</span>)</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">&quot;数据库连接成功！&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>有了数据库以后我们要定义结构体和数据库实现映射关系。<br>比如我们在数据库里创建了一个<code>user</code>用户表，其中包含了这么几项属性：</p>
+<ul>
+<li>id，用户id，具有自增属性。</li>
+<li>username，用户名。</li>
+<li>age，用户年龄。</li>
+<li>email，邮箱。</li>
+<li>add_time，创建时间（是一个时间戳）。</li>
+</ul>
+<p>那么我们可以在<code>models</code>下创建<code>user.go</code>，在里面定义结构体User。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> models</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> User <span class="keyword">struct</span> &#123;</span><br><span class="line">	Id       <span class="type">int</span></span><br><span class="line">	Username <span class="type">string</span></span><br><span class="line">	Age      <span class="type">int</span></span><br><span class="line">	Email    <span class="type">string</span></span><br><span class="line">	AddTime  <span class="type">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 结构体对应的表明，Gorm给了默认情况的表名，这里是自定义表名。</span></span><br><span class="line"><span class="comment">// 意思是User这个结构体连接的数据表名字是user。</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(User)</span></span> TableName() <span class="type">string</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="string">&quot;user&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>若要查询数据库中的内容，需要修改路由中的逻辑。由于数据并不是一个，所以我们查询全部数据时用一个切片来接收数据。<br><code>models.DB.Find()</code>会返回一个DB结构体，其中有一项<code>err</code>属性，不过后来我试验这里的<code>err</code>判断似乎并没有用（<del>就忽略不计了</del>）。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(con DefaultController)</span></span> Index(ctx *gin.Context) &#123;</span><br><span class="line">	<span class="comment">// ctx.String(http.StatusOK, &quot;首页&quot;)</span></span><br><span class="line">	userList := []models.User&#123;&#125; <span class="comment">//定义一个User类型的切片。</span></span><br><span class="line">	<span class="keyword">if</span> err := models.DB.Find(&amp;userList).Error; err != <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Printf(<span class="string">&quot;err: %v\n&quot;</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	ctx.HTML(http.StatusOK, <span class="string">&quot;default/index.html&quot;</span>, gin.H&#123;</span><br><span class="line">		<span class="string">&quot;userList&quot;</span>: userList,</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在数据被传到了前台，还要再渲染出来。这里可以使用<code>range</code>语句。在<code>body</code>里添加这些。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">    &#123;&#123;range $user := .userList&#125;&#125;</span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span> &#123;&#123;$user&#125;&#125; <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    &#123;&#123;end&#125;&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>至此，基本项目结构就完成了。</p>
+<h1 id="数据库的操作"><a href="#数据库的操作" class="headerlink" title="数据库的操作"></a>数据库的操作</h1><p>经典增删改查。</p>
+<h2 id="增加数据"><a href="#增加数据" class="headerlink" title="增加数据"></a>增加数据</h2><p>先来看增加数据。<br>配置一个新的<code>Add</code>路由。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(con DefaultController)</span></span> Add(ctx *gin.Context) &#123;</span><br><span class="line">	<span class="comment">// 增加数据</span></span><br><span class="line">	<span class="comment">// 实例化一个结构体并将它添加到数据库里。</span></span><br><span class="line">	user := models.User&#123;</span><br><span class="line">		Username: <span class="string">&quot;hlry&quot;</span>,</span><br><span class="line">		Age:      <span class="number">20</span>,</span><br><span class="line">		Email:    <span class="string">&quot;hlry@gmail.com&quot;</span>,</span><br><span class="line">		AddTime:  <span class="number">1708060539</span>,</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> err := models.DB.Create(&amp;user).Error; err != <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">&quot;数据添加失败！&quot;</span>)</span><br><span class="line">		fmt.Printf(<span class="string">&quot;err: %v\n&quot;</span>, err)</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">&quot;数据添加成功！&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 查询数据，验证一下确实是添加进去了。</span></span><br><span class="line">	userList := []models.User&#123;&#125;</span><br><span class="line">	<span class="keyword">if</span> err := models.DB.Find(&amp;userList).Error; err != <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Printf(<span class="string">&quot;err: %v\n&quot;</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	ctx.HTML(http.StatusOK, <span class="string">&quot;default/index.html&quot;</span>, gin.H&#123;</span><br><span class="line">		<span class="string">&quot;userList&quot;</span>: userList,</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里并不需要写<code>Id</code>的值，因为它是可以自增，而且是主键。如果强行写了一个已经存在的<code>id</code>值，那么就会报错。</p>
+<p>还要记得在路由组里配置路由。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">DefaultRoutersInit</span><span class="params">(r *gin.Engine)</span></span> &#123;</span><br><span class="line">	defaultRouters := r.Group(<span class="string">&quot;/&quot;</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		defaultRouters.GET(<span class="string">&quot;/&quot;</span>, defaults.DefaultController&#123;&#125;.Index)</span><br><span class="line">		defaultRouters.GET(<span class="string">&quot;/add&quot;</span>, defaults.DefaultController&#123;&#125;.Add)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="删除数据"><a href="#删除数据" class="headerlink" title="删除数据"></a>删除数据</h2><p>配置路由。<br>有两种删除数据的方法。可以实例化结构体时直接指定数据的id。也可以实例一个空的结构体，并提供要删除的数据id。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(con DefaultController)</span></span> Delete(ctx *gin.Context) &#123;</span><br><span class="line">	<span class="comment">// 删除数据</span></span><br><span class="line">	<span class="comment">// user := models.User&#123;Id: 2&#125; //指定删除的数据的id。</span></span><br><span class="line">	<span class="comment">// models.DB.Delete(&amp;user)</span></span><br><span class="line"></span><br><span class="line">	user := models.User&#123;&#125;</span><br><span class="line">	models.DB.Where(<span class="string">&quot;id = ?&quot;</span>, <span class="number">2</span>).Delete(&amp;user) <span class="comment">//查询到id=2的数据并删除。</span></span><br><span class="line"></span><br><span class="line">	userList := []models.User&#123;&#125;</span><br><span class="line">	<span class="keyword">if</span> err := models.DB.Find(&amp;userList).Error; err != <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Printf(<span class="string">&quot;err: %v\n&quot;</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	ctx.HTML(http.StatusOK, <span class="string">&quot;default/index.html&quot;</span>, gin.H&#123;</span><br><span class="line">		<span class="string">&quot;userList&quot;</span>: userList,</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="查询数据"><a href="#查询数据" class="headerlink" title="查询数据"></a>查询数据</h2><p>前面两种操作其实一直在用查询数据，只不过是没有任何限制条件地查询所有数据，这里介绍一些条件查询。<br>配置路由（不配置也可以）。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(con DefaultController)</span></span> Query(ctx *gin.Context) &#123;</span><br><span class="line">	userList := []models.User&#123;&#125;</span><br><span class="line">	<span class="comment">// 查询id&gt;2的数据。</span></span><br><span class="line">	<span class="comment">// models.DB.Where(&quot;id &gt; ?&quot;, 2).Find(&amp;userList)</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 查询id=3,4,6的数据，?是占位符，用切片打包要查询的数据的id。</span></span><br><span class="line">	models.DB.Where(<span class="string">&quot;id in ?&quot;</span>, []<span class="type">int</span>&#123;<span class="number">3</span>, <span class="number">4</span>, <span class="number">6</span>&#125;).Find(&amp;userList)</span><br><span class="line"></span><br><span class="line">	ctx.HTML(http.StatusOK, <span class="string">&quot;default/index.html&quot;</span>, gin.H&#123;</span><br><span class="line">		<span class="string">&quot;userList&quot;</span>: userList,</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="修改数据"><a href="#修改数据" class="headerlink" title="修改数据"></a>修改数据</h2><p>修改数据的方法就是，先找到要修改的数据，再用结构体赋值的方法对其修改。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(con DefaultController)</span></span> Update(ctx *gin.Context) &#123;</span><br><span class="line">	user := models.User&#123;&#125;                 <span class="comment">//先实例化一个空结构体。</span></span><br><span class="line">	models.DB.Where(<span class="string">&quot;id = 4&quot;</span>).Find(&amp;user) <span class="comment">//找到要修改的数据。</span></span><br><span class="line">	<span class="comment">//修改数据。</span></span><br><span class="line">	user.Username = <span class="string">&quot;kzh&quot;</span></span><br><span class="line">	user.Age = <span class="number">19</span></span><br><span class="line">	user.Email = <span class="string">&quot;kzh@outlook.com&quot;</span></span><br><span class="line">	models.DB.Save(&amp;user)</span><br><span class="line"></span><br><span class="line">	userList := []models.User&#123;&#125;</span><br><span class="line">	<span class="keyword">if</span> err := models.DB.Find(&amp;userList).Error; err != <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Printf(<span class="string">&quot;err: %v\n&quot;</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	ctx.HTML(http.StatusOK, <span class="string">&quot;default/index.html&quot;</span>, gin.H&#123;</span><br><span class="line">		<span class="string">&quot;userList&quot;</span>: userList,</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="关联查询"><a href="#关联查询" class="headerlink" title="关联查询"></a>关联查询</h2><h3 id="Belongs-To"><a href="#Belongs-To" class="headerlink" title="Belongs To"></a>Belongs To</h3><p>现在在数据库里新增一些数据。<br><code>article</code>，文章:</p>
+<ul>
+<li>id，文章id。</li>
+<li>title，文章标题。</li>
+<li>categary_id，文章分类对应的类别id。</li>
+</ul>
+<p><code>article_categary</code>，文章分类:</p>
+<ul>
+<li>id，类别的id。</li>
+<li>categary，类别。</li>
+</ul>
+<p>假如我们现在要查询每篇文章及其对应的id。因为每篇文章只能有一个分类，而一个分类可以包含多篇文章，所以可以说文章属于分类的一个实例。</p>
+<p>那么我们需要这样定义两个结构体。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> models</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Article <span class="keyword">struct</span> &#123;</span><br><span class="line">	Id              <span class="type">int</span></span><br><span class="line">	Title           <span class="type">string</span></span><br><span class="line">	CategaryId      <span class="type">int</span></span><br><span class="line">	ArticleCategary ArticleCategary <span class="string">`gorm:&quot;foreignKey:CategaryId;references:Id&quot;`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(Article)</span></span> TableName() <span class="type">string</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="string">&quot;article&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> models</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> ArticleCategary <span class="keyword">struct</span> &#123;</span><br><span class="line">	Id       <span class="type">int</span></span><br><span class="line">	Categary <span class="type">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(ArticleCategary)</span></span> TableName() <span class="type">string</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="string">&quot;article_categary&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>gorm:&quot;foreignKey:CategaryId;references:Id&quot;</code>这段代码是重写外键和引用，Gorm有默认值，但我们已经建立的数据库的键与默认值不太匹配，所以要自己重新（另外，我觉得还是自己声明比较好，虽然默认值也就是和表名有关，但毕竟要约束表名，而且被封装起来看不到。自己重新一眼就能看出到底是哪个和哪个相连）。意思就是，现在要查询文章及其分类，那么就用<code>Article.CategaryId</code>和<code>ArticleCategary.Id</code>进行连接。也就是说，在数据库中，对于<code>article</code>表里的每一篇文章，我们都要用文章的分类的id即<code>categary_id</code>去<code>article_categary</code>表里进行匹配，匹配的就是和<code>categary_id</code>相同的<code>id</code>。说得再简单一点就是，拿到一篇文章以后，不急着将它返回，先拿着它的<code>categary_id</code>值去<code>article_categary</code>表里的<code>id</code>属性里找一样的值，找到以后把文章和找到的这个<code>id</code>对应的分类绑定在一起返回。</p>
+<p>使用预加载查询到带分类的文章。要注意的是，<code>Preload()</code>括号里的内容要与结构体里的属性名一致，而不是与类型一致。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(con DefaultController)</span></span> Query_bt(ctx *gin.Context) &#123;</span><br><span class="line"></span><br><span class="line">	articleList := []models.Article&#123;&#125;</span><br><span class="line">	models.DB.Preload(<span class="string">&quot;ArticleCategary&quot;</span>).Find(&amp;articleList)</span><br><span class="line"></span><br><span class="line">	ctx.HTML(http.StatusOK, <span class="string">&quot;default/article.html&quot;</span>, gin.H&#123;</span><br><span class="line">		<span class="string">&quot;results&quot;</span>: articleList,</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Has-One"><a href="#Has-One" class="headerlink" title="Has One"></a>Has One</h3><p>恕我无能，笔者搞了半天也没搞明白到底<code>Belongs To</code>和<code>Has One</code>到底有什么区别，除了描述的方向相反以外，其他的方面真看不出来猫腻儿，感觉是同一回事。</p>
+<h3 id="Has-Many"><a href="#Has-Many" class="headerlink" title="Has Many"></a>Has Many</h3><p>前面是每篇文章都属于一个分类。假如现在要查询每个分类及分类下的每篇文章，那么这就是一对多。<br>我们需要在<code>ArticleCategary</code>里再加上一个属性。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> ArticleCategary <span class="keyword">struct</span> &#123;</span><br><span class="line">	Id       <span class="type">int</span></span><br><span class="line">	Categary <span class="type">string</span></span><br><span class="line">	Article  []Article <span class="string">`gorm:&quot;foreignKey:CategaryId;references:Id&quot;`</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个意思就是用一个名为<code>Article</code>的结构体切片去存储每一个<code>Article</code>，先不说后面那一串。到这里，可能会有些疑问，<code>Article</code>和<code>ArticleCategary</code>互相嵌套，这样不会出问题吗？实践验证，最后的结果是这两个互相嵌套的属性最后会以空值结束。就比如，我查到了一篇文章，那么它的结果大概是这样的：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;Id&quot;</span><span class="punctuation">:</span><span class="number">1</span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;Title&quot;</span><span class="punctuation">:</span><span class="string">&quot;新闻111&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;CategaryId&quot;</span><span class="punctuation">:</span><span class="number">1</span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;ArticleCategary&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;Id&quot;</span><span class="punctuation">:</span><span class="number">1</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;Categary&quot;</span><span class="punctuation">:</span><span class="string">&quot;类别1&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;Article&quot;</span><span class="punctuation">:</span><span class="literal"><span class="keyword">null</span></span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>可以看到，虽然整个<code>Article</code>里最后又嵌套的一个<code>Article</code>，但是这个<code>Article</code>会直接被设置为空值。<br>同理，<code>ArticleCategary</code>也大致一样。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;Id&quot;</span><span class="punctuation">:</span><span class="number">1</span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;Categary&quot;</span><span class="punctuation">:</span><span class="string">&quot;类别1&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;Article&quot;</span><span class="punctuation">:</span><span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;Id&quot;</span><span class="punctuation">:</span><span class="number">1</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;Title&quot;</span><span class="punctuation">:</span><span class="string">&quot;新闻111&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;CategaryId&quot;</span><span class="punctuation">:</span><span class="number">1</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;ArticleCategary&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;Id&quot;</span><span class="punctuation">:</span><span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Categary&quot;</span><span class="punctuation">:</span><span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Article&quot;</span><span class="punctuation">:</span><span class="literal"><span class="keyword">null</span></span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;Id&quot;</span><span class="punctuation">:</span><span class="number">2</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;Title&quot;</span><span class="punctuation">:</span><span class="string">&quot;title222&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;CategaryId&quot;</span><span class="punctuation">:</span><span class="number">1</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;ArticleCategary&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;Id&quot;</span><span class="punctuation">:</span><span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Categary&quot;</span><span class="punctuation">:</span><span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Article&quot;</span><span class="punctuation">:</span><span class="literal"><span class="keyword">null</span></span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">]</span></span><br></pre></td></tr></table></figure>
+
+<p>然后再说<code>gorm:&quot;foreignKey:CategaryId;references:Id&quot;</code>这一串东西。这和前面的<code>Belongs To</code>很像，也是重新外键和引用。这里的意思就是，在数据库里查询<code>article_categary</code>时，我们要用<code>ArticleCategary.Id</code>也就是的<code>article_categary</code>表里的<code>id</code>去<code>article</code>表里进行匹配，把和<code>Article.CategaryId</code>也就是<code>article</code>表里<code>categary_id</code>值一样的文章拿出来存放到<code>ArticleCategary.Article</code>切片中。再说简单点就是用文章分类的id去找这个类别下的所有文章。</p>
+<h3 id="Many-To-Many"><a href="#Many-To-Many" class="headerlink" title="Many To Many"></a>Many To Many</h3><p>这部分稍微有些复杂。<br>假设现在每篇文章又多了一个标签<code>Tags</code>属性，其类型是<code>Tags</code>类型的切片，也就是说，一篇文章可以有多个标签，那么我们又需要定义一下<code>Tags</code>类型。同时，在定义<code>Tags</code>类型时，也要考虑到一个标签可以给多个文章使用，也就是一个标签可以属于多个文章，那么在<code>Tags</code>结构体里还要加上一个<code>Article</code>属性，其类型是<code>Article</code>类型的切片。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> models</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Tags <span class="keyword">struct</span> &#123;</span><br><span class="line">	Id      <span class="type">int</span></span><br><span class="line">	Tag     <span class="type">string</span></span><br><span class="line">	Article []Article <span class="string">`gorm:&quot;many2many:article_tags;foreignKey:Id;joinForeignKey:TagID;References:Id;joinReferences:ArticleId&quot;`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(Tags)</span></span> TableName() <span class="type">string</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="string">&quot;tags&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><del>我知道你看到了那一大串密密麻麻的字母，但先别管。</del>我们还要再修改一下<code>Article</code>的定义。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Article <span class="keyword">struct</span> &#123;</span><br><span class="line">	Id              <span class="type">int</span></span><br><span class="line">	Title           <span class="type">string</span></span><br><span class="line">	CategaryId      <span class="type">int</span></span><br><span class="line">	ArticleCategary ArticleCategary <span class="string">`gorm:&quot;foreignKey:CategaryId;references:Id&quot;`</span></span><br><span class="line">	Tags            []Tags          <span class="string">`gorm:&quot;many2many:article_tags;foreignKey:Id;joinForeignKey:ArticleID;References:Id;joinReferences:TagId&quot;`</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>那么现在，数据库里有了新的<code>tags</code>表，如果我们想查询每一篇文章并附带着它们的标签，只有这些还不够。因为是多对多关系，不可能在数据库的<code>article</code>和<code>tags</code>这两个表里实现，还需要再引入第三张表，比如就叫<code>article_tags</code>表。这个表有两个属性，一个是<code>article_id</code>，也就是文章id，另一个是<code>tags_id</code>也就是标签id。把所有的关联起来的文章标签的id存放在这张表里。这张表只有这两项属性，不需要拥有自己的id，因为它只是起到一个连接的作用，我们不会特定的要查询某个文章标签的关联组合。</p>
+<p>把这张表也定义成结构体。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> models</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> ArticleTags <span class="keyword">struct</span> &#123;</span><br><span class="line">	ArticleId <span class="type">int</span></span><br><span class="line">	TagId     <span class="type">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(ArticleTags)</span></span> TableName() <span class="type">string</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="string">&quot;article_tags&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接下来，我们的查询思路就是，对于<code>article</code>表里的每一篇文章，我们用它的id在<code>article_tags</code>表里找到和所有这篇文章id一样的<code>article_id</code>。找到以后用那一行数据的<code>tags_id</code>属性再去<code>tags</code>表里找和这个<code>tags_id</code>一样的id。找到对应的id以后再把整行数据作为结果放到结构体<code>Article</code>的<code>Tags</code>切片里。最后再把带有<code>Tags</code>切片的<code>Article</code>作为查询结果返回。<br>思路有了，那么问题就是该怎么让几个结构体或者说数据表关联起来。这就需要解释一下那一大串字母了。<br><code>gorm:&quot;many2many:article_tags;foreignKey:Id;joinForeignKey:ArticleID;References:Id;joinReferences:TagId&quot;</code><br>这里也是像之前一样重写了外键和引用。</p>
+<ul>
+<li><code>many2many:article_tags</code>:意思是连接名为<code>article_tags</code>的数据表，我们要拿哪个数据表做中间连接就用哪个表的名称。</li>
+<li><code>foreignKey:Id</code>:我们这里是要查询<code>article</code>，所有的重写都是定义在<code>Article</code>结构体里的。这段代码意思就是要用<code>Article</code>里的<code>Id</code>去连接<code>ArticleTags</code>结构体或者说<code>article_tags</code>表。</li>
+<li><code>joinForeignKey:ArticleID</code>:将<code>Article</code>和<code>Tags</code>连接起来的结构体是<code>ArticleTags</code>。这段代码的意思就是要用前面拿到的<code>Article.Id</code>去找匹配的<code>ArticleTags.ArticleId</code>。<br>先跳过<code>References:Id</code>先看最后一部分。</li>
+<li><code>joinReferences:TagId</code>:在找到和<code>Article.Id</code>去找匹配的<code>ArticleTags.ArticleId</code>以后，要根据这个<code>ArticleTags.ArticleId</code>找到对应的<code>TagsId</code>。</li>
+<li><code>References:Id</code>:我们这里是希望找到<code>Article</code>及其所有的<code>Tags</code>，那么这段代码的意思就是用前面的<code>TagsId</code>在<code>Tags</code>里找到匹配的<code>Tags.Id</code>。<br>最后，因为<code>Tags.Id</code>就是<code>Tags</code>结构体或者说<code>tags</code>表的主键，所以可以找到对应的标签，并将整个数据存入<code>Article.[]Tags</code>里。</li>
+</ul>
+<p>总结一下就是：</p>
+<ul>
+<li><code>many2many</code>就是连接两个多对多关系的表(简单起见，以下就叫A和B，并且要查询A及其所带的B属性)。</li>
+<li><code>foreignKey</code>就是A表里要拿去在连接表里找一样的值的属性。</li>
+<li><code>joinForeignKey</code>就是要去和A表里拿过来的那条属性匹配的属性。</li>
+<li><code>joinReferences</code>就是找到连接表里那条相匹配的数据以后，需要用它的值去B表里查询的属性。</li>
+<li><code>References:Id</code>就是要被查询的值在B表里查询的那个属性。</li>
+</ul>
+<p>整个流程就是：</p>
+<ul>
+<li>A -&gt; A.foreignKey</li>
+<li>A.foreignKey -&gt; A_B.joinForeignKey</li>
+<li>A_B.joinForeignKey -&gt; A_B.joinReferences</li>
+<li>A_B.joinReferences -&gt; B.References</li>
+<li>B.References -&gt; B<br>这里起始的A和结束的B分别代指A表和B表里的一条或多条数据。</li>
+</ul>
+<p>解释完上面这些，就可以直接查询了。查询<code>Tags</code>及其所拥有的<code>Article</code>也是同样的方法。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(con DefaultController)</span></span> Query_mtm(ctx *gin.Context) &#123;</span><br><span class="line">	articleList := []models.Article&#123;&#125;</span><br><span class="line">	models.DB.Preload(<span class="string">&quot;Tags&quot;</span>).Find(&amp;articleList)</span><br><span class="line">	<span class="comment">// ctx.HTML(http.StatusOK, &quot;default/article.html&quot;, gin.H&#123;</span></span><br><span class="line">	<span class="comment">// 	&quot;results&quot;: articleList,</span></span><br><span class="line">	<span class="comment">// &#125;)</span></span><br><span class="line">	ctx.JSON(http.StatusOK, gin.H&#123;</span><br><span class="line">		<span class="string">&quot;articleList&quot;</span>: articleList,</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">	tagsList := []models.Tags&#123;&#125;</span><br><span class="line">	models.DB.Preload(<span class="string">&quot;Article&quot;</span>).Find(&amp;tagsList)</span><br><span class="line">	<span class="comment">// ctx.HTML(http.StatusOK, &quot;default/article.html&quot;, gin.H&#123;</span></span><br><span class="line">	<span class="comment">// 	&quot;results&quot;: tagsList,</span></span><br><span class="line">	<span class="comment">// &#125;)</span></span><br><span class="line">	ctx.JSON(http.StatusOK, gin.H&#123;</span><br><span class="line">		<span class="string">&quot;tagsList&quot;</span>: tagsList,</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>得到的结构大概长这样：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;articleList&quot;</span><span class="punctuation">:</span><span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;Id&quot;</span><span class="punctuation">:</span><span class="number">1</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Title&quot;</span><span class="punctuation">:</span><span class="string">&quot;新闻111&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;CategaryId&quot;</span><span class="punctuation">:</span><span class="number">1</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;ArticleCategary&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span></span><br><span class="line">                <span class="attr">&quot;Id&quot;</span><span class="punctuation">:</span><span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;Categary&quot;</span><span class="punctuation">:</span><span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;Article&quot;</span><span class="punctuation">:</span><span class="literal"><span class="keyword">null</span></span></span><br><span class="line">            <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Tags&quot;</span><span class="punctuation">:</span><span class="punctuation">[</span></span><br><span class="line">                <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;Id&quot;</span><span class="punctuation">:</span><span class="number">1</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;Tag&quot;</span><span class="punctuation">:</span><span class="string">&quot;tag111&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;Article&quot;</span><span class="punctuation">:</span><span class="literal"><span class="keyword">null</span></span></span><br><span class="line">                <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;Id&quot;</span><span class="punctuation">:</span><span class="number">2</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;Tag&quot;</span><span class="punctuation">:</span><span class="string">&quot;tag222&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;Article&quot;</span><span class="punctuation">:</span><span class="literal"><span class="keyword">null</span></span></span><br><span class="line">                <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;Id&quot;</span><span class="punctuation">:</span><span class="number">5</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;Tag&quot;</span><span class="punctuation">:</span><span class="string">&quot;tag555&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;Article&quot;</span><span class="punctuation">:</span><span class="literal"><span class="keyword">null</span></span></span><br><span class="line">                <span class="punctuation">&#125;</span></span><br><span class="line">            <span class="punctuation">]</span></span><br><span class="line">        <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;Id&quot;</span><span class="punctuation">:</span><span class="number">2</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Title&quot;</span><span class="punctuation">:</span><span class="string">&quot;title222&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;CategaryId&quot;</span><span class="punctuation">:</span><span class="number">1</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;ArticleCategary&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span></span><br><span class="line">                <span class="attr">&quot;Id&quot;</span><span class="punctuation">:</span><span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;Categary&quot;</span><span class="punctuation">:</span><span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;Article&quot;</span><span class="punctuation">:</span><span class="literal"><span class="keyword">null</span></span></span><br><span class="line">            <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Tags&quot;</span><span class="punctuation">:</span><span class="punctuation">[</span></span><br><span class="line">                <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;Id&quot;</span><span class="punctuation">:</span><span class="number">1</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;Tag&quot;</span><span class="punctuation">:</span><span class="string">&quot;tag111&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;Article&quot;</span><span class="punctuation">:</span><span class="literal"><span class="keyword">null</span></span></span><br><span class="line">                <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;Id&quot;</span><span class="punctuation">:</span><span class="number">3</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;Tag&quot;</span><span class="punctuation">:</span><span class="string">&quot;tag333&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;Article&quot;</span><span class="punctuation">:</span><span class="literal"><span class="keyword">null</span></span></span><br><span class="line">                <span class="punctuation">&#125;</span></span><br><span class="line">            <span class="punctuation">]</span></span><br><span class="line">        <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;Id&quot;</span><span class="punctuation">:</span><span class="number">3</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Title&quot;</span><span class="punctuation">:</span><span class="string">&quot;title333&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;CategaryId&quot;</span><span class="punctuation">:</span><span class="number">2</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;ArticleCategary&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span></span><br><span class="line">                <span class="attr">&quot;Id&quot;</span><span class="punctuation">:</span><span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;Categary&quot;</span><span class="punctuation">:</span><span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;Article&quot;</span><span class="punctuation">:</span><span class="literal"><span class="keyword">null</span></span></span><br><span class="line">            <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Tags&quot;</span><span class="punctuation">:</span><span class="punctuation">[</span></span><br><span class="line">                <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;Id&quot;</span><span class="punctuation">:</span><span class="number">5</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;Tag&quot;</span><span class="punctuation">:</span><span class="string">&quot;tag555&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;Article&quot;</span><span class="punctuation">:</span><span class="literal"><span class="keyword">null</span></span></span><br><span class="line">                <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;Id&quot;</span><span class="punctuation">:</span><span class="number">6</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;Tag&quot;</span><span class="punctuation">:</span><span class="string">&quot;tag666&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;Article&quot;</span><span class="punctuation">:</span><span class="literal"><span class="keyword">null</span></span></span><br><span class="line">                <span class="punctuation">&#125;</span></span><br><span class="line">            <span class="punctuation">]</span></span><br><span class="line">        <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;Id&quot;</span><span class="punctuation">:</span><span class="number">4</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Title&quot;</span><span class="punctuation">:</span><span class="string">&quot;title444&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;CategaryId&quot;</span><span class="punctuation">:</span><span class="number">3</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;ArticleCategary&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span></span><br><span class="line">                <span class="attr">&quot;Id&quot;</span><span class="punctuation">:</span><span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;Categary&quot;</span><span class="punctuation">:</span><span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;Article&quot;</span><span class="punctuation">:</span><span class="literal"><span class="keyword">null</span></span></span><br><span class="line">            <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Tags&quot;</span><span class="punctuation">:</span><span class="punctuation">[</span></span><br><span class="line">                <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;Id&quot;</span><span class="punctuation">:</span><span class="number">2</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;Tag&quot;</span><span class="punctuation">:</span><span class="string">&quot;tag222&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;Article&quot;</span><span class="punctuation">:</span><span class="literal"><span class="keyword">null</span></span></span><br><span class="line">                <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;Id&quot;</span><span class="punctuation">:</span><span class="number">3</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;Tag&quot;</span><span class="punctuation">:</span><span class="string">&quot;tag333&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;Article&quot;</span><span class="punctuation">:</span><span class="literal"><span class="keyword">null</span></span></span><br><span class="line">                <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;Id&quot;</span><span class="punctuation">:</span><span class="number">4</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;Tag&quot;</span><span class="punctuation">:</span><span class="string">&quot;tag444&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;Article&quot;</span><span class="punctuation">:</span><span class="literal"><span class="keyword">null</span></span></span><br><span class="line">                <span class="punctuation">&#125;</span></span><br><span class="line">            <span class="punctuation">]</span></span><br><span class="line">        <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;Id&quot;</span><span class="punctuation">:</span><span class="number">5</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Title&quot;</span><span class="punctuation">:</span><span class="string">&quot;title555&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;CategaryId&quot;</span><span class="punctuation">:</span><span class="number">4</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;ArticleCategary&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span></span><br><span class="line">                <span class="attr">&quot;Id&quot;</span><span class="punctuation">:</span><span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;Categary&quot;</span><span class="punctuation">:</span><span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;Article&quot;</span><span class="punctuation">:</span><span class="literal"><span class="keyword">null</span></span></span><br><span class="line">            <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Tags&quot;</span><span class="punctuation">:</span><span class="punctuation">[</span></span><br><span class="line">                <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;Id&quot;</span><span class="punctuation">:</span><span class="number">1</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;Tag&quot;</span><span class="punctuation">:</span><span class="string">&quot;tag111&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;Article&quot;</span><span class="punctuation">:</span><span class="literal"><span class="keyword">null</span></span></span><br><span class="line">                <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;Id&quot;</span><span class="punctuation">:</span><span class="number">2</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;Tag&quot;</span><span class="punctuation">:</span><span class="string">&quot;tag222&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;Article&quot;</span><span class="punctuation">:</span><span class="literal"><span class="keyword">null</span></span></span><br><span class="line">                <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;Id&quot;</span><span class="punctuation">:</span><span class="number">5</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;Tag&quot;</span><span class="punctuation">:</span><span class="string">&quot;tag555&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;Article&quot;</span><span class="punctuation">:</span><span class="literal"><span class="keyword">null</span></span></span><br><span class="line">                <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;Id&quot;</span><span class="punctuation">:</span><span class="number">6</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;Tag&quot;</span><span class="punctuation">:</span><span class="string">&quot;tag666&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;Article&quot;</span><span class="punctuation">:</span><span class="literal"><span class="keyword">null</span></span></span><br><span class="line">                <span class="punctuation">&#125;</span></span><br><span class="line">            <span class="punctuation">]</span></span><br><span class="line">        <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;Id&quot;</span><span class="punctuation">:</span><span class="number">6</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Title&quot;</span><span class="punctuation">:</span><span class="string">&quot;title666&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;CategaryId&quot;</span><span class="punctuation">:</span><span class="number">3</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;ArticleCategary&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span></span><br><span class="line">                <span class="attr">&quot;Id&quot;</span><span class="punctuation">:</span><span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;Categary&quot;</span><span class="punctuation">:</span><span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;Article&quot;</span><span class="punctuation">:</span><span class="literal"><span class="keyword">null</span></span></span><br><span class="line">            <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Tags&quot;</span><span class="punctuation">:</span><span class="punctuation">[</span></span><br><span class="line">                <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;Id&quot;</span><span class="punctuation">:</span><span class="number">1</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;Tag&quot;</span><span class="punctuation">:</span><span class="string">&quot;tag111&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;Article&quot;</span><span class="punctuation">:</span><span class="literal"><span class="keyword">null</span></span></span><br><span class="line">                <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;Id&quot;</span><span class="punctuation">:</span><span class="number">2</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;Tag&quot;</span><span class="punctuation">:</span><span class="string">&quot;tag222&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;Article&quot;</span><span class="punctuation">:</span><span class="literal"><span class="keyword">null</span></span></span><br><span class="line">                <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;Id&quot;</span><span class="punctuation">:</span><span class="number">6</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;Tag&quot;</span><span class="punctuation">:</span><span class="string">&quot;tag666&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;Article&quot;</span><span class="punctuation">:</span><span class="literal"><span class="keyword">null</span></span></span><br><span class="line">                <span class="punctuation">&#125;</span></span><br><span class="line">            <span class="punctuation">]</span></span><br><span class="line">        <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;Id&quot;</span><span class="punctuation">:</span><span class="number">7</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Title&quot;</span><span class="punctuation">:</span><span class="string">&quot;title777&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;CategaryId&quot;</span><span class="punctuation">:</span><span class="number">4</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;ArticleCategary&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span></span><br><span class="line">                <span class="attr">&quot;Id&quot;</span><span class="punctuation">:</span><span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;Categary&quot;</span><span class="punctuation">:</span><span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;Article&quot;</span><span class="punctuation">:</span><span class="literal"><span class="keyword">null</span></span></span><br><span class="line">            <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Tags&quot;</span><span class="punctuation">:</span><span class="punctuation">[</span></span><br><span class="line">                <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;Id&quot;</span><span class="punctuation">:</span><span class="number">1</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;Tag&quot;</span><span class="punctuation">:</span><span class="string">&quot;tag111&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;Article&quot;</span><span class="punctuation">:</span><span class="literal"><span class="keyword">null</span></span></span><br><span class="line">                <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;Id&quot;</span><span class="punctuation">:</span><span class="number">3</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;Tag&quot;</span><span class="punctuation">:</span><span class="string">&quot;tag333&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;Article&quot;</span><span class="punctuation">:</span><span class="literal"><span class="keyword">null</span></span></span><br><span class="line">                <span class="punctuation">&#125;</span></span><br><span class="line">            <span class="punctuation">]</span></span><br><span class="line">        <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;Id&quot;</span><span class="punctuation">:</span><span class="number">8</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Title&quot;</span><span class="punctuation">:</span><span class="string">&quot;title888&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;CategaryId&quot;</span><span class="punctuation">:</span><span class="number">2</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;ArticleCategary&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span></span><br><span class="line">                <span class="attr">&quot;Id&quot;</span><span class="punctuation">:</span><span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;Categary&quot;</span><span class="punctuation">:</span><span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;Article&quot;</span><span class="punctuation">:</span><span class="literal"><span class="keyword">null</span></span></span><br><span class="line">            <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Tags&quot;</span><span class="punctuation">:</span><span class="punctuation">[</span></span><br><span class="line">                <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;Id&quot;</span><span class="punctuation">:</span><span class="number">1</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;Tag&quot;</span><span class="punctuation">:</span><span class="string">&quot;tag111&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;Article&quot;</span><span class="punctuation">:</span><span class="literal"><span class="keyword">null</span></span></span><br><span class="line">                <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;Id&quot;</span><span class="punctuation">:</span><span class="number">2</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;Tag&quot;</span><span class="punctuation">:</span><span class="string">&quot;tag222&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;Article&quot;</span><span class="punctuation">:</span><span class="literal"><span class="keyword">null</span></span></span><br><span class="line">                <span class="punctuation">&#125;</span></span><br><span class="line">            <span class="punctuation">]</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>Gorm对数据库的基本操作大概就是这样。<del>以后如果还有什么再补充吧。</del></p>
+
+            
+        </div>
+        <footer class="article-footer">
+            <a data-url="http://example.com/2024/02/17/go5/" data-id="clsq3w1yk000xygvv331cfvd4" data-title="Gorm与数据库"
+               class="article-share-link">分享</a>
+            
+            
+            
+            
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gin%E6%A1%86%E6%9E%B6/" rel="tag">Gin框架</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Golang/" rel="tag">Golang</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gorm/" rel="tag">Gorm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Go%E8%AF%AD%E8%A8%80/" rel="tag">Go语言</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
+
+
+        </footer>
+    </div>
+    
+        
+    <nav id="article-nav" class="wow fadeInUp">
+        
+        
+            <div class="article-nav-link-wrap article-nav-link-right">
+                
+                    <img data-src="https://pic.imgdb.cn/item/65ca06679f345e8d0385fb4d.jpg" data-sizes="auto" alt="Gin的结构（补）"
+                         class="lazyload">
+                
+                <a href="/2024/02/12/go4/"></a>
+                <div class="article-nav-caption">后一篇</div>
+                <h3 class="article-nav-title">
+                    
+                        Gin的结构（补）
+                    
+                </h3>
+            </div>
+        
+    </nav>
+
+
+    
+    
+</article>
+
+
+
+
+
+
+
+
+
+
+
+</section>
+                
+                    <aside id="sidebar">
+    <div class="sidebar-wrap wow fadeInRight">
+        <div class="sidebar-author">
+            <img data-src="/avatar/avatar.jpg" data-sizes="auto" alt="Luviichann" class="lazyload">
+            <div class="sidebar-author-name">Luviichann</div>
+            <div class="sidebar-description">任何一种伟大的思想都源于一个微不足道的开始。</div>
+        </div>
+        <div class="sidebar-state">
+            <div class="sidebar-state-article">
+                <div>文章</div>
+                <div class="sidebar-state-number">25</div>
+            </div>
+            <div class="sidebar-state-category">
+                <div>分类</div>
+                <div class="sidebar-state-number">9</div>
+            </div>
+            <div class="sidebar-state-tag">
+                <div>标签</div>
+                <div class="sidebar-state-number">21</div>
+            </div>
+        </div>
+        <div class="sidebar-social">
+            
+                <div class=icon-github>
+                    <a href=https://github.com/Luviichann itemprop="url" target="_blank"></a>
+                </div>
+            
+        </div>
+        <div class="sidebar-menu">
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">首页</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/archives"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">归档</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/about"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">关于</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/friend"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">友链</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/categories"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">分类</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/tags"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">标签</div>
+                </div>
+            
+        </div>
+    </div>
+    
+        
+    <div class="widget-wrap wow fadeInRight">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Go%E8%AF%AD%E8%A8%80/">Go语言</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/HuggingFace-NLP/">HuggingFace NLP</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AF%B9%E8%AF%9D%E7%B3%BB%E5%88%97/">对话系列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%99%E7%A8%8B/">教程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9D%82%E8%B0%88/">杂谈</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9D%82%E9%A1%B9/">杂项</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B5%8B%E8%AF%95%E6%96%87%E6%A1%A3/">测试文档</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a></li></ul>
+        </div>
+    </div>
+
+
+    
+        
+    <div class="widget-wrap wow fadeInRight">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gin%E6%A1%86%E6%9E%B6/" rel="tag">Gin框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Golang/" rel="tag">Golang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gorm/" rel="tag">Gorm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go%E8%AF%AD%E8%A8%80/" rel="tag">Go语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HuggingFace/" rel="tag">HuggingFace</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/" rel="tag">MNIST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mirai/" rel="tag">Mirai</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pytorch/" rel="tag">Pytorch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/" rel="tag">html</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" rel="tag">大语言模型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%A0%E9%87%8F/" rel="tag">张量</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" rel="tag">数据处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8B%E8%AF%95%E6%96%87%E6%9C%AC/" rel="tag">测试文本</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" rel="tag">神经网络</a></li></ul>
+        </div>
+    </div>
+
+
+    
+        
+    <div class="widget-wrap wow fadeInRight">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Gin%E6%A1%86%E6%9E%B6/" style="font-size: 12px;">Gin框架</a> <a href="/tags/Golang/" style="font-size: 16px;">Golang</a> <a href="/tags/Gorm/" style="font-size: 10px;">Gorm</a> <a href="/tags/Go%E8%AF%AD%E8%A8%80/" style="font-size: 16px;">Go语言</a> <a href="/tags/HuggingFace/" style="font-size: 14px;">HuggingFace</a> <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/MNIST/" style="font-size: 10px;">MNIST</a> <a href="/tags/Mirai/" style="font-size: 10px;">Mirai</a> <a href="/tags/NLP/" style="font-size: 14px;">NLP</a> <a href="/tags/Pytorch/" style="font-size: 14px;">Pytorch</a> <a href="/tags/css/" style="font-size: 14px;">css</a> <a href="/tags/html/" style="font-size: 18px;">html</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 18px;">前端</a> <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" style="font-size: 10px;">大语言模型</a> <a href="/tags/%E5%BC%A0%E9%87%8F/" style="font-size: 10px;">张量</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" style="font-size: 10px;">数据处理</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/tags/%E6%B5%8B%E8%AF%95%E6%96%87%E6%9C%AC/" style="font-size: 10px;">测试文本</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 20px;">深度学习</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">神经网络</a>
+        </div>
+    </div>
+
+
+    
+        
+    <div class="widget-wrap wow fadeInRight">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">十一月 2023</a></li></ul>
+        </div>
+    </div>
+
+
+    
+</aside>
+
+                
+            </div>
+            <footer id="footer" class="wow fadeInUp">
+    <div style="width: 100%; overflow: hidden"><div class="footer-line"></div></div>
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            
+            <div>
+                <span class="icon-copyright"></span>
+                Sun Nov 05 2023 08:00:00 GMT+0800 (中国标准时间)-2024
+                <span class="footer-info-sep"></span>
+                Luviichann
+            </div>
+            
+                <div>
+                    基于&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>&nbsp;
+                    Theme.<a href="https://github.com/D-Sketon/hexo-theme-reimu" target="_blank">Reimu</a>
+                </div>
+            
+            
+                <div>
+                    <span class="icon-brush"></span>
+                    34.8k
+                    &nbsp;|&nbsp;
+                    <span class="icon-coffee"></span>
+                    02:22
+                </div>
+            
+            
+                <div>
+                    <span class="icon-eye"></span>
+                    <span id="busuanzi_container_site_pv">总访问量&nbsp;<span id="busuanzi_value_site_pv"></span></span>
+                    &nbsp;|&nbsp;
+                    <span class="icon-user"></span>
+                    <span id="busuanzi_container_site_uv">总访客量&nbsp;<span id="busuanzi_value_site_uv"></span></span>
+                </div>
+            
+        </div>
+    </div>
+</footer>
+
+        </div>
+        <nav id="mobile-nav">
+    <div class="sidebar-wrap">
+        <div class="sidebar-author">
+            <img data-src="/avatar/avatar.jpg" data-sizes="auto" alt="Luviichann" class="lazyload">
+            <div class="sidebar-author-name">Luviichann</div>
+            <div class="sidebar-description">任何一种伟大的思想都源于一个微不足道的开始。</div>
+        </div>
+        <div class="sidebar-state">
+            <div class="sidebar-state-article">
+                <div>文章</div>
+                <div class="sidebar-state-number">25</div>
+            </div>
+            <div class="sidebar-state-category">
+                <div>分类</div>
+                <div class="sidebar-state-number">9</div>
+            </div>
+            <div class="sidebar-state-tag">
+                <div>标签</div>
+                <div class="sidebar-state-number">21</div>
+            </div>
+        </div>
+        <div class="sidebar-social">
+            
+                <div class=icon-github>
+                    <a href=https://github.com/Luviichann itemprop="url" target="_blank"></a>
+                </div>
+            
+        </div>
+        <div class="sidebar-menu">
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">首页</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/archives"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">归档</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/about"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">关于</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/friend"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">友链</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/categories"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">分类</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/tags"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">标签</div>
+                </div>
+            
+        </div>
+    </div>
+</nav>
+
+        
+<script src="https://unpkg.com/jquery@3.7.0/dist/jquery.min.js"></script>
+
+
+<script src="https://unpkg.com/lazysizes@5.3.2/lazysizes.min.js"></script>
+
+
+<script src="https://unpkg.com/clipboard@2.0.11/dist/clipboard.min.js"></script>
+
+
+
+    
+<script src="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+
+    
+<script src="https://unpkg.com/busuanzi@2.3.0/bsz.pure.mini.js"></script>
+
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+    <div class="site-search">
+        <div class="algolia-popup popup">
+            <div class="algolia-search">
+                <span class="algolia-search-input-icon"></span>
+                <div class="algolia-search-input" id="algolia-search-input"></div>
+            </div>
+
+            <div class="algolia-results">
+                <div id="algolia-stats"></div>
+                <div id="algolia-hits"></div>
+                <div id="algolia-pagination" class="algolia-pagination"></div>
+            </div>
+
+            <span class="popup-btn-close"></span>
+        </div>
+    </div>
+    <!-- hexo injector body_end start -->
+<script src="/js/insertHighlight.js"></script>
+<!-- hexo injector body_end end --></body>
+    </html>
+
+<!--单击显示文字-->
+<script type="text/javascript" src="/js/click_show_text.js"></script>
+
+
+<!--浏览器搞笑标题-->
+<script type="text/javascript" src="\js\FunnyTitle.js"></script>
+
+
+<script type="text/javascript" src="http://libs.baidu.com/jquery/1.8.3/jquery.js"></script>
+<script type="text/javascript" src="http://libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+<!-- 雪花特效 -->
+<script type="text/javascript" src="\js\snow.js"></script>
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/love.js"></script>
+
+
+<canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+<script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+<script type="text/javascript" src="/js/fireworks.js"></script>
+
+
+
+
+
