@@ -12,7 +12,7 @@
 
     
     <title>
-        目录: python |
+        爬虫一些小问题的解决方法和浅薄经验 |
         
         Luviichann的小天地</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -23,14 +23,18 @@
     
 <link rel="stylesheet" href="/css/loader.css">
 
-    <meta name="description" content="任何一种伟大的思想都源于一个微不足道的开始。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Luviichann的小天地">
-<meta property="og:url" content="http://example.com/categories/python/index.html">
+    <meta name="description" content="最近发现，学Python而不学爬虫是真不行，所以恶补了一些爬虫。记录一下在短时间内遇到的一些问题和解决方法 爬虫请求的诚意爬虫技术最总的归宿就是爬虫和反爬之间的博弈。服务器不想处理那些没有诚意的请求。一般来讲，在请求头中携带以下字段会提高请求的诚意。user-agent,referer,origin,cookie。 获取后端数据的API有时候我们需要通过找到前后端通信的API，从而之间获取数据。根">
+<meta property="og:type" content="article">
+<meta property="og:title" content="爬虫一些小问题的解决方法和浅薄经验">
+<meta property="og:url" content="http://example.com/2024/04/06/pc1/index.html">
 <meta property="og:site_name" content="Luviichann的小天地">
-<meta property="og:description" content="任何一种伟大的思想都源于一个微不足道的开始。">
+<meta property="og:description" content="最近发现，学Python而不学爬虫是真不行，所以恶补了一些爬虫。记录一下在短时间内遇到的一些问题和解决方法 爬虫请求的诚意爬虫技术最总的归宿就是爬虫和反爬之间的博弈。服务器不想处理那些没有诚意的请求。一般来讲，在请求头中携带以下字段会提高请求的诚意。user-agent,referer,origin,cookie。 获取后端数据的API有时候我们需要通过找到前后端通信的API，从而之间获取数据。根">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-04-05T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-05-07T02:34:32.616Z">
 <meta property="article:author" content="Luviichann">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="爬虫">
 <meta name="twitter:card" content="summary">
     
         <link rel="alternate" href="/atom.xml" title="Luviichann的小天地" type="application/atom+xml">
@@ -106,7 +110,7 @@
         <div id="wrap">
             <header id="header">
     
-        <img data-src="/images/banner_instead.jpg" data-sizes="auto" alt="" class="lazyload">
+        <img data-src="https://pic.imgdb.cn/item/6610b5ad68eb9357132c2cd7.webp" data-sizes="auto" alt="爬虫一些小问题的解决方法和浅薄经验" class="lazyload">
     
     <div id="header-outer" class="outer">
         <div id="header-title" class="inner">
@@ -114,16 +118,12 @@
                 
                     
                     
-                        <a href="/" id="logo"><h1>分类</h1></a>
+                        <a href="/" id="logo"><h1>爬虫一些小问题的解决方法和浅薄经验</h1></a>
                     
                 
             </div>
             
                 
-                
-                    <h2 id="subtitle-wrap">
-                        <a href="/" id="subtitle">python</a>
-                    </h2>
                 
             
         </div>
@@ -177,182 +177,103 @@
 </header>
 
             <div id="content" class="outer">
-                <section id="main">
-    <div class="archives-outer-wrap wow fadeInUp">
-        <div class="tag-wrap">
-            
-                <div class="archives-tag-list-item">
-                    <a class="archives-tag-list-link" href="/tags/深度学习/">深度学习</a>
-                </div>
-            
-                <div class="archives-tag-list-item">
-                    <a class="archives-tag-list-link" href="/tags/Pytorch/">Pytorch</a>
-                </div>
-            
-                <div class="archives-tag-list-item">
-                    <a class="archives-tag-list-link" href="/tags/MNIST/">MNIST</a>
-                </div>
-            
-                <div class="archives-tag-list-item">
-                    <a class="archives-tag-list-link" href="/tags/张量/">张量</a>
-                </div>
-            
-                <div class="archives-tag-list-item">
-                    <a class="archives-tag-list-link" href="/tags/css/">css</a>
-                </div>
-            
-                <div class="archives-tag-list-item">
-                    <a class="archives-tag-list-link" href="/tags/html/">html</a>
-                </div>
-            
-                <div class="archives-tag-list-item">
-                    <a class="archives-tag-list-link" href="/tags/前端/">前端</a>
-                </div>
-            
-                <div class="archives-tag-list-item">
-                    <a class="archives-tag-list-link" href="/tags/数据处理/">数据处理</a>
-                </div>
-            
-                <div class="archives-tag-list-item">
-                    <a class="archives-tag-list-link" href="/tags/Golang/">Golang</a>
-                </div>
-            
-                <div class="archives-tag-list-item">
-                    <a class="archives-tag-list-link" href="/tags/Go语言/">Go语言</a>
-                </div>
-            
-                <div class="archives-tag-list-item">
-                    <a class="archives-tag-list-link" href="/tags/Gin框架/">Gin框架</a>
-                </div>
-            
-                <div class="archives-tag-list-item">
-                    <a class="archives-tag-list-link" href="/tags/Gorm/">Gorm</a>
-                </div>
-            
-                <div class="archives-tag-list-item">
-                    <a class="archives-tag-list-link" href="/tags/数据库/">数据库</a>
-                </div>
-            
-                <div class="archives-tag-list-item">
-                    <a class="archives-tag-list-link" href="/tags/HuggingFace/">HuggingFace</a>
-                </div>
-            
-                <div class="archives-tag-list-item">
-                    <a class="archives-tag-list-link" href="/tags/NLP/">NLP</a>
-                </div>
-            
-                <div class="archives-tag-list-item">
-                    <a class="archives-tag-list-link" href="/tags/大语言模型/">大语言模型</a>
-                </div>
-            
-                <div class="archives-tag-list-item">
-                    <a class="archives-tag-list-link" href="/tags/LLM/">LLM</a>
-                </div>
-            
-                <div class="archives-tag-list-item">
-                    <a class="archives-tag-list-link" href="/tags/神经网络/">神经网络</a>
-                </div>
-            
-                <div class="archives-tag-list-item">
-                    <a class="archives-tag-list-link" href="/tags/Linux/">Linux</a>
-                </div>
-            
-                <div class="archives-tag-list-item">
-                    <a class="archives-tag-list-link" href="/tags/Mirai/">Mirai</a>
-                </div>
-            
-                <div class="archives-tag-list-item">
-                    <a class="archives-tag-list-link" href="/tags/python/">python</a>
-                </div>
-            
-                <div class="archives-tag-list-item">
-                    <a class="archives-tag-list-link" href="/tags/爬虫/">爬虫</a>
-                </div>
-            
-                <div class="archives-tag-list-item">
-                    <a class="archives-tag-list-link" href="/tags/测试文本/">测试文本</a>
-                </div>
-            
-        </div>
-        <div class="category-wrap">
-            
-                <div class="archives-category-list-item">
-                    <a class="archives-category-list-link" href="/categories/深度学习/">深度学习</a>
-                </div>
-            
-                <div class="archives-category-list-item">
-                    <a class="archives-category-list-link" href="/categories/前端/">前端</a>
-                </div>
-            
-                <div class="archives-category-list-item">
-                    <a class="archives-category-list-link" href="/categories/教程/">教程</a>
-                </div>
-            
-                <div class="archives-category-list-item">
-                    <a class="archives-category-list-link" href="/categories/Go语言/">Go语言</a>
-                </div>
-            
-                <div class="archives-category-list-item">
-                    <a class="archives-category-list-link" href="/categories/HuggingFace-NLP/">HuggingFace NLP</a>
-                </div>
-            
-                <div class="archives-category-list-item">
-                    <a class="archives-category-list-link" href="/categories/对话系列/">对话系列</a>
-                </div>
-            
-                <div class="archives-category-list-item">
-                    <a class="archives-category-list-link" href="/categories/python/">python</a>
-                </div>
-            
-                <div class="archives-category-list-item">
-                    <a class="archives-category-list-link" href="/categories/杂项/">杂项</a>
-                </div>
-            
-                <div class="archives-category-list-item">
-                    <a class="archives-category-list-link" href="/categories/测试文档/">测试文档</a>
-                </div>
-            
-                <div class="archives-category-list-item">
-                    <a class="archives-category-list-link" href="/categories/杂谈/">杂谈</a>
-                </div>
-            
-        </div>
-        
-        
-            
-            
-                
-    
-    <section class="archives-wrap wow fadeInUp">
-        <div class="archive-year-wrap">
-            <a href="/archives/2024" class="archive-year">2024</a>
-        </div>
-        <div class="archives">
-            <ul>
-                
-                <li class="archive-article">
-    <div class="archive-article-date-wrap">
-        <a href="/2024/04/06/pc/">
-            <time class="dt-published" datetime="2024-04-05T16:00:00.000Z"
-                  itemprop="datePublished">04-06</time>
-        </a>
-    </div>
-    <div class="archive-article-title-wrap">
-        
-            
-                <a class="archive-article-title" href="/2024/04/06/pc/">爬虫一些小问题的解决方法和浅薄经验</a>
-            
-        
-    </div>
-</li>
+                <section id="main"><article id="post-pc1" class="h-entry article article-type-post"
+         itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <div class="article-inner">
+        <div class="article-meta">
+            <div class="article-date wow slideInLeft">
+    <a href="/2024/04/06/pc1/" class="article-date-link">
+        <time datetime="2024-04-05T16:00:00.000Z"
+              itemprop="datePublished">2024-04-06</time>
+    </a>
+</div>
 
-                
-                
-            </ul>
-        </div>
-    </section>
-    
+            
+    <div class="article-category wow slideInLeft">
+        <a class="article-category-link" href="/categories/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/">网络爬虫</a>
     </div>
+
+
+        </div>
+        <div class="hr-line"></div>
+        
+
+        <div class="e-content article-entry" itemprop="articleBody">
+            
+                <p>最近发现，学Python而不学爬虫是真不行，所以恶补了一些爬虫。记录一下在短时间内遇到的一些问题和解决方法</p>
+<h2 id="爬虫请求的诚意"><a href="#爬虫请求的诚意" class="headerlink" title="爬虫请求的诚意"></a>爬虫请求的诚意</h2><p>爬虫技术最总的归宿就是爬虫和反爬之间的博弈。服务器不想处理那些没有诚意的请求。一般来讲，在请求头中携带以下字段会提高请求的诚意。<br><code>user-agent,referer,origin,cookie</code>。</p>
+<h2 id="获取后端数据的API"><a href="#获取后端数据的API" class="headerlink" title="获取后端数据的API"></a>获取后端数据的API</h2><p>有时候我们需要通过找到前后端通信的API，从而之间获取数据。根据我浅薄的经验，这些API大多会放在<code>Network</code>下的<code>Fetch/XHR</code>分类中。<br>GPT似乎也同意这个观点：<br>是的，你的说法是成立的。在使用浏览器的开发者工具时，特别是在“Network”（网络）选项卡中，有一个专门的“Fetch&#x2F;XHR”分类。这个分类主要用于捕捉由JavaScript发起的网络请求，这些请求一般用于与后端服务器交换数据。XHR代表XMLHttpRequest，是一种在无需重新加载整个网页的情况下与服务器交换数据并更新部分网页的技术。Fetch API是一个现代的、基于Promise的替代XHR的API，用于使网络请求和操作更加容易和强大。</p>
+<p>在进行网页爬虫开发时，如果你想要获取由JavaScript动态生成或从后端服务器通过API调用获取的数据，那么“Fetch&#x2F;XHR”分类就非常有用。通过检查这个分类下的请求，你可以找到API的URL、请求方法（如GET或POST）、请求头、请求体以及服务器的响应数据。这些信息对于编写能够直接与后端API交互的爬虫代码非常重要，因为它们允许你绕过前端的JavaScript逻辑，直接获取所需的数据。</p>
+<p>总之，通过浏览器的“Network”选项卡下的“Fetch&#x2F;XHR”分类寻找后端API是一种常见且有效的方法，特别是当你需要获取由JavaScript动态生成或更新的数据时。这种方法可以帮助你更快地定位到数据来源，从而提高爬虫的效率和准确性。</p>
+<h2 id="编码问题"><a href="#编码问题" class="headerlink" title="编码问题"></a>编码问题</h2><p>有些时候可能会遇到这样的问题</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">req = urllib.request.Request(url,headers=headers)</span><br><span class="line">res = urllib.request.urlopen(req)</span><br><span class="line">content = res.read().decode(<span class="string">&quot;utf-8&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">    content = res.read().decode(&quot;utf-8&quot;)</span><br><span class="line">UnicodeDecodeError: &#x27;utf-8&#x27; codec can&#x27;t decode byte 0x8b in position 1: invalid start byte</span><br></pre></td></tr></table></figure>
+<p>当时遇到这个问题去稍微找了一下，一堆CSDN的垃圾，索性又去问了GPT：<br>这个错误通常是因为服务器返回的内容不是标准的UTF-8编码，可能是压缩过的数据。你可以尝试使用gzip库来解压缩数据，然后再进行解码。<br>你可以尝试以下代码来解决这个问题：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> gzip</span><br><span class="line"><span class="keyword">import</span> io</span><br><span class="line"></span><br><span class="line"><span class="comment"># 读取数据</span></span><br><span class="line">data = res.read()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 尝试解压缩数据</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">with</span> gzip.GzipFile(fileobj=io.BytesIO(data)) <span class="keyword">as</span> f:</span><br><span class="line">        content = f.read().decode(<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line"><span class="keyword">except</span> OSError:</span><br><span class="line">    <span class="comment"># 如果不是gzip压缩的数据，直接解码</span></span><br><span class="line">    content = data.decode(<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(content)</span><br></pre></td></tr></table></figure>
+<p>也是直接就解决了。</p>
+
+            
+        </div>
+        <footer class="article-footer">
+            <a data-url="http://example.com/2024/04/06/pc1/" data-id="clvw1kcem0049fsvvh09if23x" data-title="爬虫一些小问题的解决方法和浅薄经验"
+               class="article-share-link">分享</a>
+            
+            
+            
+            
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫</a></li></ul>
+
+
+        </footer>
+    </div>
+    
+        
+    <nav id="article-nav" class="wow fadeInUp">
+        
+            <div class="article-nav-link-wrap article-nav-link-left">
+                
+                    <img data-src="https://pic.imgdb.cn/item/6639d0d20ea9cb1403360635.jpg" data-sizes="auto" alt="爬虫小实践——Yandex图片搜索内容"
+                         class="lazyload">
+                
+                <a href="/2024/05/07/pc2/"></a>
+                <div class="article-nav-caption">前一篇</div>
+                <h3 class="article-nav-title">
+                    
+                        爬虫小实践——Yandex图片搜索内容
+                    
+                </h3>
+            </div>
+        
+        
+            <div class="article-nav-link-wrap article-nav-link-right">
+                
+                    <img data-src="https://pic.imgdb.cn/item/65d0a1149f345e8d034b8864.jpg" data-sizes="auto" alt="Gorm与数据库"
+                         class="lazyload">
+                
+                <a href="/2024/02/17/go5/"></a>
+                <div class="article-nav-caption">后一篇</div>
+                <h3 class="article-nav-title">
+                    
+                        Gorm与数据库
+                    
+                </h3>
+            </div>
+        
+    </nav>
+
+
+    
+    
+</article>
+
+
+
+
+
+
+
+
 
 
 
@@ -368,7 +289,7 @@
         <div class="sidebar-state">
             <div class="sidebar-state-article">
                 <div>文章</div>
-                <div class="sidebar-state-number">26</div>
+                <div class="sidebar-state-number">27</div>
             </div>
             <div class="sidebar-state-category">
                 <div>分类</div>
@@ -431,7 +352,7 @@
     <div class="widget-wrap wow fadeInRight">
         <h3 class="widget-title">分类</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Go%E8%AF%AD%E8%A8%80/">Go语言</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/HuggingFace-NLP/">HuggingFace NLP</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AF%B9%E8%AF%9D%E7%B3%BB%E5%88%97/">对话系列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%99%E7%A8%8B/">教程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9D%82%E8%B0%88/">杂谈</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9D%82%E9%A1%B9/">杂项</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B5%8B%E8%AF%95%E6%96%87%E6%A1%A3/">测试文档</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Go%E8%AF%AD%E8%A8%80/">Go语言</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/HuggingFace-NLP/">HuggingFace NLP</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AF%B9%E8%AF%9D%E7%B3%BB%E5%88%97/">对话系列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%99%E7%A8%8B/">教程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9D%82%E8%B0%88/">杂谈</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9D%82%E9%A1%B9/">杂项</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B5%8B%E8%AF%95%E6%96%87%E6%A1%A3/">测试文档</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/">网络爬虫</a></li></ul>
         </div>
     </div>
 
@@ -451,7 +372,7 @@
     <div class="widget-wrap wow fadeInRight">
         <h3 class="widget-title">标签云</h3>
         <div class="widget tagcloud">
-            <a href="/tags/Gin%E6%A1%86%E6%9E%B6/" style="font-size: 12px;">Gin框架</a> <a href="/tags/Golang/" style="font-size: 16px;">Golang</a> <a href="/tags/Gorm/" style="font-size: 10px;">Gorm</a> <a href="/tags/Go%E8%AF%AD%E8%A8%80/" style="font-size: 16px;">Go语言</a> <a href="/tags/HuggingFace/" style="font-size: 14px;">HuggingFace</a> <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/MNIST/" style="font-size: 10px;">MNIST</a> <a href="/tags/Mirai/" style="font-size: 10px;">Mirai</a> <a href="/tags/NLP/" style="font-size: 14px;">NLP</a> <a href="/tags/Pytorch/" style="font-size: 14px;">Pytorch</a> <a href="/tags/css/" style="font-size: 14px;">css</a> <a href="/tags/html/" style="font-size: 18px;">html</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 18px;">前端</a> <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" style="font-size: 10px;">大语言模型</a> <a href="/tags/%E5%BC%A0%E9%87%8F/" style="font-size: 10px;">张量</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" style="font-size: 10px;">数据处理</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/tags/%E6%B5%8B%E8%AF%95%E6%96%87%E6%9C%AC/" style="font-size: 10px;">测试文本</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 20px;">深度学习</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 10px;">爬虫</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">神经网络</a>
+            <a href="/tags/Gin%E6%A1%86%E6%9E%B6/" style="font-size: 13.33px;">Gin框架</a> <a href="/tags/Golang/" style="font-size: 16.67px;">Golang</a> <a href="/tags/Gorm/" style="font-size: 10px;">Gorm</a> <a href="/tags/Go%E8%AF%AD%E8%A8%80/" style="font-size: 16.67px;">Go语言</a> <a href="/tags/HuggingFace/" style="font-size: 15px;">HuggingFace</a> <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/MNIST/" style="font-size: 10px;">MNIST</a> <a href="/tags/Mirai/" style="font-size: 10px;">Mirai</a> <a href="/tags/NLP/" style="font-size: 15px;">NLP</a> <a href="/tags/Pytorch/" style="font-size: 15px;">Pytorch</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/html/" style="font-size: 18.33px;">html</a> <a href="/tags/python/" style="font-size: 11.67px;">python</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 18.33px;">前端</a> <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" style="font-size: 10px;">大语言模型</a> <a href="/tags/%E5%BC%A0%E9%87%8F/" style="font-size: 10px;">张量</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" style="font-size: 10px;">数据处理</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/tags/%E6%B5%8B%E8%AF%95%E6%96%87%E6%9C%AC/" style="font-size: 10px;">测试文本</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 20px;">深度学习</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 11.67px;">爬虫</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">神经网络</a>
         </div>
     </div>
 
@@ -461,7 +382,7 @@
     <div class="widget-wrap wow fadeInRight">
         <h3 class="widget-title">归档</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">十一月 2023</a></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">五月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">十一月 2023</a></li></ul>
         </div>
     </div>
 
@@ -491,10 +412,10 @@
             
                 <div>
                     <span class="icon-brush"></span>
-                    35.6k
+                    37.7k
                     &nbsp;|&nbsp;
                     <span class="icon-coffee"></span>
-                    02:25
+                    02:35
                 </div>
             
             
@@ -522,7 +443,7 @@
         <div class="sidebar-state">
             <div class="sidebar-state-article">
                 <div>文章</div>
-                <div class="sidebar-state-number">26</div>
+                <div class="sidebar-state-number">27</div>
             </div>
             <div class="sidebar-state-category">
                 <div>分类</div>
