@@ -12,7 +12,7 @@
 
     
     <title>
-        分类 |
+        关于Go语言指针的一些细节 |
         
         Luviichann的小天地</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -23,16 +23,18 @@
     
 <link rel="stylesheet" href="/css/loader.css">
 
-    <meta name="description" content="HuggingFace NLP前端深度学习教程测试文档Go语言教程">
-<meta property="og:type" content="website">
-<meta property="og:title" content="分类">
-<meta property="og:url" content="http://example.com/categories/index.html">
+    <meta name="description" content="方法在go语言中，可以对结构体定义方法。比如我们定义这样一个结构体和它的方法。 1234567891011type Student struct &#123;	Name string	Id   string	Age  int&#125;func (s Student) Info() &#123;	fmt.Printf(&quot;s.Name: %v\n&quot;, s.Name)	fmt.Pr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于Go语言指针的一些细节">
+<meta property="og:url" content="http://example.com/2024/05/21/go6/index.html">
 <meta property="og:site_name" content="Luviichann的小天地">
-<meta property="og:description" content="HuggingFace NLP前端深度学习教程测试文档Go语言教程">
+<meta property="og:description" content="方法在go语言中，可以对结构体定义方法。比如我们定义这样一个结构体和它的方法。 1234567891011type Student struct &#123;	Name string	Id   string	Age  int&#125;func (s Student) Info() &#123;	fmt.Printf(&quot;s.Name: %v\n&quot;, s.Name)	fmt.Pr">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-11-05T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-02-09T10:39:31.678Z">
+<meta property="article:published_time" content="2024-05-20T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-05-21T07:31:04.914Z">
 <meta property="article:author" content="Luviichann">
+<meta property="article:tag" content="Golang">
+<meta property="article:tag" content="Go语言">
 <meta name="twitter:card" content="summary">
     
         <link rel="alternate" href="/atom.xml" title="Luviichann的小天地" type="application/atom+xml">
@@ -108,7 +110,7 @@
         <div id="wrap">
             <header id="header">
     
-        <img data-src="/images/banner_instead.jpg" data-sizes="auto" alt="分类" class="lazyload">
+        <img data-src="https://pic.imgdb.cn/item/664c4da2d9c307b7e94514a8.jpg" data-sizes="auto" alt="关于Go语言指针的一些细节" class="lazyload">
     
     <div id="header-outer" class="outer">
         <div id="header-title" class="inner">
@@ -116,7 +118,7 @@
                 
                     
                     
-                        <a href="/" id="logo"><h1>分类</h1></a>
+                        <a href="/" id="logo"><h1>关于Go语言指针的一些细节</h1></a>
                     
                 
             </div>
@@ -175,18 +177,22 @@
 </header>
 
             <div id="content" class="outer">
-                <section id="main"><article id="page-" class="h-entry article article-type-page"
+                <section id="main"><article id="post-go6" class="h-entry article article-type-post"
          itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
     <div class="article-inner">
         <div class="article-meta">
             <div class="article-date wow slideInLeft">
-    <a href="/categories/index.html" class="article-date-link">
-        <time datetime="2023-11-05T16:00:00.000Z"
-              itemprop="datePublished">2023-11-06</time>
+    <a href="/2024/05/21/go6/" class="article-date-link">
+        <time datetime="2024-05-20T16:00:00.000Z"
+              itemprop="datePublished">2024-05-21</time>
     </a>
 </div>
 
             
+    <div class="article-category wow slideInLeft">
+        <a class="article-category-link" href="/categories/Go%E8%AF%AD%E8%A8%80/">Go语言</a>
+    </div>
+
 
         </div>
         <div class="hr-line"></div>
@@ -194,21 +200,71 @@
 
         <div class="e-content article-entry" itemprop="articleBody">
             
-                <h1 id="HuggingFace-NLP"><a href="#HuggingFace-NLP" class="headerlink" title="HuggingFace NLP"></a><a href="./HuggingFace-NLP/">HuggingFace NLP</a></h1><h1 id="前端"><a href="#前端" class="headerlink" title="前端"></a><a href="./%E5%89%8D%E7%AB%AF/">前端</a></h1><h1 id="深度学习"><a href="#深度学习" class="headerlink" title="深度学习"></a><a href="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a></h1><h1 id="教程"><a href="#教程" class="headerlink" title="教程"></a><a href="./%E6%95%99%E7%A8%8B/">教程</a></h1><h1 id="测试文档"><a href="#测试文档" class="headerlink" title="测试文档"></a><a href="./%E6%B5%8B%E8%AF%95%E6%96%87%E6%A1%A3/"><del>测试文档</del></a></h1><h1 id="Go语言"><a href="#Go语言" class="headerlink" title="Go语言"></a><a href="./Go%E8%AF%AD%E8%A8%80/">Go语言</a></h1><h1 id="教程-1"><a href="#教程-1" class="headerlink" title="教程"></a><a href="./%E6%95%99%E7%A8%8B/">教程</a></h1>
+                <h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h1><p>在go语言中，可以对结构体定义方法。比如我们定义这样一个结构体和它的方法。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Student <span class="keyword">struct</span> &#123;</span><br><span class="line">	Name <span class="type">string</span></span><br><span class="line">	Id   <span class="type">string</span></span><br><span class="line">	Age  <span class="type">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s Student)</span></span> Info() &#123;</span><br><span class="line">	fmt.Printf(<span class="string">&quot;s.Name: %v\n&quot;</span>, s.Name)</span><br><span class="line">	fmt.Printf(<span class="string">&quot;s.Id: %v\n&quot;</span>, s.Id)</span><br><span class="line">	fmt.Printf(<span class="string">&quot;s.Age: %v\n&quot;</span>, s.Age)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里要注意的是，我们定义了一个Student类型的方法，接收者是值而不是指针。在main函数里，可以先声明结构体变量，再直接调用。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> s1 = Student&#123;</span><br><span class="line">		Name: <span class="string">&quot;pzqi&quot;</span>,</span><br><span class="line">		Id:   <span class="string">&quot;001&quot;</span>,</span><br><span class="line">		Age:  <span class="number">9</span>,</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">var</span> s2 = &amp;Student&#123;</span><br><span class="line">		Name: <span class="string">&quot;qipz&quot;</span>,</span><br><span class="line">		Id:   <span class="string">&quot;002&quot;</span>,</span><br><span class="line">		Age:  <span class="number">10</span>,</span><br><span class="line">	&#125;</span><br><span class="line">	s1.Info()</span><br><span class="line">	s2.Info()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">s.Name: pzqi</span><br><span class="line">s.Id: 001</span><br><span class="line">s.Age: 9</span><br></pre></td></tr></table></figure>
+<p>要注意的是，这里不管是声明地址还是变量，都可以作为接收者调用方法，并且都是值传递。</p>
+<p>我们定义一个方法用来改变结构体里字段的值。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s Student)</span></span> Rename() &#123;</span><br><span class="line">	s.Name = <span class="string">&quot;111&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> s1 = Student&#123;</span><br><span class="line">		Name: <span class="string">&quot;pzqi&quot;</span>,</span><br><span class="line">		Id:   <span class="string">&quot;001&quot;</span>,</span><br><span class="line">		Age:  <span class="number">9</span>,</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">var</span> s2 = &amp;Student&#123;</span><br><span class="line">		Name: <span class="string">&quot;qipz&quot;</span>,</span><br><span class="line">		Id:   <span class="string">&quot;002&quot;</span>,</span><br><span class="line">		Age:  <span class="number">10</span>,</span><br><span class="line">	&#125;</span><br><span class="line">	s1.Rename()</span><br><span class="line">	s1.Info()</span><br><span class="line">	s2.Rename()</span><br><span class="line">	s2.Info()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">s.Name: pzqi</span><br><span class="line">s.Id: 001</span><br><span class="line">s.Age: 9</span><br><span class="line">s.Name: qipz</span><br><span class="line">s.Id: 002</span><br><span class="line">s.Age: 10</span><br></pre></td></tr></table></figure>
+<p>这里不管s是值还是地址，最后都是作为值传入了方法中，所以并没有改变原本的s里的字段。<br>其实在运行之前ide就已经会提示问题了。<br>就在这一行代码，<code>s.Name = &quot;111&quot;</code>。ide会提示：<br>ineffective assignment to field Student.Name，意思是无效的赋值。因为我们传入了一个值类型的参数，在函数里只对它进行了一次赋值操作，既没有改变原本的值，也没有在函数中的后续部分使用这个值，所以它就很智能的认为这是无效的操作。</p>
+<p>如果想修改的话，必须把方法的接收者定义为指针类型。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *Student)</span></span> Rename() &#123;</span><br><span class="line">	s.Name = <span class="string">&quot;111&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> s1 = Student&#123;</span><br><span class="line">		Name: <span class="string">&quot;pzqi&quot;</span>,</span><br><span class="line">		Id:   <span class="string">&quot;001&quot;</span>,</span><br><span class="line">		Age:  <span class="number">9</span>,</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">var</span> s2 = &amp;Student&#123;</span><br><span class="line">		Name: <span class="string">&quot;qipz&quot;</span>,</span><br><span class="line">		Id:   <span class="string">&quot;002&quot;</span>,</span><br><span class="line">		Age:  <span class="number">10</span>,</span><br><span class="line">	&#125;</span><br><span class="line">	s1.Rename()</span><br><span class="line">	s1.Info()</span><br><span class="line">	s2.Rename()</span><br><span class="line">	s2.Info()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">s.Name: 111</span><br><span class="line">s.Id: 001</span><br><span class="line">s.Age: 9</span><br><span class="line">s.Name: 111</span><br><span class="line">s.Id: 002</span><br><span class="line">s.Age: 10</span><br></pre></td></tr></table></figure>
+<p>这种情况下，不管声明变量是值还是指针，也都可以调用这个方法，并且是传递的是指针，在函数中可以直接修改原变量的字段值。而指针可以直接取字段是内部的优化，<code>s.Name</code>和<code>(*s).Name</code>是一样的，所以就简单来写。</p>
+<h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><p>定义这样一个接口，并让<code>Student</code>这个结构体类型实现接口。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> act <span class="keyword">interface</span> &#123;</span><br><span class="line">	learn(<span class="type">int</span>, <span class="type">int</span>)</span><br><span class="line">	eat(<span class="type">int</span>, <span class="type">int</span>)</span><br><span class="line">	sleep(<span class="type">int</span>, <span class="type">int</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s Student)</span></span> learn(start, end <span class="type">int</span>) &#123;</span><br><span class="line">	fmt.Printf(<span class="string">&quot;%v learn %v\n&quot;</span>, s.Name, end-start)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s Student)</span></span> eat(start, end <span class="type">int</span>) &#123;</span><br><span class="line">	fmt.Printf(<span class="string">&quot;%v eat %v\n&quot;</span>, s.Name, end-start)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s Student)</span></span> sleep(start, end <span class="type">int</span>) &#123;</span><br><span class="line">	fmt.Printf(<span class="string">&quot;%v sleep %v\n&quot;</span>, s.Name, end-start)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>这里实现方法时，既可以用值当接收者，也可以用指针当接收者。<br>但这两种方式有所不同。<br>我们再定义一个函数，接收接口类型。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">bhv</span><span class="params">(a act)</span></span> &#123;</span><br><span class="line">	a.eat(<span class="number">10</span>, <span class="number">12</span>)</span><br><span class="line">	a.learn(<span class="number">13</span>, <span class="number">15</span>)</span><br><span class="line">	a.sleep(<span class="number">19</span>, <span class="number">23</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果是用值作为接收者，那么这个接收接口类型的函数接收的结构体既可以是值，也可以是指针。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> s1 = Student&#123;</span><br><span class="line">		Name: <span class="string">&quot;pzqi&quot;</span>,</span><br><span class="line">		Id:   <span class="string">&quot;001&quot;</span>,</span><br><span class="line">		Age:  <span class="number">9</span>,</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">var</span> s2 = &amp;Student&#123;</span><br><span class="line">		Name: <span class="string">&quot;qipz&quot;</span>,</span><br><span class="line">		Id:   <span class="string">&quot;002&quot;</span>,</span><br><span class="line">		Age:  <span class="number">10</span>,</span><br><span class="line">	&#125;</span><br><span class="line">	bhv(s1)</span><br><span class="line">	bhv(s2)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pzqi eat 2</span><br><span class="line">pzqi learn 2</span><br><span class="line">pzqi sleep 4</span><br><span class="line">qipz eat 2</span><br><span class="line">qipz learn 2</span><br><span class="line">qipz sleep 4</span><br></pre></td></tr></table></figure>
+<p>但是如果用结构体在实现接口中的方法时，接收者是指针类型，那么接收接口类型的函数接收的结构体必须是一个指针。<br>比如我们只修改接口中的其中一个方法的实现方式。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *Student)</span></span> learn(start, end <span class="type">int</span>) &#123;</span><br><span class="line">	fmt.Printf(<span class="string">&quot;%v learn %v\n&quot;</span>, s.Name, end-start)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个时候编译器就会报错：<br>cannot use s1 (variable of type Student) as act value in argument to bhv: Student does not implement act (method learn has pointer receiver)<br>大致意思就是，我们声明的<code>s1</code>是一个结构体的值类型变量，但是把<code>s1</code>作为参数传入<code>bhv</code>这个函数中，<code>bhv</code>调用了<code>learn</code>方法，而<code>learn</code>方法的接收者又是指针类型，所以编译器认为<code>s1</code>并没有实现这个接口，不能作为<code>act</code>接口类型传入函数。<br>但是如果直接调用<code>s1.learn()</code>，还是可以正常使用，并且传递过去的是一个指针，可以直接改变原变量中的内容。</p>
+
             
         </div>
         <footer class="article-footer">
-            <a data-url="http://example.com/categories/index.html" data-id="clwg2vd0e0005zkvv8wat6mpf" data-title="分类"
+            <a data-url="http://example.com/2024/05/21/go6/" data-id="clwg2vd14003ezkvv9y8b5pnq" data-title="关于Go语言指针的一些细节"
                class="article-share-link">分享</a>
             
             
             
             
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Golang/" rel="tag">Golang</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Go%E8%AF%AD%E8%A8%80/" rel="tag">Go语言</a></li></ul>
+
 
         </footer>
     </div>
     
         
+    <nav id="article-nav" class="wow fadeInUp">
+        
+        
+            <div class="article-nav-link-wrap article-nav-link-right">
+                
+                    <img data-src="https://pic.imgdb.cn/item/6649e73cd9c307b7e95037ac.png" data-sizes="auto" alt="优雅地将HTML转为PDF"
+                         class="lazyload">
+                
+                <a href="/2024/05/19/htp/"></a>
+                <div class="article-nav-caption">后一篇</div>
+                <h3 class="article-nav-title">
+                    
+                        优雅地将HTML转为PDF
+                    
+                </h3>
+            </div>
+        
+    </nav>
+
 
     
     
