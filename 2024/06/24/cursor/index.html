@@ -23,19 +23,23 @@
     
 <link rel="stylesheet" href="/css/loader.css">
 
-    <meta name="description" content="任何一种伟大的思想都源于一个微不足道的开始。">
+    <meta name="description" content="最近在写一个导航，想制定一些鼠标样式，于是找了一些资料以后，找到了CursorWorkShop这个工具。这个工具可以接收图片素材然后做成.cur格式的鼠标样式文件。 我做的样式大概是这样的。 这是箭头鼠标的替换。  这是小手鼠标的替换。  我在Chrome和Edge浏览器上测试都没问题，显示正常，包括自己的Windows操作系统上替换，显示也是正常的。但是在Firefox浏览器上显示出现了问题。显">
 <meta property="og:type" content="article">
 <meta property="og:title" content="鼠标指针样式问题">
-<meta property="og:url" content="http://example.com/2024/06/03/cursor/index.html">
+<meta property="og:url" content="http://example.com/2024/06/24/cursor/index.html">
 <meta property="og:site_name" content="Luviichann的小天地">
-<meta property="og:description" content="任何一种伟大的思想都源于一个微不足道的开始。">
+<meta property="og:description" content="最近在写一个导航，想制定一些鼠标样式，于是找了一些资料以后，找到了CursorWorkShop这个工具。这个工具可以接收图片素材然后做成.cur格式的鼠标样式文件。 我做的样式大概是这样的。 这是箭头鼠标的替换。  这是小手鼠标的替换。  我在Chrome和Edge浏览器上测试都没问题，显示正常，包括自己的Windows操作系统上替换，显示也是正常的。但是在Firefox浏览器上显示出现了问题。显">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-06-02T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-06-24T02:31:37.350Z">
+<meta property="og:image" content="http://example.com/images/cursor/cursor1.png">
+<meta property="og:image" content="http://example.com/images/cursor/cursor2.png">
+<meta property="og:image" content="http://example.com/images/cursor/cursor3.png">
+<meta property="article:published_time" content="2024-06-23T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-06-24T02:46:38.404Z">
 <meta property="article:author" content="Luviichann">
-<meta property="article:tag" content="SSL">
-<meta property="article:tag" content="NGINX">
+<meta property="article:tag" content="鼠标">
+<meta property="article:tag" content="浏览器">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/cursor/cursor1.png">
     
         <link rel="alternate" href="/atom.xml" title="Luviichann的小天地" type="application/atom+xml">
     
@@ -110,7 +114,7 @@
         <div id="wrap">
             <header id="header">
     
-        <img data-src="/images/cursor/cursor0.png" data-sizes="auto" alt="鼠标指针样式问题" class="lazyload">
+        <img data-src="/images/cursor/cursor0.jpg" data-sizes="auto" alt="鼠标指针样式问题" class="lazyload">
     
     <div id="header-outer" class="outer">
         <div id="header-title" class="inner">
@@ -182,15 +186,15 @@
     <div class="article-inner">
         <div class="article-meta">
             <div class="article-date wow slideInLeft">
-    <a href="/2024/06/03/cursor/" class="article-date-link">
-        <time datetime="2024-06-02T16:00:00.000Z"
-              itemprop="datePublished">2024-06-03</time>
+    <a href="/2024/06/24/cursor/" class="article-date-link">
+        <time datetime="2024-06-23T16:00:00.000Z"
+              itemprop="datePublished">2024-06-24</time>
     </a>
 </div>
 
             
     <div class="article-category wow slideInLeft">
-        <a class="article-category-link" href="/categories/%E6%9D%82%E9%A1%B9/">杂项</a>
+        <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
     </div>
 
 
@@ -200,17 +204,26 @@
 
         <div class="e-content article-entry" itemprop="articleBody">
             
-                
+                <p>最近在写一个导航，想制定一些鼠标样式，于是找了一些资料以后，找到了CursorWorkShop这个工具。这个工具可以接收图片素材然后做成<code>.cur</code>格式的鼠标样式文件。</p>
+<p>我做的样式大概是这样的。</p>
+<p>这是箭头鼠标的替换。</p>
+<p><img src="/images/cursor/cursor1.png"></p>
+<p>这是小手鼠标的替换。</p>
+<p><img src="/images/cursor/cursor2.png"></p>
+<p>我在Chrome和Edge浏览器上测试都没问题，显示正常，包括自己的Windows操作系统上替换，显示也是正常的。但是在Firefox浏览器上显示出现了问题。显示的是黑白色的鼠标，有点掉san。就是CursorWorkShop里的<code>Mono</code>那一版鼠标。</p>
+<p><img src="/images/cursor/cursor3.png"></p>
+<p>正常显示都是<code>RGB/A</code>那一版。关于这个Mono我搜了一下也没找到什么资料，火狐浏览器的鼠标显示问题也没搜到什么东西。问了gpt，它好像也说不清楚，但它让我把鼠标格式换成<code>.png</code>试一试。因为鼠标的样式本质上还是一张图片，而<code>.png</code>格式的的图片也是支持透明的。换成<code>.png</code>以后火狐浏览器确实能正常显示了。</p>
+
             
         </div>
         <footer class="article-footer">
-            <a data-url="http://example.com/2024/06/03/cursor/" data-id="clxsd4k37000ie8vv4amu98hw" data-title="鼠标指针样式问题"
+            <a data-url="http://example.com/2024/06/24/cursor/" data-id="clxsdvs25000jfsvv8p3l4i4j" data-title="鼠标指针样式问题"
                class="article-share-link">分享</a>
             
             
             
             
-    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NGINX/" rel="tag">NGINX</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSL/" rel="tag">SSL</a></li></ul>
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%BC%A0%E6%A0%87/" rel="tag">鼠标</a></li></ul>
 
 
         </footer>
@@ -271,7 +284,7 @@
             </div>
             <div class="sidebar-state-tag">
                 <div>标签</div>
-                <div class="sidebar-state-number">26</div>
+                <div class="sidebar-state-number">28</div>
             </div>
         </div>
         <div class="sidebar-social">
@@ -336,7 +349,7 @@
     <div class="widget-wrap wow fadeInRight">
         <h3 class="widget-title">标签</h3>
         <div class="widget">
-            <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gin%E6%A1%86%E6%9E%B6/" rel="tag">Gin框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Golang/" rel="tag">Golang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gorm/" rel="tag">Gorm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go%E8%AF%AD%E8%A8%80/" rel="tag">Go语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HuggingFace/" rel="tag">HuggingFace</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/" rel="tag">MNIST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mirai/" rel="tag">Mirai</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NGINX/" rel="tag">NGINX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pytorch/" rel="tag">Pytorch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSL/" rel="tag">SSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/" rel="tag">html</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" rel="tag">大语言模型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%A0%E9%87%8F/" rel="tag">张量</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%80%E5%B7%A7/" rel="tag">技巧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" rel="tag">数据处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8B%E8%AF%95%E6%96%87%E6%9C%AC/" rel="tag">测试文本</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" rel="tag">神经网络</a></li></ul>
+            <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gin%E6%A1%86%E6%9E%B6/" rel="tag">Gin框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Golang/" rel="tag">Golang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gorm/" rel="tag">Gorm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go%E8%AF%AD%E8%A8%80/" rel="tag">Go语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HuggingFace/" rel="tag">HuggingFace</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/" rel="tag">MNIST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mirai/" rel="tag">Mirai</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NGINX/" rel="tag">NGINX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pytorch/" rel="tag">Pytorch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSL/" rel="tag">SSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/" rel="tag">html</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" rel="tag">大语言模型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%A0%E9%87%8F/" rel="tag">张量</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%80%E5%B7%A7/" rel="tag">技巧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" rel="tag">数据处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8B%E8%AF%95%E6%96%87%E6%9C%AC/" rel="tag">测试文本</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" rel="tag">神经网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%BC%A0%E6%A0%87/" rel="tag">鼠标</a></li></ul>
         </div>
     </div>
 
@@ -346,7 +359,7 @@
     <div class="widget-wrap wow fadeInRight">
         <h3 class="widget-title">标签云</h3>
         <div class="widget tagcloud">
-            <a href="/tags/Gin%E6%A1%86%E6%9E%B6/" style="font-size: 13.33px;">Gin框架</a> <a href="/tags/Golang/" style="font-size: 16.67px;">Golang</a> <a href="/tags/Gorm/" style="font-size: 10px;">Gorm</a> <a href="/tags/Go%E8%AF%AD%E8%A8%80/" style="font-size: 16.67px;">Go语言</a> <a href="/tags/HuggingFace/" style="font-size: 15px;">HuggingFace</a> <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/MNIST/" style="font-size: 10px;">MNIST</a> <a href="/tags/Mirai/" style="font-size: 10px;">Mirai</a> <a href="/tags/NGINX/" style="font-size: 11.67px;">NGINX</a> <a href="/tags/NLP/" style="font-size: 15px;">NLP</a> <a href="/tags/Pytorch/" style="font-size: 15px;">Pytorch</a> <a href="/tags/SSL/" style="font-size: 11.67px;">SSL</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/html/" style="font-size: 18.33px;">html</a> <a href="/tags/python/" style="font-size: 11.67px;">python</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 16.67px;">前端</a> <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" style="font-size: 10px;">大语言模型</a> <a href="/tags/%E5%BC%A0%E9%87%8F/" style="font-size: 10px;">张量</a> <a href="/tags/%E6%8A%80%E5%B7%A7/" style="font-size: 10px;">技巧</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" style="font-size: 10px;">数据处理</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/tags/%E6%B5%8B%E8%AF%95%E6%96%87%E6%9C%AC/" style="font-size: 10px;">测试文本</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 20px;">深度学习</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 11.67px;">爬虫</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">神经网络</a>
+            <a href="/tags/Gin%E6%A1%86%E6%9E%B6/" style="font-size: 13.33px;">Gin框架</a> <a href="/tags/Golang/" style="font-size: 16.67px;">Golang</a> <a href="/tags/Gorm/" style="font-size: 10px;">Gorm</a> <a href="/tags/Go%E8%AF%AD%E8%A8%80/" style="font-size: 16.67px;">Go语言</a> <a href="/tags/HuggingFace/" style="font-size: 15px;">HuggingFace</a> <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/MNIST/" style="font-size: 10px;">MNIST</a> <a href="/tags/Mirai/" style="font-size: 10px;">Mirai</a> <a href="/tags/NGINX/" style="font-size: 10px;">NGINX</a> <a href="/tags/NLP/" style="font-size: 15px;">NLP</a> <a href="/tags/Pytorch/" style="font-size: 15px;">Pytorch</a> <a href="/tags/SSL/" style="font-size: 10px;">SSL</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/html/" style="font-size: 18.33px;">html</a> <a href="/tags/python/" style="font-size: 11.67px;">python</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 16.67px;">前端</a> <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" style="font-size: 10px;">大语言模型</a> <a href="/tags/%E5%BC%A0%E9%87%8F/" style="font-size: 10px;">张量</a> <a href="/tags/%E6%8A%80%E5%B7%A7/" style="font-size: 10px;">技巧</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" style="font-size: 10px;">数据处理</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/tags/%E6%B5%8B%E8%AF%95%E6%96%87%E6%9C%AC/" style="font-size: 10px;">测试文本</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 10px;">浏览器</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 20px;">深度学习</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 11.67px;">爬虫</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">神经网络</a> <a href="/tags/%E9%BC%A0%E6%A0%87/" style="font-size: 10px;">鼠标</a>
         </div>
     </div>
 
@@ -386,7 +399,7 @@
             
                 <div>
                     <span class="icon-brush"></span>
-                    40.2k
+                    40.5k
                     &nbsp;|&nbsp;
                     <span class="icon-coffee"></span>
                     02:45
@@ -425,7 +438,7 @@
             </div>
             <div class="sidebar-state-tag">
                 <div>标签</div>
-                <div class="sidebar-state-number">26</div>
+                <div class="sidebar-state-number">28</div>
             </div>
         </div>
         <div class="sidebar-social">
