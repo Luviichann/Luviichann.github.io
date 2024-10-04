@@ -1,0 +1,601 @@
+
+    <!DOCTYPE html>
+    <html lang="zh-CN"
+            
+          
+    >
+    <head>
+    <meta charset="utf-8">
+    
+
+    
+
+    
+    <title>
+        记录 |
+        
+        Luviichann的小天地</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CUbuntu%20Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+    
+<link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free/css/v4-font-face.min.css">
+
+    
+<link rel="stylesheet" href="/css/loader.css">
+
+    <meta name="description" content="写在前面本来开创这个博客想着分享一些技术和试错经验，但是越到后来越发现没啥可分享的了，不是因为没有技术可分享，而是因为个人能力有限，现阶段没有太多的精力去学习和研究更多的技术。而且分享的大多还是已有相关研究的技术，更多的是给自己记录一下解决问题的过程，说穿了还是自己看的最多。终究还是卷不过技术。 回想从前虽是孤僻寡言的大学生，但中学阶段也和一些“文人墨客”有过往来，像是什么“陈太燚”、“李太白”，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记录">
+<meta property="og:url" content="http://example.com/2024/10/04/kfzx/index.html">
+<meta property="og:site_name" content="Luviichann的小天地">
+<meta property="og:description" content="写在前面本来开创这个博客想着分享一些技术和试错经验，但是越到后来越发现没啥可分享的了，不是因为没有技术可分享，而是因为个人能力有限，现阶段没有太多的精力去学习和研究更多的技术。而且分享的大多还是已有相关研究的技术，更多的是给自己记录一下解决问题的过程，说穿了还是自己看的最多。终究还是卷不过技术。 回想从前虽是孤僻寡言的大学生，但中学阶段也和一些“文人墨客”有过往来，像是什么“陈太燚”、“李太白”，">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-10-03T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-10-04T13:39:47.602Z">
+<meta property="article:author" content="Luviichann">
+<meta property="article:tag" content="纪实">
+<meta name="twitter:card" content="summary">
+    
+        <link rel="alternate" href="/atom.xml" title="Luviichann的小天地" type="application/atom+xml">
+    
+    
+        <link rel="shortcut icon" href="/images/favicon_instead.ico">
+    
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/typeface-source-code-pro@1.1.13/index.css">
+
+    
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+    
+    
+    
+    
+    
+<script src="https://unpkg.com/pace-js@1.2.4/pace.min.js"></script>
+
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/wowjs@1.1.3/css/libs/animate.css">
+
+        
+<script src="https://unpkg.com/wowjs@1.1.3/dist/wow.min.js"></script>
+
+        <script>
+          new WOW({
+            offset: 0,
+            mobile: true,
+            live: false
+          }).init();
+        </script>
+    
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+    <body>
+    
+<div id='loader'>
+  <div class="loading-left-bg"></div>
+  <div class="loading-right-bg"></div>
+  <div class="spinner-box">
+    <div class="loading-taichi">
+      <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+      <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="#ff6e6b" />
+      <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z" fill="#fd0d00" />
+      <path d="M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95" fill="#fd0d00" />
+    </svg>
+    </div>
+    <div class="loading-word">少女祈祷中...</div>
+  </div>
+</div>
+</div>
+
+<script>
+  const endLoading = function() {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loader').classList.add("loading");
+  }
+  window.addEventListener('load', endLoading);
+  document.getElementById('loader').addEventListener('click', endLoading);
+</script>
+
+
+    <div id="container">
+        <div id="wrap">
+            <header id="header">
+    
+        <img data-src="/images/kfzx/kfzx0.png" data-sizes="auto" alt="记录" class="lazyload">
+    
+    <div id="header-outer" class="outer">
+        <div id="header-title" class="inner">
+            <div id="logo-wrap">
+                
+                    
+                    
+                        <a href="/" id="logo"><h1>记录</h1></a>
+                    
+                
+            </div>
+            
+                
+                
+            
+        </div>
+        <div id="header-inner">
+            <nav id="main-nav">
+                <a id="main-nav-toggle" class="nav-icon"></a>
+                
+                    <span class="main-nav-link-wrap">
+                        <span class="main-nav-icon"></span>
+                        <a class="main-nav-link" href="/">首页</a>
+                    </span>
+                
+                    <span class="main-nav-link-wrap">
+                        <span class="main-nav-icon"></span>
+                        <a class="main-nav-link" href="/archives">归档</a>
+                    </span>
+                
+                    <span class="main-nav-link-wrap">
+                        <span class="main-nav-icon"></span>
+                        <a class="main-nav-link" href="/about">关于</a>
+                    </span>
+                
+                    <span class="main-nav-link-wrap">
+                        <span class="main-nav-icon"></span>
+                        <a class="main-nav-link" href="/friend">友链</a>
+                    </span>
+                
+                    <span class="main-nav-link-wrap">
+                        <span class="main-nav-icon"></span>
+                        <a class="main-nav-link" href="/categories">分类</a>
+                    </span>
+                
+                    <span class="main-nav-link-wrap">
+                        <span class="main-nav-icon"></span>
+                        <a class="main-nav-link" href="/tags">标签</a>
+                    </span>
+                
+            </nav>
+            <nav id="sub-nav">
+                
+                    <a id="nav-rss-link" class="nav-icon" href="/atom.xml"
+                       title="RSS 订阅"></a>
+                
+                
+            </nav>
+            <div id="search-form-wrap">
+                <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+            </div>
+        </div>
+    </div>
+</header>
+
+            <div id="content" class="outer">
+                <section id="main"><article id="post-kfzx" class="h-entry article article-type-post"
+         itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <div class="article-inner">
+        <div class="article-meta">
+            <div class="article-date wow slideInLeft">
+    <a href="/2024/10/04/kfzx/" class="article-date-link">
+        <time datetime="2024-10-03T16:00:00.000Z"
+              itemprop="datePublished">2024-10-04</time>
+    </a>
+</div>
+
+            
+    <div class="article-category wow slideInLeft">
+        <a class="article-category-link" href="/categories/%E6%9D%82%E9%A1%B9/">杂项</a>
+    </div>
+
+
+        </div>
+        <div class="hr-line"></div>
+        
+
+        <div class="e-content article-entry" itemprop="articleBody">
+            
+                <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>本来开创这个博客想着分享一些技术和试错经验，但是越到后来越发现没啥可分享的了，不是因为没有技术可分享，而是因为个人能力有限，现阶段没有太多的精力去学习和研究更多的技术。而且分享的大多还是已有相关研究的技术，更多的是给自己记录一下解决问题的过程，说穿了还是自己看的最多。终究还是卷不过技术。</p>
+<h2 id="回想从前"><a href="#回想从前" class="headerlink" title="回想从前"></a>回想从前</h2><p>虽是孤僻寡言的大学生，但中学阶段也和一些“文人墨客”有过往来，像是什么“陈太燚”、“李太白”，这些中学时认识的同学的笔名。也曾效仿过他们写一些看似饶有趣味的文字，但基本也仅限于在我们自己的小圈子里自娱自乐。</p>
+<p>最近也是到某个神秘打野地点开始进行社会考察，遇到一些有趣的灵魂，思来想去，觉得还是记录一下比较好。</p>
+<h2 id="人物涵盖"><a href="#人物涵盖" class="headerlink" title="人物涵盖"></a>人物涵盖</h2><p>婉神（主角），站长（本人），龚桑（来自和站长同一个地方的人情世故专业人士），宇宙（阳光开朗体育生），汪sir（来自魔都的少爷），孙sir（神忠实的追随者），茅专家（自然灾害组专家坐席），赵专家（绩效专家），梁（早退的人）。</p>
+<h2 id="起初"><a href="#起初" class="headerlink" title="起初"></a>起初</h2><h3 id="第一日"><a href="#第一日" class="headerlink" title="第一日"></a>第一日</h3><p>站长已经抵达了接头地点，按照约定，再过一会儿就会有两辆大型专车负责运输这批劳动力。天气很热，又下着小雨，好在接头的地点头顶是天桥，而并不是露天的。但就算站长可以在下面避雨，也难以忍受这种闷热，因为自从出了酒店，就再也没有进过空调屋的环境，就连吃午餐的小餐馆也只有风扇而已。站长联系到了龚桑，另一个来自同一个方向的劳动力。两人在某个起源于美国芝加哥的快餐店等待了一段时间，直到专车的到来。</p>
+<p>随着专车的赶来，其他来自各个方向的生灵也都陆陆续续出现在接头地点。上专车之前，要把行李放在专属的仓库里，这时龚桑便提出了一个主意，“让他们先放，我们后放行李”。站长也是立刻明白了他的用意，根据栈的理论，有“后进先出”这么一种道理，后放行李就能在下车后先带着行李走人。</p>
+<p>劳动力就这样被专车运送到生产场所，婉神已经在那里等候站长和龚桑多时了。在这之前，她也已经将另一批归属于自己的生灵带到了接下来一段时间将要居住的住所。</p>
+<p>站长和龚桑来到了他们的住所，先前已经有三位来自别的方向的劳动力来到了这里，正在收拾床铺。住所很整洁，至少相比站长之前住过的教育中心的住所是遥遥领先。唯一不足的是只有一张桌子。婉神并没有给这些劳动力们留取太多的时间，因为他们还有一系列的手续要办、流程要走。</p>
+<p>天空似乎还是下着微微的小雨，在走向生产中心的路上，龚桑把自己的伞给了婉神一人用，自己和站长凑合着用一把。这大概是龚桑第一次和婉神套近乎，虽然那个时候婉神大概率还不认识龚桑。但毕竟龚桑的名字比较独特，独特到看一眼就容易难忘。劳动力们被带到生产中心，进行相关的准备工作。</p>
+<p>随后，婉神带着归属于她的生灵们去食堂。食堂的一日三餐都是自助。站长在这里吃的第一餐是晚餐，那个时候他觉得这里的伙食还挺好，但他从没想过三十日后他吃的那顿晚餐会是什么样。</p>
+<p>第一晚的最后，还有一个姗姗来迟的宇宙。</p>
+<h3 id="第二到六日"><a href="#第二到六日" class="headerlink" title="第二到六日"></a>第二到六日</h3><p>这段时间是劳动力们的培训时间，在正式上岗前，他们必须学会一些必要的基础技能和知识才行。但站长吐槽这些教学的老师们的教学能力真的是够差劲的，培训完了以后感觉就像没培训一样。</p>
+<p>与其他的神不一样，婉神对她的生灵们很宽松，她不支持在非休息时间直接收掉孩子们的手机，因为她人物那样侵犯了人权。培训的日子过得很轻松，发放的薪酬也不低，至少性价比是很高的。婉神和她所管辖的孩子们就这样度过了几个平安的日夜。</p>
+<h2 id="中部"><a href="#中部" class="headerlink" title="中部"></a>中部</h2><h3 id="高铁票"><a href="#高铁票" class="headerlink" title="高铁票"></a>高铁票</h3><p>事情的企业是这样的。在原本的协议中，甲方可以报销乙方劳动力的路费，但是需要乙方提供车票的报销凭证，涉世未深的站长等众多人并不知晓。于是在培训完成的第一个假期，站长和除了龚桑之外的四人（汪sir、宇宙、孙sir、梁）一起去了车站取报销凭证。</p>
+<p>在这之前还有一个小插曲，孙sir知道要打印报销凭证，自己也提前印好了。但是上面的消息要求上交的时间期限在第一个假日之前，几经吐槽之下，汪sir说出来一句非常有道理的话：“他们就是故意这样卡你的，总是让你去准备一些你永远都凑不齐的文件。”</p>
+<p>几人打印完报销凭证以后，又在外面搓了一顿火锅。</p>
+<h3 id="一日游"><a href="#一日游" class="headerlink" title="一日游"></a>一日游</h3><p>第一个假日过完后的一天仍然是假期，这是个双休。这天婉神要带一棒子男孩去游历一日。</p>
+<p>提前总结一句就是，天气真的很热，不适合户外活动。</p>
+<p>全程基本步行，中途爬了一座很高的塔。宇宙的手机没电了，去租用充电宝，半路上突然跑起来说要换充电宝（因为一个小时的时间快到了）。最后，他还是没有赶上，又说让其他人多玩一会儿，晚一点去找他，他要尽量用够两个小时。</p>
+<p>最后晚上又去吃了自主餐。站长早餐吃得挺多，中午虽说没吃正餐，但赶路图中摄入了不少饮品和副食，导致晚上的自主餐并没有吃很多。</p>
+<h3 id="小龙虾"><a href="#小龙虾" class="headerlink" title="小龙虾"></a>小龙虾</h3><p>这天婉神要来查宿舍。说“查”并不准确，对孩子们而言，这更像是拜访。</p>
+<p>下班后，婉神把自己的饭卡交给宇宙，让他去食堂买三斤小龙虾，带到宇宙的宿舍，到时候把其他两个宿舍的同班孩子包括女生也拉到宇宙宿舍一起吃。站长跟着宇宙一起去了食堂。</p>
+<p>到了食堂宇宙点了两斤麻辣一斤蒜香的小龙虾，刷卡的时候尴尬了，婉神卡里的钱不够了，只能刷两斤的钱。宇宙掏出自己的饭卡准备把剩下一斤补了，结果更尴尬了，还是不够。站长想到自己前两天刚给饭卡充值了一次，便拿出来说：“刷我的，我的够。”</p>
+<p>小龙虾只能一锅一锅炒，为避免味道混淆，三斤至少也要炒两锅，站长不想等太久，就先帮宇宙拿了些东西回了宿舍。</p>
+<p>之后叫来了其他宿舍的人，又搬来一些凳子，围坐一桌开始吃小龙虾、谈话。</p>
+<h3 id="鸡腿"><a href="#鸡腿" class="headerlink" title="鸡腿"></a>鸡腿</h3><p>这天下午工作时每人发了一根鸡腿，油炸的那种。发完一根以后，婉神不知从哪又给班里的孩子弄了一些，其中包括我。给的时候还说：“把你这根藏起来，别让人知道你有两根。”后来只记得那天宇宙似乎是吃了三根。</p>
+<h2 id="尾声"><a href="#尾声" class="headerlink" title="尾声"></a>尾声</h2><h3 id="早班"><a href="#早班" class="headerlink" title="早班"></a>早班</h3><p>早上六点的班是最折腾人的班之一，这意味着要五点多起床，而且还没吃早饭就上班。</p>
+<h3 id="饿"><a href="#饿" class="headerlink" title="饿"></a>饿</h3><p>这里有一个非常反人类的设定，去食堂吃饭要用饭卡，饭卡在月底的几天不能进行充值，这导致班上好几名同学的卡到月底几乎没钱了，也充不了，几乎在食堂里吃不了饭。这天上的早班，早上借了婉神的卡去食堂吃了饭。到了中午，有那么一些吃饭和休息的时间，其中几人觉得，用这点吃饭时间多换取一点睡觉时间显然会更值得，所以回到宿舍美美地睡上了一觉。到了下午上班，上了一会儿几人便开始嚷着饿，婉神还是太善良，出去把零食柜里的一种面包全买完了回来发给了那几匹小饿狼。</p>
+<h3 id="合照"><a href="#合照" class="headerlink" title="合照"></a>合照</h3><p>拍合照是为了要上交素材。拍摄地点在基地内的一个湖边，湖内还有鱼。宇宙在这里做了件让人难绷的事，吸一口奶茶，把液体喝掉，然后把嘴里的珍珠吐到湖里喂鱼······</p>
+<h3 id="引狼入室"><a href="#引狼入室" class="headerlink" title="引狼入室"></a>引狼入室</h3><p>这一天婉神差点要炸了。</p>
+<p>站长接到一个奇葩客户，汪sir也接到一个奇葩客户，还有其他同学似乎也遇到一些问题，而且几乎是同一时间发生的。这里就只写站长的经历了。</p>
+<p>来了个找事的客户，打到站长这里来已经是第四通电话了。一路上所有人基本被他投诉了个遍，还让站长回去听录音。站长不得已只好答应他，待会挂完机去听录音，再给他回电。回电的时候站长应付不过来，还是交给了婉神接这个电话。结果引来了个对内投诉，后来婉神再回访的时间，更逆天的事，这客户表示“我没说要投诉那个人，我要投诉你。”</p>
+<p>本来这天要出去聚个餐的，后来也不了了之了。</p>
+<h3 id="离开"><a href="#离开" class="headerlink" title="离开"></a>离开</h3><p>因为某些原因，婉神的班级解散了。站长和宿舍里的几人一觉醒来看到消息，天都塌了。最后只剩下站长、龚桑、汪sir、赵专家、宇宙留了下来，其余的都走了。</p>
+<p>龚桑被分到了其他班级，茅专家去找了自己的同学，剩下几人被分到鲁大师的班级，度过了一段艰难的日子。</p>
+
+            
+        </div>
+        <footer class="article-footer">
+            <a data-url="http://example.com/2024/10/04/kfzx/" data-id="cm1urxp96002ye4vv4g732ssd" data-title="记录"
+               class="article-share-link">分享</a>
+            
+            
+            
+            
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BA%AA%E5%AE%9E/" rel="tag">纪实</a></li></ul>
+
+
+        </footer>
+    </div>
+    
+        
+    <nav id="article-nav" class="wow fadeInUp">
+        
+        
+            <div class="article-nav-link-wrap article-nav-link-right">
+                
+                    <img data-src="/images/live2d/live2d0.png" data-sizes="auto" alt="Live2D看板娘配置方法"
+                         class="lazyload">
+                
+                <a href="/2024/07/23/live2d/"></a>
+                <div class="article-nav-caption">后一篇</div>
+                <h3 class="article-nav-title">
+                    
+                        Live2D看板娘配置方法
+                    
+                </h3>
+            </div>
+        
+    </nav>
+
+
+    
+    
+</article>
+
+
+
+
+
+
+
+
+
+
+
+</section>
+                
+                    <aside id="sidebar">
+    <div class="sidebar-wrap wow fadeInRight">
+        <div class="sidebar-author">
+            <img data-src="/avatar/avatar.jpg" data-sizes="auto" alt="Luviichann" class="lazyload">
+            <div class="sidebar-author-name">Luviichann</div>
+            <div class="sidebar-description">任何一种伟大的思想都源于一个微不足道的开始。</div>
+        </div>
+        <div class="sidebar-state">
+            <div class="sidebar-state-article">
+                <div>文章</div>
+                <div class="sidebar-state-number">34</div>
+            </div>
+            <div class="sidebar-state-category">
+                <div>分类</div>
+                <div class="sidebar-state-number">11</div>
+            </div>
+            <div class="sidebar-state-tag">
+                <div>标签</div>
+                <div class="sidebar-state-number">31</div>
+            </div>
+        </div>
+        <div class="sidebar-social">
+            
+                <div class=icon-github>
+                    <a href=https://github.com/Luviichann itemprop="url" target="_blank"></a>
+                </div>
+            
+        </div>
+        <div class="sidebar-menu">
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">首页</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/archives"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">归档</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/about"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">关于</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/friend"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">友链</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/categories"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">分类</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/tags"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">标签</div>
+                </div>
+            
+        </div>
+    </div>
+    
+        
+    <div class="widget-wrap wow fadeInRight">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Go%E8%AF%AD%E8%A8%80/">Go语言</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/HuggingFace-NLP/">HuggingFace NLP</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AF%B9%E8%AF%9D%E7%B3%BB%E5%88%97/">对话系列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%99%E7%A8%8B/">教程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9D%82%E8%B0%88/">杂谈</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9D%82%E9%A1%B9/">杂项</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B5%8B%E8%AF%95%E6%96%87%E6%A1%A3/">测试文档</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/">网络爬虫</a></li></ul>
+        </div>
+    </div>
+
+
+    
+        
+    <div class="widget-wrap wow fadeInRight">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Clash/" rel="tag">Clash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gin%E6%A1%86%E6%9E%B6/" rel="tag">Gin框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Golang/" rel="tag">Golang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gorm/" rel="tag">Gorm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go%E8%AF%AD%E8%A8%80/" rel="tag">Go语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HuggingFace/" rel="tag">HuggingFace</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Live2D/" rel="tag">Live2D</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/" rel="tag">MNIST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mirai/" rel="tag">Mirai</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NGINX/" rel="tag">NGINX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pytorch/" rel="tag">Pytorch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSL/" rel="tag">SSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/" rel="tag">html</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" rel="tag">大语言模型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%A0%E9%87%8F/" rel="tag">张量</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%80%E5%B7%A7/" rel="tag">技巧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" rel="tag">数据处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8B%E8%AF%95%E6%96%87%E6%9C%AC/" rel="tag">测试文本</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" rel="tag">神经网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%AA%E5%AE%9E/" rel="tag">纪实</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%BC%A0%E6%A0%87/" rel="tag">鼠标</a></li></ul>
+        </div>
+    </div>
+
+
+    
+        
+    <div class="widget-wrap wow fadeInRight">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Clash/" style="font-size: 10px;">Clash</a> <a href="/tags/Gin%E6%A1%86%E6%9E%B6/" style="font-size: 13.33px;">Gin框架</a> <a href="/tags/Golang/" style="font-size: 16.67px;">Golang</a> <a href="/tags/Gorm/" style="font-size: 10px;">Gorm</a> <a href="/tags/Go%E8%AF%AD%E8%A8%80/" style="font-size: 16.67px;">Go语言</a> <a href="/tags/HuggingFace/" style="font-size: 15px;">HuggingFace</a> <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/Linux/" style="font-size: 11.67px;">Linux</a> <a href="/tags/Live2D/" style="font-size: 10px;">Live2D</a> <a href="/tags/MNIST/" style="font-size: 10px;">MNIST</a> <a href="/tags/Mirai/" style="font-size: 10px;">Mirai</a> <a href="/tags/NGINX/" style="font-size: 11.67px;">NGINX</a> <a href="/tags/NLP/" style="font-size: 15px;">NLP</a> <a href="/tags/Pytorch/" style="font-size: 15px;">Pytorch</a> <a href="/tags/SSL/" style="font-size: 10px;">SSL</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/html/" style="font-size: 18.33px;">html</a> <a href="/tags/python/" style="font-size: 11.67px;">python</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 16.67px;">前端</a> <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" style="font-size: 10px;">大语言模型</a> <a href="/tags/%E5%BC%A0%E9%87%8F/" style="font-size: 10px;">张量</a> <a href="/tags/%E6%8A%80%E5%B7%A7/" style="font-size: 10px;">技巧</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" style="font-size: 10px;">数据处理</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/tags/%E6%B5%8B%E8%AF%95%E6%96%87%E6%9C%AC/" style="font-size: 10px;">测试文本</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 10px;">浏览器</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 20px;">深度学习</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 11.67px;">爬虫</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">神经网络</a> <a href="/tags/%E7%BA%AA%E5%AE%9E/" style="font-size: 10px;">纪实</a> <a href="/tags/%E9%BC%A0%E6%A0%87/" style="font-size: 10px;">鼠标</a>
+        </div>
+    </div>
+
+
+    
+        
+    <div class="widget-wrap wow fadeInRight">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">七月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">六月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">五月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">十一月 2023</a></li></ul>
+        </div>
+    </div>
+
+
+    
+</aside>
+
+                
+            </div>
+            <footer id="footer" class="wow fadeInUp">
+    <div style="width: 100%; overflow: hidden"><div class="footer-line"></div></div>
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            
+            <div>
+                <span class="icon-copyright"></span>
+                Sun Nov 05 2023 08:00:00 GMT+0800 (中国标准时间)-2024
+                <span class="footer-info-sep"></span>
+                Luviichann
+            </div>
+            
+                <div>
+                    基于&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>&nbsp;
+                    Theme.<a href="https://github.com/D-Sketon/hexo-theme-reimu" target="_blank">Reimu</a>
+                </div>
+            
+            
+                <div>
+                    <span class="icon-brush"></span>
+                    44.6k
+                    &nbsp;|&nbsp;
+                    <span class="icon-coffee"></span>
+                    02:59
+                </div>
+            
+            
+                <div>
+                    <span class="icon-eye"></span>
+                    <span id="busuanzi_container_site_pv">总访问量&nbsp;<span id="busuanzi_value_site_pv"></span></span>
+                    &nbsp;|&nbsp;
+                    <span class="icon-user"></span>
+                    <span id="busuanzi_container_site_uv">总访客量&nbsp;<span id="busuanzi_value_site_uv"></span></span>
+                </div>
+		<!-- <div><a href="https://beian.miit.gov.cn/" target="_blank" style="color: rgba(150, 150, 150, 0.7); font-size: 70%;">冀ICP备2024056657号</a></div> -->
+                    
+        </div>
+    </div>
+</footer>
+
+        </div>
+        <nav id="mobile-nav">
+    <div class="sidebar-wrap">
+        <div class="sidebar-author">
+            <img data-src="/avatar/avatar.jpg" data-sizes="auto" alt="Luviichann" class="lazyload">
+            <div class="sidebar-author-name">Luviichann</div>
+            <div class="sidebar-description">任何一种伟大的思想都源于一个微不足道的开始。</div>
+        </div>
+        <div class="sidebar-state">
+            <div class="sidebar-state-article">
+                <div>文章</div>
+                <div class="sidebar-state-number">34</div>
+            </div>
+            <div class="sidebar-state-category">
+                <div>分类</div>
+                <div class="sidebar-state-number">11</div>
+            </div>
+            <div class="sidebar-state-tag">
+                <div>标签</div>
+                <div class="sidebar-state-number">31</div>
+            </div>
+        </div>
+        <div class="sidebar-social">
+            
+                <div class=icon-github>
+                    <a href=https://github.com/Luviichann itemprop="url" target="_blank"></a>
+                </div>
+            
+        </div>
+        <div class="sidebar-menu">
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">首页</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/archives"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">归档</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/about"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">关于</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/friend"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">友链</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/categories"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">分类</div>
+                </div>
+            
+                <div class="sidebar-menu-link-wrap">
+                    <a class="sidebar-menu-link-dummy" href="/tags"></a>
+                    <span class="sidebar-menu-icon"></span>
+                    <div class="sidebar-menu-link">标签</div>
+                </div>
+            
+        </div>
+    </div>
+</nav>
+
+        
+<script src="https://unpkg.com/jquery@3.7.0/dist/jquery.min.js"></script>
+
+
+<script src="https://unpkg.com/lazysizes@5.3.2/lazysizes.min.js"></script>
+
+
+<script src="https://unpkg.com/clipboard@2.0.11/dist/clipboard.min.js"></script>
+
+
+
+    
+<script src="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+
+    
+<script src="https://unpkg.com/busuanzi@2.3.0/bsz.pure.mini.js"></script>
+
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+    <div class="site-search">
+        <div class="algolia-popup popup">
+            <div class="algolia-search">
+                <span class="algolia-search-input-icon"></span>
+                <div class="algolia-search-input" id="algolia-search-input"></div>
+            </div>
+
+            <div class="algolia-results">
+                <div id="algolia-stats"></div>
+                <div id="algolia-hits"></div>
+                <div id="algolia-pagination" class="algolia-pagination"></div>
+            </div>
+
+            <span class="popup-btn-close"></span>
+        </div>
+    </div>
+    <!-- hexo injector body_end start -->
+<script src="/js/insertHighlight.js"></script>
+<!-- hexo injector body_end end --></body>
+    </html>
+
+<!--单击显示文字-->
+<script type="text/javascript" src="/js/click_show_text.js"></script>
+
+
+<!--浏览器搞笑标题-->
+<script type="text/javascript" src="\js\FunnyTitle.js"></script>
+
+
+<script type="text/javascript" src="http://libs.baidu.com/jquery/1.8.3/jquery.js"></script>
+<script type="text/javascript" src="http://libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+<!-- 雪花特效 -->
+<script type="text/javascript" src="\js\snow.js"></script>
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/love.js"></script>
+
+
+<canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+<script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+<script type="text/javascript" src="/js/fireworks.js"></script>
+
+
+
+
+
